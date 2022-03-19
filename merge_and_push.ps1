@@ -24,7 +24,7 @@ if ($CurrentBranch -eq ".") {
 
 Invoke-Expression "git checkout main"
 
-Invoke-Expression "git merge $CurrentBranch -no-ff && git push"
+Invoke-Expression "git merge $CurrentBranch --no-ff && git push"
 
 Invoke-Expression "git checkout $CurrentBranch"
 
