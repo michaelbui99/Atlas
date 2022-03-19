@@ -8,12 +8,6 @@ param (
     [string] $CurrentBranch
 )
 
-$CheckoutMainCommand = "git checkout main"
-$MergeWithBranchCommand = "git merge $CurrenBranch --no-ff"
-$PushToMainCommand = "git push"
-$ReturnToBranchCommand = "git checkout $CurrentBranch"
-
-
 if (-not($CurrentBranch)) {
     Throw "Current branch must be specified"
 }
@@ -24,16 +18,15 @@ if ($CurrentBranch.ToLower -eq "main") {
 }
 
 if ($CurrentBranch -eq ".") {
+    Invoke-Expression "echo Current branch has been set to $CurrentBranch"
     $CurrentBranch = &git rev-parse --abbrev-ref HEAD
 }
 
-Invoke-Expression $CheckoutMainCommand
+Invoke-Expression "git checkout main"
 
-Invoke-Expression $MergeWithBranchCommand
+Invoke-Expression "git merge $CurrentBranch --no-ff && git push"
 
-Invoke-Expression $PushToMainCommand
-
-Invoke-Expression $ReturnToBranchCommand
+Invoke-Expression "git checkout $CurrentBranch"
 
 
 
