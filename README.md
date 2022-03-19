@@ -1,6 +1,6 @@
 # Atlas
-A simple client for reddit developed for android. Created as part of the Android Development course at VIA University College. <br/>
-Goal of the client is to provide a clean and customisable browse experience without ads. 
+A simple client for reddit developed for android. The app is created as part of the Android Development course at VIA University College. <br/>
+The goal of the client is to provide a clean and customisable browse experience without ads. 
 
 ## Requirements
 
