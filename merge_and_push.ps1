@@ -29,11 +29,7 @@ if ($CurrentBranch -eq ".") {
 
 Invoke-Expression $CheckoutMainCommand
 
-Invoke-Expression $MergeWithBranchCommand
-
-Invoke-Expression $PushToMainCommand
-
-Invoke-Expression $ReturnToBranchCommand
+Invoke-Expression "$MergeWithBranchCommand && $PushToMainCommand && $ReturnToBranchCommand"
 
 
 
