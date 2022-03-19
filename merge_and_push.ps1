@@ -1,5 +1,5 @@
 param (
-    [Paramter(Mandatory = $true)]
+    [Parameter(Mandatory = $true)]
     [string] $CurrentBranch
 )
 
