@@ -1,3 +1,8 @@
+<#
+    Merges main with specified branch (no fast foward) and returns to the specified branch after push. 
+    Use . as value for param CurrentBranch to specify the current git branch
+#>
+
 param (
     [Parameter(Mandatory = $true)]
     [string] $CurrentBranch
