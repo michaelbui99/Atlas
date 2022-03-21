@@ -2,6 +2,9 @@ package io.github.michaelbui99.atlas
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -23,8 +26,9 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar);
 
-        val navFragmentContainer = supportFragmentManager.findFragmentById(R.id.fragmentContainerView)
-        val navView : NavigationView = findViewById(R.id.nav_view)
+        val navFragmentContainer =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainerView)
+        val navView: NavigationView = findViewById(R.id.nav_view)
 
         // TODO: Setup drawer layout and include in appBarConfig
         // TODO: Add all top level fragments
@@ -33,4 +37,22 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfig)
         navView.setupWithNavController(navController)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.appbar_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.onNavDestinationSelected(
+            item,
+            navController
+        ) || super.onOptionsItemSelected(item)
+    }
+
+    override fun onNavigateUp(): Boolean {
+        return NavigationUI.navigateUp(navController, appBarConfig) || super.onNavigateUp()
+    }
+
+
 }
