@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import io.github.michaelbui99.atlas.R
 
-class SubredditMainItemAdapter(private val mainSubreddits: List<SubredditMainItem>) : RecyclerView.Adapter<SubredditMainItemAdapter.ViewHolder>() {
+class SubredditMainItemAdapter(private val mainSubreddits: MutableList<SubredditMainItem>) : RecyclerView.Adapter<SubredditMainItemAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
