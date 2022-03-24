@@ -7,5 +7,9 @@
     <string name="user">User</string>
     <string name="settings">Settings</string>
     <string name="search">Search</string>
+    <string name="popular">Popular</string>
+    <string name="hot">Hot</string>
+
     <string name="subreddits_home_description">Posts from subscriptions</string>
+    <string name="subreddits_popular_description">Most popular posts on reddit</string>
 </resources>
