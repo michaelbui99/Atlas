@@ -3,17 +3,17 @@ package io.github.michaelbui99.atlas
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import io.github.michaelbui99.atlas.R
 
 class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfig: AppBarConfiguration;
@@ -28,11 +28,12 @@ class MainActivity : AppCompatActivity() {
 
         val navFragmentContainer =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView)
-        val navView: NavigationView = findViewById(R.id.nav_view)
+        val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
         // TODO: Setup drawer layout and include in appBarConfig
         // TODO: Add all top level fragments
-        appBarConfig = AppBarConfiguration(setOf(R.id.view_home))
+        appBarConfig =
+            AppBarConfiguration(setOf(R.id.view_home, R.id.view_search, R.id.view_settings, R.id.view_user))
         navController = navFragmentContainer!!.findNavController()
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfig)
         navView.setupWithNavController(navController)
