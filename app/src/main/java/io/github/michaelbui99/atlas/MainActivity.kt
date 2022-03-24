@@ -30,8 +30,6 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
-        // TODO: Setup drawer layout and include in appBarConfig
-        // TODO: Add all top level fragments
         appBarConfig =
             AppBarConfiguration(setOf(R.id.view_home, R.id.view_search, R.id.view_settings, R.id.view_user))
         navController = navFragmentContainer!!.findNavController()
