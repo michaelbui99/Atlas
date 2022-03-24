@@ -9,7 +9,8 @@
         android:id="@+id/view_home"
         android:name="io.github.michaelbui99.atlas.ui.home.HomeFragment"
         android:label="Subreddits"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home"
+        />
 
     <fragment
         android:id="@+id/view_search"

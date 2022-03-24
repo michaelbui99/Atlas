@@ -10,6 +10,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import io.github.michaelbui99.atlas.R
 
@@ -26,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         val navFragmentContainer =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView)
-        val navView: NavigationView = findViewById(R.id.nav_view)
+        val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
         // TODO: Setup drawer layout and include in appBarConfig
         // TODO: Add all top level fragments
