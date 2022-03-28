@@ -29,4 +29,9 @@
         android:name="io.github.michaelbui99.atlas.ui.user.UserFragment"
         android:label="User"
         tools:layout="@layout/fragment_user" />
+    <fragment
+        android:id="@+id/view_login"
+        android:name="io.github.michaelbui99.atlas.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
 </navigation>
