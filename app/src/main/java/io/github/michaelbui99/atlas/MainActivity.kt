@@ -16,8 +16,8 @@ import com.google.android.material.navigation.NavigationView
 import io.github.michaelbui99.atlas.R
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var appBarConfig: AppBarConfiguration;
-    private lateinit var navController: NavController;
+    private lateinit var appBarConfig: AppBarConfiguration
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +31,15 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
         appBarConfig =
-            AppBarConfiguration(setOf(R.id.view_home, R.id.view_search, R.id.view_settings, R.id.view_user))
+            AppBarConfiguration(
+                setOf(
+                    R.id.view_home,
+                    R.id.view_search,
+                    R.id.view_settings,
+                    R.id.view_user,
+                    R.id.view_login
+                )
+            )
         navController = navFragmentContainer!!.findNavController()
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfig)
         navView.setupWithNavController(navController)

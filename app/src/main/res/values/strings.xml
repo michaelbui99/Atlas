@@ -12,4 +12,6 @@
 
     <string name="subreddits_home_description">Posts from subscriptions</string>
     <string name="subreddits_popular_description">Most popular posts on reddit</string>
+    <string name="login">Login</string>
+    <string name="login_with_reddit">Login with Reddit</string>
 </resources>
