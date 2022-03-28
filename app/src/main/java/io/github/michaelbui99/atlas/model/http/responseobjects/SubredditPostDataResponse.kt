@@ -8,20 +8,18 @@ package io.github.michaelbui99.atlas.model.http.responseobjects
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-data class SubredditPostDataResponse(val data: List<ResponseDataWrapper>)
+data class SubredditPostDataResponse(val data: List<ResponseDataWrapper<ResponseData>>)
 
-data class ResponseDataWrapper(val kind: String, val data: ResponseData)
 data class ResponseData(
     val after: Any?,
     val dist: Long?,
     val modhash: String,
     @JsonProperty("geo_filter")
     val geoFilter: String,
-    val children: List<PostDataWrapper>,
+    val children: List<ResponseDataWrapper<PostData>>,
     val before: Any?,
 )
 
-data class PostDataWrapper(val kind: String, val data: PostData)
 data class PostData(
     @JsonProperty("approved_at_utc")
     val approvedAtUtc: Any?,
