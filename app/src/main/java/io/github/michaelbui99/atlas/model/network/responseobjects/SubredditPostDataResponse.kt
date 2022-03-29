@@ -4,7 +4,7 @@
 *
 */
 
-package io.github.michaelbui99.atlas.model.http.responseobjects
+package io.github.michaelbui99.atlas.model.network.responseobjects
 
 import com.google.gson.annotations.SerializedName
 
