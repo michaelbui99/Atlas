@@ -7,6 +7,7 @@ class SubredditRepositoryImpl : SubredditRepository{
     private val redditClient: RedditClient = RedditClient()
 
     override fun getDefaultSubreddits() {
+        // TODO: Cache requests for default subreddits, since these don't change often
         TODO("Not yet implemented")
     }
 

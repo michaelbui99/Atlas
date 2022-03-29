@@ -1,5 +1,6 @@
 package io.github.michaelbui99.atlas.model.network
 
+import io.github.michaelbui99.atlas.model.network.responseobjects.DefaultSubredditsDataResponse
 import io.github.michaelbui99.atlas.model.network.responseobjects.SubredditPostDataResponse
 import retrofit2.Call
 import retrofit2.http.GET
@@ -22,5 +23,5 @@ interface RedditAPI {
 
     // TODO: Refactor call type
     @GET("subreddits/default")
-    fun getDefaultSubreddits(): Call<String>
+    fun getDefaultSubreddits(): Call<DefaultSubredditsDataResponse>
 }
