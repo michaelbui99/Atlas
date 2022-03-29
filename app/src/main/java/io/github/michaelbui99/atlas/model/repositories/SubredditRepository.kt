@@ -1,6 +1,6 @@
 package io.github.michaelbui99.atlas.model.repositories
 
-import io.github.michaelbui99.atlas.model.http.responseobjects.SubredditPostDataResponse
+import io.github.michaelbui99.atlas.model.network.responseobjects.SubredditPostDataResponse
 
 interface SubredditRepository {
     // TODO: Write mapper to map HttpResponseObject to domain objects.
