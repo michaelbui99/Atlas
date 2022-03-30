@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RedditClient() {
 
-    fun getRedditAPI(): RedditAPI{
+    fun redditAPI(): RedditAPI{
         return getRedditAPI()
     }
 
