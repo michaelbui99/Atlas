@@ -2,7 +2,7 @@ package io.github.michaelbui99.atlas.model.network.responseobjects
 
 import com.google.gson.annotations.SerializedName
 
-data class DefaultSubredditsDataResponse(val kind: String, val data: Data)
+data class DefaultSubredditsResponse(val kind: String, val data: Data)
 
 data class Data(
     val after: String,

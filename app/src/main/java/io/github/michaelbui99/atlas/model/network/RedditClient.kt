@@ -7,6 +7,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RedditClient() {
 
+    fun getRedditAPI(): RedditAPI{
+        return getRedditAPI()
+    }
+
     companion object {
         private val retrofit: Retrofit = Retrofit.Builder().baseUrl("https://reddit.com")
             .addConverterFactory(
