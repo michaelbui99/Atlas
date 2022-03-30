@@ -9,9 +9,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.github.michaelbui99.atlas.R
+import io.github.michaelbui99.atlas.model.domain.Subreddit
+import io.github.michaelbui99.atlas.model.repositories.SubredditRepository
+import io.github.michaelbui99.atlas.model.repositories.SubredditRepositoryImpl
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
-    var mainSubreddits: MutableLiveData<MutableList<SubredditMainItem>> = MutableLiveData()
+    private val repository = SubredditRepositoryImpl
+    val mainSubreddits: MutableLiveData<MutableList<SubredditMainItem>> = MutableLiveData()
+    val defaultSubreddits: MutableLiveData<MutableList<Subreddit>> = MutableLiveData()
+
 
     init {
         // TODO: Fetch main subreddits from model
