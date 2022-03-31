@@ -1,5 +1,6 @@
 package io.github.michaelbui99.atlas.ui.home
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import io.github.michaelbui99.atlas.R
 import io.github.michaelbui99.atlas.model.domain.Subreddit
 
+@SuppressLint("NotifyDataSetChanged")
 class SubredditAdapter(
     private val lifecycleOwner: LifecycleOwner,
     private val defaultSubredditsLivedata: MutableLiveData<MutableList<Subreddit>>,
@@ -25,15 +27,17 @@ class SubredditAdapter(
             Log.i("SubredditAdapter", "UPDATED")
             defaultSubreddits.clear()
             defaultSubreddits.addAll(it)
-            defaultSubreddits.forEach{ subreddit ->
+            defaultSubreddits.forEach { subreddit ->
                 Log.i("SubredditAdapter", subreddit.displayName)
             }
+            notifyDataSetChanged()
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.layout_subreddits_default_item, parent, false)
+
         return ViewHolder(view)
     }
 
