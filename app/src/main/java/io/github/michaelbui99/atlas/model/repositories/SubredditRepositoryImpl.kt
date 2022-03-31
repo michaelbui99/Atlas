@@ -8,7 +8,6 @@ import io.reactivex.rxjava3.core.Flowable
 
 object SubredditRepositoryImpl : SubredditRepository {
     private val redditClient: RedditClient = RedditClient()
-    // TODO: Refactor LiveData to something else. Should not use Lifecycle aware objects in repository
 
     init {
     }

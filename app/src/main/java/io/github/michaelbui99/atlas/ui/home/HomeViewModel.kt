@@ -34,7 +34,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
         SubredditRepositoryImpl.getDefaultSubreddits().subscribeBy(
             onNext = {
-                val newList : MutableList<Subreddit> = mutableListOf()
+                val newList: MutableList<Subreddit> = mutableListOf()
                 newList.add(it)
 
                 defaultSubreddits.postValue(newList)
@@ -44,6 +44,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             },
             onComplete = {
                 Log.i("HomeViewModel", "Finished fetching default subreddits")
+                defaultSubreddits.value!!.forEach() {
+                    Log.i("HomeViewModel DEBUG", it.displayName)
+                }
             }
         )
     }
