@@ -3,14 +3,12 @@ package io.github.michaelbui99.atlas.ui.home
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.github.michaelbui99.atlas.R
+import io.github.michaelbui99.atlas.model.domain.Subreddit
 
 class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
@@ -29,15 +27,30 @@ class HomeFragment : Fragment() {
 
         viewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
 
-        // TODO: Fetch these from viewmodel such that the user can customise which to show
+        // Setup recycler view for main subreddits
         val mainSubreddits: MutableList<SubredditMainItem> = viewModel.mainSubreddits.value!!
-        val recyclerView: RecyclerView = rootView.findViewById(R.id.recyclerview_subreddits_main)
-        recyclerView.layoutManager = LinearLayoutManager(rootView.context)
+        val recyclerViewMainSubreddits: RecyclerView =
+            rootView.findViewById(R.id.recyclerview_subreddits_main)
+        recyclerViewMainSubreddits.layoutManager = LinearLayoutManager(rootView.context)
+        recyclerViewMainSubreddits.adapter = SubredditMainItemAdapter(mainSubreddits)
 
-        recyclerView.adapter = SubredditMainItemAdapter(mainSubreddits)
-
+        // Setup recycler view for default subreddits
+        var defaultSubreddits: MutableList<Subreddit> = viewModel.defaultSubreddits.value!!
+        viewModel.defaultSubreddits.observe(this) {
+            defaultSubreddits = it
+        }
+        val recyclerViewDefaultSubreddits: RecyclerView =
+            rootView.findViewById(R.id.recyclerview_subreddits_defaults)
+        recyclerViewDefaultSubreddits.layoutManager = LinearLayoutManager(rootView.context)
+        recyclerViewDefaultSubreddits.adapter =
+            SubredditAdapter(defaultSubreddits, OnSubredditClick())
         return rootView
     }
 
+    inner class OnSubredditClick() : OnItemClickListener {
+        override fun onItemClick() {
+            Log.i("HomeFragment DEBUG", "TEST")
+        }
+    }
 
 }
