@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.github.michaelbui99.atlas.R
 import io.github.michaelbui99.atlas.model.domain.Subreddit
+import java.text.FieldPosition
 
 class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
@@ -49,16 +50,16 @@ class HomeFragment : Fragment() {
                 lifecycleOwner = this,
                 defaultSubredditsLivedata = viewModel.defaultSubreddits,
                 defaultSubreddits = viewModel.defaultSubreddits.value!!,
-                listener = OnSubredditClick()
+                listener = OnSubredditClick(defaultSubreddits)
             )
 
 
         return rootView
     }
 
-    inner class OnSubredditClick() : OnItemClickListener {
-        override fun onItemClick() {
-            Log.i("HomeFragment DEBUG", "TEST")
+    inner class OnSubredditClick(val subreddits: MutableList<Subreddit>) : OnItemClickListener {
+        override fun onItemClick(position: Int) {
+            Log.i("HomeFragment DEBUG", "Subreddit: ${subreddits[position].displayName}")
         }
     }
 

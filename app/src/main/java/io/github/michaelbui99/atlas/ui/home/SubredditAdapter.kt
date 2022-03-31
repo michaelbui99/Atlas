@@ -54,12 +54,12 @@ class SubredditAdapter(
 
         init {
             itemView.setOnClickListener() {
-                listener.onItemClick()
+                listener.onItemClick(adapterPosition)
             }
         }
     }
 }
 
 interface OnItemClickListener {
-    fun onItemClick()
+    fun onItemClick(position: Int)
 }
