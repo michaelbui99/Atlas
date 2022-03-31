@@ -7,13 +7,8 @@ data class Subreddit(
     val iconImageUrl: String,
     val subscribers: Long,
     val userIsSubscriber: Boolean = false,
-    val subredditVisibility: SubredditVisibility,
+    val subredditVisibility: String,
     val description: String?
 ) {
 
-}
-
-enum class SubredditVisibility(val displayName: String) {
-    PUBLIC("Public"),
-    PRIVATE("Private")
 }
