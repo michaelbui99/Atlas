@@ -1,7 +1,6 @@
 package io.github.michaelbui99.atlas.model.network.extensions
 
 import io.github.michaelbui99.atlas.model.domain.Subreddit
-import io.github.michaelbui99.atlas.model.domain.SubredditVisibility
 import io.github.michaelbui99.atlas.model.network.responseobjects.DefaultSubredditsResponse
 
 fun DefaultSubredditsResponse.toDomainObject(): MutableList<Subreddit> {
@@ -15,7 +14,7 @@ fun DefaultSubredditsResponse.toDomainObject(): MutableList<Subreddit> {
             iconImageUrl = it.data.iconImg,
             subscribers = it.data.subscribers,
             userIsSubscriber = it.data.userIsSubscriber,
-            subredditVisibility = SubredditVisibility.valueOf(it.data.subredditType),
+            subredditVisibility = it.data.subredditType,
             description = it.data.description
         )
 

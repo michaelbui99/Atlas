@@ -1,20 +1,13 @@
 package io.github.michaelbui99.atlas.ui.home
 
 import android.app.Application
-import android.content.res.Resources
-import android.provider.Settings.Global.getString
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import io.github.michaelbui99.atlas.R
 import io.github.michaelbui99.atlas.model.domain.Subreddit
-import io.github.michaelbui99.atlas.model.repositories.SubredditRepository
 import io.github.michaelbui99.atlas.model.repositories.SubredditRepositoryImpl
 import io.reactivex.rxjava3.kotlin.subscribeBy
-import io.reactivex.rxjava3.kotlin.toObservable
-import java.util.*
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
     val mainSubreddits: MutableLiveData<MutableList<SubredditMainItem>> = MutableLiveData()
@@ -39,20 +32,18 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         )
         mainSubreddits.value = mainSubredditsData
 
-        SubredditRepositoryImpl.defaultSubredditList.toObservable().subscribeBy(
+        SubredditRepositoryImpl.getDefaultSubreddits().subscribeBy(
             onNext = {
-                val newList = defaultSubreddits.value
-                newList?.add(it)
-                defaultSubreddits.value = newList
+                val newList : MutableList<Subreddit> = mutableListOf()
+                newList.add(it)
+
+                defaultSubreddits.postValue(newList)
             },
             onError = {
-                Log.e(
-                    "HomeViewModel",
-                    "Failed to observe change in subreddits; Message: ${it.message}"
-                )
+                Log.e("HomeViewModel", "Failed to fetch default subreddits: ${it.message}")
             },
             onComplete = {
-                Log.i("HomeViewModel", "Finished observing state change")
+                Log.i("HomeViewModel", "Finished fetching default subreddits")
             }
         )
     }
