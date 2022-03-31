@@ -39,11 +39,20 @@ class HomeFragment : Fragment() {
         viewModel.defaultSubreddits.observe(this) {
             defaultSubreddits = it
         }
+
         val recyclerViewDefaultSubreddits: RecyclerView =
             rootView.findViewById(R.id.recyclerview_subreddits_defaults)
+
         recyclerViewDefaultSubreddits.layoutManager = LinearLayoutManager(rootView.context)
         recyclerViewDefaultSubreddits.adapter =
-            SubredditAdapter(defaultSubreddits, OnSubredditClick())
+            SubredditAdapter(
+                lifecycleOwner = this,
+                defaultSubredditsLivedata = viewModel.defaultSubreddits,
+                defaultSubreddits = viewModel.defaultSubreddits.value!!,
+                listener = OnSubredditClick()
+            )
+
+
         return rootView
     }
 
