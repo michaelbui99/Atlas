@@ -1,11 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!--?xml version="1.0" encoding="UTF-8"?-->
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="matte_black">#212121</color>
+
+    <color name="white">#FFF</color>
+    <color name="matte_black">#222</color>
+
+    <!--  LIGHT THEME PALETTE-->
+    <color name="primaryColor">#1976d2</color>
+    <color name="primaryLightColor">#63a4ff</color>
+    <color name="primaryDarkColor">#004ba0</color>
+    <color name="secondaryColor">#303f9f</color>
+    <color name="secondaryLightColor">#666ad1</color>
+    <color name="secondaryDarkColor">#001970</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#ffffff</color>
+
+    <!--DARK THEME PALETTE-->
+    <color name="dark_primaryColor">#212121</color>
+    <color name="dark_primaryLightColor">#484848</color>
+    <color name="dark_primaryDarkColor">#000000</color>
+    <color name="dark_secondaryColor">#546e7a</color>
+    <color name="dark_secondaryLightColor">#819ca9</color>
+    <color name="dark_secondaryDarkColor">#29434e</color>
+    <color name="dark_primaryTextColor">#ffffff</color>
+    <color name="dark_secondaryTextColor">#ffffff</color>
 </resources>
