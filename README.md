@@ -11,6 +11,7 @@ The goal of the client is to provide a clean and customisable browse experience 
 - [ ] As a user, I want to be able to add a comment to a post, such that I can participate in the discussion or express what I feel about the post.
 - [ ] As a user, I want to be able to search for a post in a subreddit, such that I can find posts that I am interested in.   
 - [ ] As a user, I want to be able to view a list of the subreddits I am following, such that I know which subredddits I have showed interest in. 
+- [x] As a user, I want to be able to view a list of the default subreddits, such that I as a new user have a starting point to start exploring reddit. 
 - [ ] As a user, I want to be able to search for subreddits, such that I can explore and follow new subreddits. 
 - [ ] As a user, I want to be able to follow a new subreddit, such that I can get updates from the subreddit. 
 - [ ] As a user, I want to be able to unfollow a subreddit, such that I wont see posts of a subreddit I am not interested in. 
