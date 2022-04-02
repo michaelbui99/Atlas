@@ -35,9 +35,11 @@ class HomeFragment : Fragment() {
         recyclerViewMainSubreddits.layoutManager = LinearLayoutManager(rootView.context)
         recyclerViewMainSubreddits.adapter = SubredditMainItemAdapter(mainSubreddits)
 
+
         // Setup recycler view for default subreddits
         var defaultSubreddits: MutableList<Subreddit> = viewModel.defaultSubreddits.value!!
         viewModel.defaultSubreddits.observe(this) {
+            Log.i("HomeFragment", "Observed state change, size: ${it.size}")
             defaultSubreddits = it
         }
 
@@ -46,14 +48,12 @@ class HomeFragment : Fragment() {
 
         recyclerViewDefaultSubreddits.layoutManager = LinearLayoutManager(rootView.context)
         recyclerViewDefaultSubreddits.adapter =
-            SubredditAdapter(
+            SubredditListAdapter(
                 lifecycleOwner = this,
                 defaultSubredditsLivedata = viewModel.defaultSubreddits,
                 defaultSubreddits = viewModel.defaultSubreddits.value!!,
                 listener = OnSubredditClick(defaultSubreddits)
             )
-
-
         return rootView
     }
 
