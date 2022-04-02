@@ -34,6 +34,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
         SubredditRepositoryImpl.getDefaultSubreddits().subscribeBy(
             onNext = {
+                Log.i("HomeViewModel", "Fetching subreddits")
                 it.forEach(){ subreddit ->
                     Log.i("HomeViewModel DEBUG", "Fetched: ${subreddit.displayName}")
                 }

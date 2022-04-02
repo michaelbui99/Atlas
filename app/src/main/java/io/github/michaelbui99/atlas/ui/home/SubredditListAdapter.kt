@@ -26,13 +26,15 @@ class SubredditListAdapter(
 
     init {
         defaultSubredditsLivedata.observe(lifecycleOwner) {
-            Log.i("SubredditAdapter", "UPDATED")
-            defaultSubreddits.clear()
-            defaultSubreddits.addAll(it)
-            defaultSubreddits.forEach { subreddit ->
-                Log.i("SubredditAdapter", subreddit.displayName)
+            if (defaultSubreddits.size <= 0) {
+                defaultSubreddits.clear()
+                defaultSubreddits.addAll(it)
+                defaultSubreddits.forEach { subreddit ->
+                    Log.i("SubredditAdapter", subreddit.displayName)
+                }
+                Log.i("SubredditAdapter", "UPDATED")
+                notifyDataSetChanged()
             }
-            notifyDataSetChanged()
         }
     }
 
