@@ -31,7 +31,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             ),
         )
         mainSubreddits.value = mainSubredditsData
-//
+
         SubredditRepositoryImpl.getDefaultSubreddits().subscribeBy(
             onNext = {
                 it.forEach(){ subreddit ->

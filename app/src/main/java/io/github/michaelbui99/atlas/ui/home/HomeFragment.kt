@@ -46,7 +46,7 @@ class HomeFragment : Fragment() {
 
         recyclerViewDefaultSubreddits.layoutManager = LinearLayoutManager(rootView.context)
         recyclerViewDefaultSubreddits.adapter =
-            SubredditAdapter(
+            SubredditListAdapter(
                 lifecycleOwner = this,
                 defaultSubredditsLivedata = viewModel.defaultSubreddits,
                 defaultSubreddits = viewModel.defaultSubreddits.value!!,
