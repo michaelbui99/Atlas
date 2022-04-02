@@ -9,11 +9,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import io.github.michaelbui99.atlas.R
 import io.github.michaelbui99.atlas.model.domain.Subreddit
+import io.github.michaelbui99.atlas.ui.shared.OnItemClickListener
 
 @SuppressLint("NotifyDataSetChanged")
 class SubredditListAdapter(
@@ -67,8 +67,4 @@ class SubredditListAdapter(
             }
         }
     }
-}
-
-interface OnItemClickListener {
-    fun onItemClick(position: Int)
 }
