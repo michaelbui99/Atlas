@@ -9,6 +9,10 @@ package io.github.michaelbui99.atlas.model.network.responseobjects
 import com.google.gson.annotations.SerializedName
 
 
+/**
+ * Response object wrapping the data received, when fetching post data (comments, post content etc.)
+ * of a subreddit post e.g. GET https://www.reddit.com/r/Art/comments/t3s5hb.json
+ * */
 data class SubredditPostDataResponse(val data: List<ResponseDataWrapper<ResponseData>>)
 
 data class ResponseData(

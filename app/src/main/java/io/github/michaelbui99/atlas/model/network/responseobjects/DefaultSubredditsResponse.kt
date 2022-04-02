@@ -2,6 +2,10 @@ package io.github.michaelbui99.atlas.model.network.responseobjects
 
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Response object wrapping the data received, when fetching default subreddits from
+ * GET www.subreddit.com/subreddits/default.json
+ * */
 data class DefaultSubredditsResponse(val kind: String, val data: Data)
 
 data class Data(
