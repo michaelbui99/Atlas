@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -57,9 +58,8 @@ class MainActivity : AppCompatActivity() {
         ) || super.onOptionsItemSelected(item)
     }
 
-    override fun onNavigateUp(): Boolean {
+    override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, appBarConfig) || super.onNavigateUp()
     }
-
 
 }
