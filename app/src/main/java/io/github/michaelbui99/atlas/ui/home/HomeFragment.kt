@@ -3,8 +3,10 @@ package io.github.michaelbui99.atlas.ui.home
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.github.michaelbui99.atlas.R
@@ -46,21 +48,25 @@ class HomeFragment : Fragment() {
         val recyclerViewDefaultSubreddits: RecyclerView =
             rootView.findViewById(R.id.recyclerview_subreddits_defaults)
 
+        val onSubredditItemClick: OnItemClickListener = object : OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                Navigation.findNavController(view!!).navigate(
+                    R.id.view_subreddit, bundleOf(
+                        Pair("SubredditName", defaultSubreddits[position].displayName)
+                    )
+                )
+            }
+        }
+
         recyclerViewDefaultSubreddits.layoutManager = LinearLayoutManager(rootView.context)
         recyclerViewDefaultSubreddits.adapter =
             SubredditListAdapter(
                 lifecycleOwner = this,
                 defaultSubredditsLivedata = viewModel.defaultSubreddits,
                 defaultSubreddits = viewModel.defaultSubreddits.value!!,
-                listener = OnSubredditClick(defaultSubreddits)
+                listener = onSubredditItemClick
             )
         return rootView
-    }
-
-    inner class OnSubredditClick(val subreddits: MutableList<Subreddit>) : OnItemClickListener {
-        override fun onItemClick(position: Int) {
-            Log.i("HomeFragment DEBUG", "Subreddit: ${subreddits[position].displayName}")
-        }
     }
 
 }

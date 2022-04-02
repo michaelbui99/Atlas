@@ -10,7 +10,12 @@
         android:name="io.github.michaelbui99.atlas.ui.home.HomeFragment"
         android:label="Subreddits"
         tools:layout="@layout/fragment_home"
-        />
+
+        >
+        <action
+            android:id="@+id/action_view_home_to_subredditFragment"
+            app:destination="@id/view_subreddit" />
+    </fragment>
 
     <fragment
         android:id="@+id/view_search"
@@ -34,4 +39,13 @@
         android:name="io.github.michaelbui99.atlas.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/view_subreddit"
+        android:name="io.github.michaelbui99.atlas.SubredditFragment"
+        android:label="fragment_subreddit"
+        tools:layout="@layout/fragment_subreddit" >
+        <action
+            android:id="@+id/action_view_subreddit_to_view_home"
+            app:destination="@id/view_home" />
+    </fragment>
 </navigation>

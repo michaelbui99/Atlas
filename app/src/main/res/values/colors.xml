@@ -3,6 +3,8 @@
 
     <color name="white">#FFF</color>
     <color name="matte_black">#222</color>
+    <color name="red">#AA2323</color>
+    <color name="orange">#DA6409</color>
 
     <!--  LIGHT THEME PALETTE-->
     <color name="primaryColor">#1976d2</color>
