@@ -6,9 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import io.github.michaelbui99.atlas.R
 
 private const val SUBREDDIT_NAME = "SubredditName"
@@ -25,7 +23,6 @@ class SubredditFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity()).get(SubredditViewModel::class.java)
         viewModel.setCurrentSubreddit(subredditName!!)
         Log.i("SubredditFragment", "WAS PASSED: $subredditName")
-        Log.i("SubredditFragment", viewModel.getCurrentSubreddit())
     }
 
     override fun onCreateView(
