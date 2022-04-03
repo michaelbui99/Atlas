@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
  * Response Object wrapping the data received, when fetching posts from a subreddit
  * e.g. GET www.reddit.com/r/Art.json
  * */
-data class SubredditResponse(val kind: String, val data: SubredditPostDataResponse) {
+data class SubredditResponse(val kind: String, val data: SubredditResponseData) {
 
 }
 

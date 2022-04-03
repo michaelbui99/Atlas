@@ -2,17 +2,17 @@ package io.github.michaelbui99.atlas.model.network
 
 import io.github.michaelbui99.atlas.model.network.responseobjects.DefaultSubredditsResponse
 import io.github.michaelbui99.atlas.model.network.responseobjects.SubredditPostDataResponse
+import io.github.michaelbui99.atlas.model.network.responseobjects.SubredditResponse
 import io.reactivex.rxjava3.core.Flowable
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface RedditAPI {
-    // TODO: Refactor call type
     @GET("r/{subredditName}.json")
-    fun getSubredditPosts(@Path("subredditName") subredditName: String): Call<String>
+    fun getSubredditPosts(@Path("subredditName") subredditName: String): Flowable<SubredditResponse>
 
-    // TODO: Refactor call type
+    // TODO: Refactor call to flowable
     @GET("r/{subredditName}/about.json")
     fun getSubredditAbout(@Path("subredditName") subredditName: String): Call<String>
 
