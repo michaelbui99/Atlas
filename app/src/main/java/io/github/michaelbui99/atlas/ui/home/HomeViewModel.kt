@@ -15,6 +15,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
 
     init {
+        Log.i("HomeViewModel", "CREATED")
         SubredditRepositoryImpl.getDefaultSubreddits()
         defaultSubreddits.value = mutableListOf()
         // TODO: Fetch main subreddits from Repository

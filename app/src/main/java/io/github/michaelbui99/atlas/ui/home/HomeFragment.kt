@@ -6,6 +6,7 @@ import android.view.*
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,7 +29,7 @@ class HomeFragment : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_home, container, false)
 
-        viewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
         // Setup recycler view for main subreddits
         val mainSubreddits: MutableList<SubredditMainItem> = viewModel.mainSubreddits.value!!
         val onMainSubredditListener: OnItemClickListener = object : OnItemClickListener {
