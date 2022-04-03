@@ -8,8 +8,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import io.github.michaelbui99.atlas.R
+import io.github.michaelbui99.atlas.ui.shared.OnItemClickListener
 
-class SubredditMainItemAdapter(private val mainSubreddits: MutableList<SubredditMainItem>) : RecyclerView.Adapter<SubredditMainItemAdapter.ViewHolder>() {
+class SubredditMainItemAdapter(private val mainSubreddits: MutableList<SubredditMainItem>, private val listener: OnItemClickListener) : RecyclerView.Adapter<SubredditMainItemAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -32,6 +33,12 @@ class SubredditMainItemAdapter(private val mainSubreddits: MutableList<Subreddit
         val name: TextView = itemView.findViewById(R.id.textview_subreddits_name)
         val description: TextView = itemView.findViewById(R.id.textview_subreddits_description)
         val icon: ImageView  = itemView.findViewById(R.id.imageview_subreddits_icon)
+
+        init {
+            itemView.setOnClickListener(){
+                listener.onItemClick(adapterPosition)
+            }
+        }
     }
 
 }

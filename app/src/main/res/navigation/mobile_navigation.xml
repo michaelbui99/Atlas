@@ -41,7 +41,7 @@
         tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/view_subreddit"
-        android:name="io.github.michaelbui99.atlas.SubredditFragment"
+        android:name="io.github.michaelbui99.atlas.ui.subreddit.SubredditFragment"
         android:label="fragment_subreddit"
         tools:layout="@layout/fragment_subreddit" >
         <action

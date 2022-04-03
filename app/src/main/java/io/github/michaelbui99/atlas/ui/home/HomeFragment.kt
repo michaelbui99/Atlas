@@ -6,12 +6,13 @@ import android.view.*
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.github.michaelbui99.atlas.R
 import io.github.michaelbui99.atlas.model.domain.Subreddit
-import java.text.FieldPosition
+import io.github.michaelbui99.atlas.ui.shared.OnItemClickListener
 
 class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
@@ -28,14 +29,22 @@ class HomeFragment : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_home, container, false)
 
-        viewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
-
+        viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
         // Setup recycler view for main subreddits
         val mainSubreddits: MutableList<SubredditMainItem> = viewModel.mainSubreddits.value!!
+        val onMainSubredditListener: OnItemClickListener = object : OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                if (mainSubreddits[position].name.lowercase() == "popular") {
+                    Navigation.findNavController(view!!)
+                        .navigate(R.id.view_subreddit, bundleOf(Pair("SubredditName", "popular")))
+                }
+            }
+        }
         val recyclerViewMainSubreddits: RecyclerView =
             rootView.findViewById(R.id.recyclerview_subreddits_main)
         recyclerViewMainSubreddits.layoutManager = LinearLayoutManager(rootView.context)
-        recyclerViewMainSubreddits.adapter = SubredditMainItemAdapter(mainSubreddits)
+        recyclerViewMainSubreddits.adapter =
+            SubredditMainItemAdapter(mainSubreddits, onMainSubredditListener)
 
 
         // Setup recycler view for default subreddits

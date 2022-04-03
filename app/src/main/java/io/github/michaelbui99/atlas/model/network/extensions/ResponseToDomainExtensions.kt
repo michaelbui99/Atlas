@@ -1,7 +1,9 @@
 package io.github.michaelbui99.atlas.model.network.extensions
 
 import io.github.michaelbui99.atlas.model.domain.Subreddit
+import io.github.michaelbui99.atlas.model.domain.SubredditPost
 import io.github.michaelbui99.atlas.model.network.responseobjects.DefaultSubredditsResponse
+import io.github.michaelbui99.atlas.model.network.responseobjects.SubredditResponse
 
 fun DefaultSubredditsResponse.toDomainObject(): MutableList<Subreddit> {
     val defaultSubredditList = mutableListOf<Subreddit>()
@@ -22,4 +24,30 @@ fun DefaultSubredditsResponse.toDomainObject(): MutableList<Subreddit> {
     }
 
     return defaultSubredditList
+}
+
+fun SubredditResponse.toDomainObject(): MutableList<SubredditPost>{
+    val subredditPosts = mutableListOf<SubredditPost>()
+
+    data.children.forEach(){
+        val subredditPost = SubredditPost(
+            subredditName = it.data.subreddit,
+            postTitle = it.data.title,
+            visited = it.data.clicked,
+            postId = it.data.id,
+            upVoteCount = it.data.ups,
+            commentCount = it.data.numComments,
+            thumbnailUrl = it.data.thumbnail,
+            postScore = it.data.score,
+            authorName = it.data.author,
+            mediaUrl = it.data.urlOverriddenByDest,
+            totalAwardsReceived = it.data.totalAwardsReceived.toInt(),
+            sourceDomain = it.data.domain,
+            destination = it.data.url,
+            createdUTC = it.data.createdUtc.toString()
+        )
+        subredditPosts.add(subredditPost)
+    }
+
+    return subredditPosts
 }
