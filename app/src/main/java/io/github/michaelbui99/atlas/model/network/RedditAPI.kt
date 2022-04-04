@@ -9,8 +9,11 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface RedditAPI {
-    @GET("r/{subredditName}.json?limit=100")
-    fun getSubredditPosts(@Path("subredditName") subredditName: String): Flowable<SubredditResponse>
+    @GET("r/{subredditName}.json?limit={limit}")
+    fun getSubredditPosts(
+        @Path("subredditName") subredditName: String,
+        @Path("limit") limit: Int = 100,
+        ): Flowable<SubredditResponse>
 
     // TODO: Refactor call to flowable
     @GET("r/{subredditName}/about.json")
