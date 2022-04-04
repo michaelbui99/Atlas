@@ -2,10 +2,8 @@ package io.github.michaelbui99.atlas.ui.subreddit
 
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import io.github.michaelbui99.atlas.R
 
@@ -23,6 +21,7 @@ class SubredditFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity()).get(SubredditViewModel::class.java)
         viewModel.setCurrentSubreddit(subredditName!!)
         Log.i("SubredditFragment", "WAS PASSED: $subredditName")
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -35,6 +34,12 @@ class SubredditFragment : Fragment() {
         }
 
         return rootView
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        Log.i("SubredditFragment", "Creating menu")
+        inflater.inflate(R.menu.subreddit_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
 }
