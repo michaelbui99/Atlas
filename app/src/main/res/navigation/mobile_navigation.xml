@@ -14,7 +14,9 @@
         >
         <action
             android:id="@+id/action_view_home_to_subredditFragment"
-            app:destination="@id/view_subreddit" />
+            app:destination="@id/view_subreddit"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
     </fragment>
 
     <fragment
