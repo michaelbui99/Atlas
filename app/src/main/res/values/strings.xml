@@ -15,4 +15,5 @@
     <string name="login">Login</string>
     <string name="login_with_reddit">Login with Reddit</string>
     <string name="search_for_subreddit">Search for subreddit</string>
+    <string name="refresh">Refresh</string>
 </resources>
