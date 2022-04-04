@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import io.github.michaelbui99.atlas.MainActivity
 import io.github.michaelbui99.atlas.R
 
 private const val SUBREDDIT_NAME = "SubredditName"
@@ -22,6 +23,7 @@ class SubredditFragment : Fragment() {
         viewModel.setCurrentSubreddit(subredditName!!)
         Log.i("SubredditFragment", "WAS PASSED: $subredditName")
         setHasOptionsMenu(true)
+        (activity as MainActivity).supportActionBar?.title = subredditName;
     }
 
     override fun onCreateView(
@@ -42,4 +44,7 @@ class SubredditFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    override fun onStart() {
+        super.onStart()
+    }
 }
