@@ -7,12 +7,13 @@ import io.reactivex.rxjava3.core.Flowable
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface RedditAPI {
-    @GET("r/{subredditName}.json?limit={limit}")
+    @GET("r/{subredditName}.json")
     fun getSubredditPosts(
         @Path("subredditName") subredditName: String,
-        @Path("limit") limit: Int = 100,
+        @Query("limit") limit: Int = 100,
         ): Flowable<SubredditResponse>
 
     // TODO: Refactor call to flowable
