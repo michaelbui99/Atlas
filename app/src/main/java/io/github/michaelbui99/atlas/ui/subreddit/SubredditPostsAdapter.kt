@@ -29,15 +29,16 @@ class SubredditPostsAdapter(private var posts: List<SubredditPost>) :
         holder.postScore.text = posts[position].postScore.toString()
         holder.postTitle.text = posts[position].postTitle
         holder.subredditName.text = posts[position].subredditName
-        // TODO: Add upvote count to domain object and update this
+        holder.postSource.text = posts[position].sourceDomain
+
         var upvoteCount = ""
         if (posts[position].postScore >= 1000) {
-            upvoteCount = "${posts[position].postScore % 1000}k"
+            upvoteCount = "${posts[position].upVoteCount% 1000}k"
         } else {
             upvoteCount = posts[position].postScore.toString()
         }
 
-        holder.upvoteCount.text = upvoteCount as String
+        holder.upvoteCount.text = upvoteCount
         val commentCount = "${posts[position].commentCount} comments"
         holder.commentCount.text = commentCount
     }
@@ -52,5 +53,6 @@ class SubredditPostsAdapter(private var posts: List<SubredditPost>) :
         val subredditName: TextView = itemView.findViewById(R.id.textview_content_subredditName)
         val upvoteCount: TextView = itemView.findViewById(R.id.textview_content_upvoteCount)
         val commentCount: TextView = itemView.findViewById(R.id.textview_content_commentCount)
+        val postSource: TextView = itemView.findViewById(R.id.textview_content_source)
     }
 }
