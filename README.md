@@ -4,7 +4,7 @@ The goal of the client is to provide a clean and customisable browse experience 
 
 ## Requirements
 
-- [ ] As a user, I want to be able to view a list of the posts of a subreddit, such that I can browse the subreddit.
+- [x] As a user, I want to be able to view a list of the posts of a subreddit, such that I can browse the subreddit.
 - [ ] As a user, I want to be able to view a list of posts from my followed subreddits, such that I can keep myself updated about what is happening the subreddits.
 - [ ] As a user, I want to be able to view a list of the 'hot' posts from reddit, such that I can see what is trending on reddit.   
 - [ ] As a user, I want to be able to view a post of a subreddit, such that I can read what the post is about. 
