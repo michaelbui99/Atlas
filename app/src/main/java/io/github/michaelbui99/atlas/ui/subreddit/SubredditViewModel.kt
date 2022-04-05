@@ -38,7 +38,7 @@ class SubredditViewModel : ViewModel() {
                     subredditPosts.postValue(it)
                 },
                 onError = {
-                    Log.i("SubredditViewModel", "Failed to fetch subreddits posts")
+                    Log.i("SubredditViewModel", "Failed to fetch subreddits posts: $it")
                 },
                 onComplete = {
                     Log.i("SubredditViewModel", "Fetched all posts")

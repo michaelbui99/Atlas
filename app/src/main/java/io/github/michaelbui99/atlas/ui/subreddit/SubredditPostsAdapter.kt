@@ -30,6 +30,7 @@ class SubredditPostsAdapter(private var posts: List<SubredditPost>) :
         holder.postTitle.text = posts[position].postTitle
         holder.subredditName.text = posts[position].subredditName
         holder.postSource.text = posts[position].sourceDomain
+        holder.createdAgo.text = posts[position].createdUTC
 
         var upvoteCount = ""
         if (posts[position].postScore >= 1000) {
@@ -54,5 +55,6 @@ class SubredditPostsAdapter(private var posts: List<SubredditPost>) :
         val upvoteCount: TextView = itemView.findViewById(R.id.textview_content_upvoteCount)
         val commentCount: TextView = itemView.findViewById(R.id.textview_content_commentCount)
         val postSource: TextView = itemView.findViewById(R.id.textview_content_source)
+        val createdAgo: TextView = itemView.findViewById(R.id.textview_content_createdAgo)
     }
 }
