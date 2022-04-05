@@ -22,3 +22,7 @@ The goal of the client is to provide a clean and customisable browse experience 
 - [ ] As a user, I want to be able to view a lists of saved posts, such that I can go back to the posts I have saved. 
 
 
+
+## Screen shots
+
+[atlas-subreddit-view.png](https://postimg.cc/SJc7yFfF)!
