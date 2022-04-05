@@ -195,7 +195,7 @@ data class SubredditResponsePost(
     @SerializedName("subreddit_subscribers")
     val subredditSubscribers: Long,
     @SerializedName("created_utc")
-    val createdUtc: Double,
+    val createdUtc: Long,
     @SerializedName("num_crossposts")
     val numCrossposts: Long,
     val media: Any?,

@@ -83,7 +83,7 @@
                     android:text="|" />
 
                 <TextView
-                    android:id="@+id/textview_content_lastUpdated"
+                    android:id="@+id/textview_content_createdAgo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="14h"

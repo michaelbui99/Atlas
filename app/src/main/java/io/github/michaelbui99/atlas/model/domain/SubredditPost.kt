@@ -8,16 +8,15 @@ data class SubredditPost(
     val postTitle: String,
     val visited: Boolean,
     val postId: String,
-    val upVoteCount: Long,
+    var upVoteCount: Long,
     val commentCount: Long,
     val thumbnailUrl: String? = null,
-    val postScore: Long,
+    var postScore: Long,
     val authorName: String,
     val mediaUrl: String?,
     val totalAwardsReceived: Int,
     val sourceDomain: String = "self",
     val destination: String? = null,
-    val createdUTC: String
-
+    var createdUTC: String
 ) {
 }
