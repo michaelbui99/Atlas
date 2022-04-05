@@ -32,7 +32,10 @@ object SubredditRepositoryImpl : SubredditRepository {
         return redditClient.redditAPI().getSubredditPosts(subredditName = subreddit)
             .subscribeOn(Schedulers.io()).flatMap {
                 val posts = it.toDomainObject()
-                Flowable.just(it.toDomainObject())
+                posts.forEach{post ->
+                    post.createdUTC = convertUnixToLocalDate(post.createdUTC.toLong()).toString()
+                }
+                Flowable.just(posts)
             }
     }
 
