@@ -8,7 +8,7 @@ data class Subreddit(
     val subscribers: Long,
     val userIsSubscriber: Boolean = false,
     val subredditVisibility: String,
-    val description: String?
+    val description: String?,
 ) {
 
 }

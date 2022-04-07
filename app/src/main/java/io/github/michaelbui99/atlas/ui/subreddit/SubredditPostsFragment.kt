@@ -3,10 +3,11 @@ package io.github.michaelbui99.atlas.ui.subreddit
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.github.michaelbui99.atlas.R
@@ -29,8 +30,12 @@ class SubredditPostsFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_subreddit_posts, container, false)
         viewModel = ViewModelProvider(requireActivity()).get(SubredditViewModel::class.java)
 
+        viewModel.error.observe(viewLifecycleOwner) {
+            Toast.makeText(this.context, it, Toast.LENGTH_SHORT).show()
+        }
+
         val rcAdapter = SubredditPostsAdapter(listOf())
-        viewModel.subredditPosts.observe(this){
+        viewModel.subredditPosts.observe(viewLifecycleOwner) {
             rcAdapter.setPosts(it)
         }
 
@@ -40,4 +45,5 @@ class SubredditPostsFragment : Fragment() {
 
         return rootView
     }
+
 }

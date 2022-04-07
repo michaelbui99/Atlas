@@ -1,6 +1,7 @@
 package io.github.michaelbui99.atlas.model.network
 
 import io.github.michaelbui99.atlas.model.network.responseobjects.DefaultSubredditsResponse
+import io.github.michaelbui99.atlas.model.network.responseobjects.SubredditAboutResponse
 import io.github.michaelbui99.atlas.model.network.responseobjects.SubredditPostDataResponse
 import io.github.michaelbui99.atlas.model.network.responseobjects.SubredditResponse
 import io.reactivex.rxjava3.core.Flowable
@@ -14,11 +15,10 @@ interface RedditAPI {
     fun getSubredditPosts(
         @Path("subredditName") subredditName: String,
         @Query("limit") limit: Int = 100,
-        ): Flowable<SubredditResponse>
+    ): Flowable<SubredditResponse>
 
-    // TODO: Refactor call to flowable
     @GET("r/{subredditName}/about.json")
-    fun getSubredditAbout(@Path("subredditName") subredditName: String): Call<String>
+    fun getSubredditAbout(@Path("subredditName") subredditName: String): Flowable<SubredditAboutResponse>
 
     @GET("r/{subredditName}/comments/{postId}.json")
     fun getSubredditPostData(

@@ -92,7 +92,6 @@ data class SubredditResponsePost(
     @SerializedName("author_premium")
     val authorPremium: Boolean,
     val thumbnail: String,
-    val edited: Boolean,
     @SerializedName("author_flair_css_class")
     val authorFlairCssClass: Any?,
     @SerializedName("author_flair_richtext")
