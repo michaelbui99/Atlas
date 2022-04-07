@@ -2,6 +2,7 @@ package io.github.michaelbui99.atlas.model.repositories
 
 import android.content.SharedPreferences
 import io.github.michaelbui99.atlas.model.domain.Subreddit
+import io.github.michaelbui99.atlas.model.domain.SubredditAbout
 import io.github.michaelbui99.atlas.model.domain.SubredditPost
 import io.github.michaelbui99.atlas.model.network.RedditClient
 import io.github.michaelbui99.atlas.model.network.extensions.toDomainObject
@@ -32,14 +33,22 @@ object SubredditRepositoryImpl : SubredditRepository {
         return redditClient.redditAPI().getSubredditPosts(subredditName = subreddit)
             .subscribeOn(Schedulers.io()).flatMap {
                 val posts = it.toDomainObject()
-                posts.forEach{post ->
+                posts.forEach { post ->
                     post.createdUTC = convertUnixToLocalDate(post.createdUTC.toLong()).toString()
                 }
                 Flowable.just(posts)
             }
+
     }
 
     override fun getSubredditPostData(): SubredditPostDataResponse {
         TODO("Not yet implemented")
+    }
+
+    override fun getSubredditAbout(subreddit: String): Flowable<SubredditAbout> {
+        return redditClient.redditAPI().getSubredditAbout(subredditName = subreddit)
+            .subscribeOn(Schedulers.io()).flatMap {
+                Flowable.just(it.toDomainObject())
+            }
     }
 }

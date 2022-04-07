@@ -1,8 +1,10 @@
 package io.github.michaelbui99.atlas.model.network.extensions
 
 import io.github.michaelbui99.atlas.model.domain.Subreddit
+import io.github.michaelbui99.atlas.model.domain.SubredditAbout
 import io.github.michaelbui99.atlas.model.domain.SubredditPost
 import io.github.michaelbui99.atlas.model.network.responseobjects.DefaultSubredditsResponse
+import io.github.michaelbui99.atlas.model.network.responseobjects.SubredditAboutResponse
 import io.github.michaelbui99.atlas.model.network.responseobjects.SubredditResponse
 
 fun DefaultSubredditsResponse.toDomainObject(): MutableList<Subreddit> {
@@ -26,10 +28,10 @@ fun DefaultSubredditsResponse.toDomainObject(): MutableList<Subreddit> {
     return defaultSubredditList
 }
 
-fun SubredditResponse.toDomainObject(): MutableList<SubredditPost>{
+fun SubredditResponse.toDomainObject(): MutableList<SubredditPost> {
     val subredditPosts = mutableListOf<SubredditPost>()
 
-    data.children.forEach(){
+    data.children.forEach() {
         val subredditPost = SubredditPost(
             subredditName = it.data.subreddit,
             postTitle = it.data.title,
@@ -50,4 +52,14 @@ fun SubredditResponse.toDomainObject(): MutableList<SubredditPost>{
     }
 
     return subredditPosts
+}
+
+fun SubredditAboutResponse.toDomainObject(): SubredditAbout {
+    return SubredditAbout(
+        displayNamePrefixed = data.displayNamePrefixed,
+        description = data.description,
+        iconImage = data.iconImage,
+        subscribers = data.subscribers,
+        activeAccounts = data.activeAccounts
+    )
 }
