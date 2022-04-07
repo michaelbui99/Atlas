@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import io.github.michaelbui99.atlas.R
 import io.github.michaelbui99.atlas.model.domain.SubredditPost
 
@@ -32,9 +34,14 @@ class SubredditPostsAdapter(private var posts: List<SubredditPost>) :
         holder.postSource.text = posts[position].sourceDomain
         holder.createdAgo.text = posts[position].createdUTC
 
+        if (posts[position].thumbnailUrl != null) {
+            Glide.with(holder.thumbnail.context).load(posts[position].thumbnailUrl)
+                .into(holder.thumbnail)
+        }
+
         var upvoteCount = ""
         if (posts[position].postScore >= 1000) {
-            upvoteCount = "${posts[position].upVoteCount% 1000}k"
+            upvoteCount = "${posts[position].upVoteCount % 1000}k"
         } else {
             upvoteCount = posts[position].postScore.toString()
         }
@@ -56,5 +63,6 @@ class SubredditPostsAdapter(private var posts: List<SubredditPost>) :
         val commentCount: TextView = itemView.findViewById(R.id.textview_content_commentCount)
         val postSource: TextView = itemView.findViewById(R.id.textview_content_source)
         val createdAgo: TextView = itemView.findViewById(R.id.textview_content_createdAgo)
+        val thumbnail: ImageView = itemView.findViewById(R.id.imageview_post_media)
     }
 }
