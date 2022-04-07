@@ -25,4 +25,4 @@ The goal of the client is to provide a clean and customisable browse experience 
 
 ## Screen shots
 
-![Home page](https://i.postimg.cc/kXpjv7V4/atlas-subreddit-view.png)
+![Home page](https://i.postimg.cc/VvW59w1N/atlas-subreddit-view.png)
