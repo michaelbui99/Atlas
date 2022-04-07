@@ -24,6 +24,13 @@ class SubredditViewModel : ViewModel() {
         fetchSubredditAbout()
     }
 
+    fun refreshSubreddit(){
+
+        Log.i("SubredditViewModel", "Refreshing")
+        fetchSubredditPosts()
+        fetchSubredditAbout()
+    }
+
     private fun fetchSubredditPosts() {
         if (currentSubreddit.isNotBlank() && currentSubreddit.isNotEmpty()) {
             Log.i("SubredditViewModel", "Fetching posts")

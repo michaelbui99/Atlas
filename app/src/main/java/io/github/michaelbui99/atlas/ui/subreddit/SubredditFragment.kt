@@ -53,6 +53,13 @@ class SubredditFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menuItem_refresh_subreddit){
+            viewModel.refreshSubreddit()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val tabTitles = arrayOf("Posts", "About")
         val tabLayout = view.findViewById<TabLayout>(R.id.tabLayout_subreddit)

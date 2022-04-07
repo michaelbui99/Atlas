@@ -3,11 +3,11 @@ package io.github.michaelbui99.atlas.ui.subreddit
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.github.michaelbui99.atlas.R
@@ -45,4 +45,5 @@ class SubredditPostsFragment : Fragment() {
 
         return rootView
     }
+
 }
