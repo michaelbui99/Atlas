@@ -1,5 +1,7 @@
 package io.github.michaelbui99.atlas.ui.home
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -8,9 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.github.michaelbui99.atlas.R
+import io.github.michaelbui99.atlas.model.auth.RedditAuthenticationManager
 import io.github.michaelbui99.atlas.model.domain.Subreddit
 import io.github.michaelbui99.atlas.ui.shared.OnItemClickListener
 
@@ -78,4 +82,26 @@ class HomeFragment : Fragment() {
         return rootView
     }
 
+    override fun onResume() {
+        /* User gets redirected to HomeFragment after auth */
+        Log.i("HomeFragment", requireActivity().intent.data.toString())
+        super.onResume()
+
+        if (requireActivity().intent != null && requireActivity().intent.action == Intent.ACTION_VIEW) {
+            Log.i("UserFragment", "RESUMED")
+            val uri: Uri = requireActivity().intent.data!!
+            if (uri.getQueryParameter("error") != null) {
+                val error = uri.getQueryParameter("error")
+                Log.e("UserFragment", "Failed to auth: $error")
+            } else {
+                val state = uri.getQueryParameter("state")
+                if (state == RedditAuthenticationManager.getExpectedState()) {
+                    val code = uri.getQueryParameter("code")
+                    if (code != null){
+                        findNavController().navigate(R.id.view_user)
+                    }
+                }
+            }
+        }
+    }
 }
