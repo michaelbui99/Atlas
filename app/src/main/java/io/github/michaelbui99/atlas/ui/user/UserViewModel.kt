@@ -9,4 +9,8 @@ class UserViewModel : ViewModel(){
     fun setLogin(value: Boolean){
         isLoggedIn.value = value;
     }
+
+    fun userGrantsAuthPermissions(code: String){
+
+    }
 }
