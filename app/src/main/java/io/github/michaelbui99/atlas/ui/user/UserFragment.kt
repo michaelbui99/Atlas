@@ -61,6 +61,8 @@ class UserFragment : Fragment() {
         }
 
         loginButton.setOnClickListener() {
+            Log.i("UserFragment", requireActivity().localClassName)
+            startSignIn()
         }
 
         userViewModel
@@ -77,6 +79,7 @@ class UserFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         if (requireActivity().intent != null && requireActivity().intent.action == Intent.ACTION_VIEW) {
+            Log.i("UserFragment", "RESUMED")
             val uri: Uri = requireActivity().intent.data!!
             if (uri.getQueryParameter("error") != null) {
                 val error = uri.getQueryParameter("error")
@@ -85,6 +88,7 @@ class UserFragment : Fragment() {
                 val state = uri.getQueryParameter("state")
                 if (state == RedditAuthenticationManager.getExpectedState()) {
                     val code = uri.getQueryParameter("code")
+                    Log.i("UserFragment", "User auth code: $code")
                 }
             }
         }
