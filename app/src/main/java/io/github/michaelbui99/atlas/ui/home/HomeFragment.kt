@@ -53,7 +53,7 @@ class HomeFragment : Fragment() {
 
         // Setup recycler view for default subreddits
         var defaultSubreddits: MutableList<Subreddit> = viewModel.defaultSubreddits.value!!
-        viewModel.defaultSubreddits.observe(this) {
+        viewModel.defaultSubreddits.observe(viewLifecycleOwner) {
             Log.i("HomeFragment", "Observed state change, size: ${it.size}")
             defaultSubreddits = it
         }
@@ -83,8 +83,7 @@ class HomeFragment : Fragment() {
     }
 
     override fun onResume() {
-        /* User gets redirected to HomeFragment after auth */
-        Log.i("HomeFragment", requireActivity().intent.data.toString())
+        //User gets redirected to HomeFragment after auth and then back to UserFragment
         super.onResume()
 
         if (requireActivity().intent != null && requireActivity().intent.action == Intent.ACTION_VIEW) {
@@ -97,7 +96,7 @@ class HomeFragment : Fragment() {
                 val state = uri.getQueryParameter("state")
                 if (state == RedditAuthenticationManager.getExpectedState()) {
                     val code = uri.getQueryParameter("code")
-                    if (code != null){
+                    if (code != null) {
                         findNavController().navigate(R.id.view_user)
                     }
                 }
