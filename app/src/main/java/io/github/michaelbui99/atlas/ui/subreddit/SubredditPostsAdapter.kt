@@ -1,11 +1,14 @@
 package io.github.michaelbui99.atlas.ui.subreddit
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import io.github.michaelbui99.atlas.R
@@ -40,10 +43,10 @@ class SubredditPostsAdapter(private var posts: List<SubredditPost>) :
         }
 
         var upvoteCount = ""
-        if (posts[position].postScore >= 1000) {
-            upvoteCount = "${posts[position].upVoteCount % 1000}k"
+        upvoteCount = if (posts[position].postScore >= 1000) {
+            "${posts[position].upVoteCount % 1000}k"
         } else {
-            upvoteCount = posts[position].postScore.toString()
+            posts[position].postScore.toString()
         }
         holder.upvoteCount.text = upvoteCount
 
@@ -51,9 +54,9 @@ class SubredditPostsAdapter(private var posts: List<SubredditPost>) :
         holder.commentCount.text = commentCount
 
         // Null = No vote, false = down vote, true = upvote
-        if (posts[position].userHasLiked == true){
+        if (posts[position].userHasLiked == true) {
             holder.upvoteButton.setBackgroundResource(R.color.orange)
-        }else if(posts[position].userHasLiked == false){
+        } else if (posts[position].userHasLiked == false) {
             holder.downVoteButton.setBackgroundResource(R.color.orange)
         }
     }

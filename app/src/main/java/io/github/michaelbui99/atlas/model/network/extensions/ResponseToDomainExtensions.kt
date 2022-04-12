@@ -3,8 +3,10 @@ package io.github.michaelbui99.atlas.model.network.extensions
 import io.github.michaelbui99.atlas.model.domain.Subreddit
 import io.github.michaelbui99.atlas.model.domain.SubredditAbout
 import io.github.michaelbui99.atlas.model.domain.SubredditPost
+import io.github.michaelbui99.atlas.model.domain.SubredditPostData
 import io.github.michaelbui99.atlas.model.network.responseobjects.DefaultSubredditsResponse
 import io.github.michaelbui99.atlas.model.network.responseobjects.SubredditAboutResponse
+import io.github.michaelbui99.atlas.model.network.responseobjects.SubredditPostDataResponse
 import io.github.michaelbui99.atlas.model.network.responseobjects.SubredditResponse
 
 fun DefaultSubredditsResponse.toDomainObject(): MutableList<Subreddit> {
@@ -47,7 +49,7 @@ fun SubredditResponse.toDomainObject(): MutableList<SubredditPost> {
             sourceDomain = it.data.domain,
             destination = it.data.url,
             createdUTC = it.data.createdUtc.toString(),
-            userHasLiked = it.data.likes
+            userHasLiked = it.data.likes as Boolean?
         )
         subredditPosts.add(subredditPost)
     }
@@ -62,5 +64,13 @@ fun SubredditAboutResponse.toDomainObject(): SubredditAbout {
         iconImage = data.iconImage,
         subscribers = data.subscribers,
         activeAccounts = data.activeAccounts
+    )
+}
+
+fun SubredditPostDataResponse.toDomainObject(): SubredditPostData {
+    return SubredditPostData(
+        title = data[0].data.children[0].data.title,
+        linkFlairText = data[0].data.children[0].data.linkFlairText,
+        textContent = data[0].data.children[0].data.selfText
     )
 }

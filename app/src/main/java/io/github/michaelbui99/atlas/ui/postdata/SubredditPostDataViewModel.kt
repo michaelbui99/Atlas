@@ -1,0 +1,34 @@
+package io.github.michaelbui99.atlas.ui.postdata
+
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import io.github.michaelbui99.atlas.model.domain.SubredditPostData
+import io.github.michaelbui99.atlas.model.repositories.SubredditRepositoryImpl
+import io.reactivex.rxjava3.kotlin.subscribeBy
+
+class SubredditPostDataViewModel : ViewModel() {
+    private lateinit var subredditName: String
+    private lateinit var postId: String
+    val postData: MutableLiveData<SubredditPostData> = MutableLiveData()
+    val error: MutableLiveData<String> = MutableLiveData()
+
+    fun setPostInfo(subredditName: String, postId: String) {
+        this.subredditName = subredditName
+        this.postId = postId
+        fetchPostData()
+    }
+
+    private fun fetchPostData() {
+        SubredditRepositoryImpl.getSubredditPostData(
+            subredditName = this.subredditName,
+            postId = this.postId
+        ).subscribeBy(
+            onNext = {
+                postData.postValue(it)
+            },
+            onError = {
+                error.postValue("Something went wrong...: ${it.message}")
+            }
+        )
+    }
+}
