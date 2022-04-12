@@ -29,6 +29,7 @@ data class PostData(
     @SerializedName("approved_at_utc")
     val approvedAtUtc: Any?,
     val subreddit: String,
+    @SerializedName("selftext")
     val selfText: String?,
     @SerializedName("user_reports")
     val userReports: List<Any?>,
