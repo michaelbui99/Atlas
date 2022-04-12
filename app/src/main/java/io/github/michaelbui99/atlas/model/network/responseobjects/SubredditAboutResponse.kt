@@ -2,6 +2,10 @@ package io.github.michaelbui99.atlas.model.network.responseobjects
 
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Response object wrapping the data received, when fetching subreddit's about data
+ * e.g. GET https://www.reddit.com/r/art/about.json
+ * */
 data class SubredditAboutResponse(val kind: String, val data: SubredditAboutData)
 
 data class SubredditAboutData(

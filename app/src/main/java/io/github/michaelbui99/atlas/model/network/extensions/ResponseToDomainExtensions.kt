@@ -46,7 +46,8 @@ fun SubredditResponse.toDomainObject(): MutableList<SubredditPost> {
             totalAwardsReceived = it.data.totalAwardsReceived.toInt(),
             sourceDomain = it.data.domain,
             destination = it.data.url,
-            createdUTC = it.data.createdUtc.toString()
+            createdUTC = it.data.createdUtc.toString(),
+            userHasLiked = it.data.likes
         )
         subredditPosts.add(subredditPost)
     }

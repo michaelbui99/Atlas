@@ -45,10 +45,17 @@ class SubredditPostsAdapter(private var posts: List<SubredditPost>) :
         } else {
             upvoteCount = posts[position].postScore.toString()
         }
-
         holder.upvoteCount.text = upvoteCount
+
         val commentCount = "${posts[position].commentCount} comments"
         holder.commentCount.text = commentCount
+
+        // Null = No vote, false = down vote, true = upvote
+        if (posts[position].userHasLiked == true){
+            holder.upvoteButton.setBackgroundResource(R.color.orange)
+        }else if(posts[position].userHasLiked == false){
+            holder.downVoteButton.setBackgroundResource(R.color.orange)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -64,5 +71,7 @@ class SubredditPostsAdapter(private var posts: List<SubredditPost>) :
         val postSource: TextView = itemView.findViewById(R.id.textview_content_source)
         val createdAgo: TextView = itemView.findViewById(R.id.textview_content_createdAgo)
         val thumbnail: ImageView = itemView.findViewById(R.id.imageview_post_media)
+        val upvoteButton: ImageView = itemView.findViewById(R.id.imageview_vote_upVote)
+        val downVoteButton: ImageView = itemView.findViewById(R.id.imageview_vote_downVote)
     }
 }
