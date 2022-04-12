@@ -1,5 +1,6 @@
 package io.github.michaelbui99.atlas.ui.postdata
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.github.michaelbui99.atlas.model.domain.SubredditPostData
@@ -19,16 +20,28 @@ class SubredditPostDataViewModel : ViewModel() {
     }
 
     private fun fetchPostData() {
-        SubredditRepositoryImpl.getSubredditPostData(
-            subredditName = this.subredditName,
-            postId = this.postId
-        ).subscribeBy(
-            onNext = {
-                postData.postValue(it)
-            },
-            onError = {
-                error.postValue("Something went wrong...: ${it.message}")
-            }
-        )
+        if (subredditName.isNotBlank() && subredditName.isNotEmpty()
+            && postId.isNotBlank() && postId.isNotEmpty()
+        ) {
+            SubredditRepositoryImpl.getSubredditPostData(
+                subredditName = this.subredditName,
+                postId = this.postId
+            ).subscribeBy(
+                onNext = {
+                    Log.i(
+                        "SubredditPostDataViewModel",
+                        "Post data has been set: ${postData.value?.title}"
+                    )
+                    postData.postValue(it)
+                },
+                onError = {
+                    error.postValue("Something went wrong...: ${it.message}")
+                    Log.e("SubredditPostDataViewModel", it.toString())
+                },
+                onComplete = {
+                    Log.i("SubredditPostDataViewModel", "Finished fetching post data")
+                }
+            )
+        }
     }
 }

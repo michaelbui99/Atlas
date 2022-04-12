@@ -1,6 +1,7 @@
 package io.github.michaelbui99.atlas.ui.postdata
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import io.github.michaelbui99.atlas.MainActivity
 import io.github.michaelbui99.atlas.R
 import io.github.michaelbui99.atlas.ui.subreddit.SubredditViewModel
 
@@ -23,7 +25,9 @@ class SubredditPostDataFragment : Fragment() {
             postId = it.getString("PostId")
         }
         viewModel = ViewModelProvider(requireActivity()).get(SubredditPostDataViewModel::class.java)
-        viewModel.setPostInfo(subredditName = this.subredditName!!, postId = this.subredditName!!)
+        viewModel.setPostInfo(subredditName = this.subredditName!!, postId = this.postId!!)
+        setHasOptionsMenu(true)
+        (activity as MainActivity).supportActionBar?.title = subredditName
     }
 
     override fun onCreateView(
@@ -39,14 +43,20 @@ class SubredditPostDataFragment : Fragment() {
         val textContentTextView =
             rootView.findViewById<TextView>(R.id.textview_postData_textContent)
 
-        viewModel.error.observe(viewLifecycleOwner){
+        viewModel.error.observe(viewLifecycleOwner) {
             Toast.makeText(this.context, it, Toast.LENGTH_SHORT).show()
         }
-        viewModel.postData.observe(viewLifecycleOwner){
+
+        viewModel.postData.observe(viewLifecycleOwner) {
+            Log.i(
+                "SubredditPostDataFragment",
+                "Observed State change. Title: ${it.title}. Content: ${it.textContent}"
+            )
             titleTextView.text = it.title
             linkFlairTextTextView.text = it.linkFlairText
             textContentTextView.text = it.textContent
         }
+
 
         return rootView
     }

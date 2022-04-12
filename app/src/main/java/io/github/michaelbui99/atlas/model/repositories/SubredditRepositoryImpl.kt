@@ -49,7 +49,7 @@ object SubredditRepositoryImpl : SubredditRepository {
         return redditClient.redditAPI()
             .getSubredditPostData(subredditName = subredditName, postId = postId)
             .subscribeOn(Schedulers.io()).flatMap {
-                Flowable.just(it.toDomainObject())
+                Flowable.just(SubredditPostDataResponse(it).toDomainObject())
             }
     }
 

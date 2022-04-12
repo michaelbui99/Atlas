@@ -13,9 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import io.github.michaelbui99.atlas.R
 import io.github.michaelbui99.atlas.model.domain.SubredditPost
+import io.github.michaelbui99.atlas.ui.shared.OnItemClickListener
 
 class SubredditPostsAdapter(private var posts: List<SubredditPost>) :
     RecyclerView.Adapter<SubredditPostsAdapter.ViewHolder>() {
+
+    var onTitleClick: OnItemClickListener? = null
 
     @SuppressLint("NotifyDataSetChanged")
     fun setPosts(posts: List<SubredditPost>) {
@@ -58,6 +61,10 @@ class SubredditPostsAdapter(private var posts: List<SubredditPost>) :
             holder.upvoteButton.setBackgroundResource(R.color.orange)
         } else if (posts[position].userHasLiked == false) {
             holder.downVoteButton.setBackgroundResource(R.color.orange)
+        }
+
+        holder.postTitle.setOnClickListener() {
+            onTitleClick?.onItemClick(position)
         }
     }
 
