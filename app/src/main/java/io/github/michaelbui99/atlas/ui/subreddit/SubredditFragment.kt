@@ -41,7 +41,7 @@ class SubredditFragment : Fragment() {
         viewPager = rootView.findViewById(R.id.viewpager_subreddit)
         viewPager.adapter = vpAdapter
 
-        viewModel.subredditPosts.observe(this) {
+        viewModel.subredditPosts.observe(viewLifecycleOwner) {
         }
 
         return rootView

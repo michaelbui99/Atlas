@@ -1,9 +1,6 @@
 package io.github.michaelbui99.atlas.model.network
 
-import io.github.michaelbui99.atlas.model.network.responseobjects.DefaultSubredditsResponse
-import io.github.michaelbui99.atlas.model.network.responseobjects.SubredditAboutResponse
-import io.github.michaelbui99.atlas.model.network.responseobjects.SubredditPostDataResponse
-import io.github.michaelbui99.atlas.model.network.responseobjects.SubredditResponse
+import io.github.michaelbui99.atlas.model.network.responseobjects.*
 import io.reactivex.rxjava3.core.Flowable
 import retrofit2.Call
 import retrofit2.http.GET
@@ -24,7 +21,7 @@ interface RedditAPI {
     fun getSubredditPostData(
         @Path("subredditName") subredditName: String,
         @Path("postId") postId: String
-    ): Flowable<SubredditPostDataResponse>
+    ): Flowable<List<ResponseDataWrapper<ResponseData>>>
 
     // TODO: Refactor call type
     @GET("subreddits/default.json")

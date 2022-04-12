@@ -1,18 +1,24 @@
 package io.github.michaelbui99.atlas.ui.subreddit
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import io.github.michaelbui99.atlas.R
 import io.github.michaelbui99.atlas.model.domain.SubredditPost
+import io.github.michaelbui99.atlas.ui.shared.OnItemClickListener
 
 class SubredditPostsAdapter(private var posts: List<SubredditPost>) :
     RecyclerView.Adapter<SubredditPostsAdapter.ViewHolder>() {
+
+    var onTitleClick: OnItemClickListener? = null
 
     @SuppressLint("NotifyDataSetChanged")
     fun setPosts(posts: List<SubredditPost>) {
@@ -40,15 +46,26 @@ class SubredditPostsAdapter(private var posts: List<SubredditPost>) :
         }
 
         var upvoteCount = ""
-        if (posts[position].postScore >= 1000) {
-            upvoteCount = "${posts[position].upVoteCount % 1000}k"
+        upvoteCount = if (posts[position].postScore >= 1000) {
+            "${posts[position].upVoteCount % 1000}k"
         } else {
-            upvoteCount = posts[position].postScore.toString()
+            posts[position].postScore.toString()
         }
-
         holder.upvoteCount.text = upvoteCount
+
         val commentCount = "${posts[position].commentCount} comments"
         holder.commentCount.text = commentCount
+
+        // Null = No vote, false = down vote, true = upvote
+        if (posts[position].userHasLiked == true) {
+            holder.upvoteButton.setBackgroundResource(R.color.orange)
+        } else if (posts[position].userHasLiked == false) {
+            holder.downVoteButton.setBackgroundResource(R.color.orange)
+        }
+
+        holder.postTitle.setOnClickListener() {
+            onTitleClick?.onItemClick(position)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -64,5 +81,7 @@ class SubredditPostsAdapter(private var posts: List<SubredditPost>) :
         val postSource: TextView = itemView.findViewById(R.id.textview_content_source)
         val createdAgo: TextView = itemView.findViewById(R.id.textview_content_createdAgo)
         val thumbnail: ImageView = itemView.findViewById(R.id.imageview_post_media)
+        val upvoteButton: ImageView = itemView.findViewById(R.id.imageview_vote_upVote)
+        val downVoteButton: ImageView = itemView.findViewById(R.id.imageview_vote_downVote)
     }
 }

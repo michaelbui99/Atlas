@@ -50,4 +50,9 @@
             android:id="@+id/action_view_subreddit_to_view_home"
             app:destination="@id/view_home" />
     </fragment>
+    <fragment
+        android:id="@+id/view_postData"
+        android:name="io.github.michaelbui99.atlas.ui.postdata.SubredditPostDataFragment"
+        android:label="fragment_subreddit_post_data"
+        tools:layout="@layout/fragment_subreddit_post_data" />
 </navigation>

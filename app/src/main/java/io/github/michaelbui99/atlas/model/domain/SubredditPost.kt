@@ -17,6 +17,7 @@ data class SubredditPost(
     val totalAwardsReceived: Int,
     val sourceDomain: String = "self",
     val destination: String? = null,
-    var createdUTC: String
+    var createdUTC: String,
+    val userHasLiked: Boolean?
 ) {
 }

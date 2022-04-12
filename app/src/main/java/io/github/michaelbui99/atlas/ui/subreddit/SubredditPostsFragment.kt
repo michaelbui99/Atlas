@@ -1,16 +1,20 @@
 package io.github.michaelbui99.atlas.ui.subreddit
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.github.michaelbui99.atlas.R
+import io.github.michaelbui99.atlas.ui.shared.OnItemClickListener
 
 class SubredditPostsFragment : Fragment() {
 
@@ -35,8 +39,23 @@ class SubredditPostsFragment : Fragment() {
         }
 
         val rcAdapter = SubredditPostsAdapter(listOf())
+
         viewModel.subredditPosts.observe(viewLifecycleOwner) {
             rcAdapter.setPosts(it)
+            rcAdapter.onTitleClick = object : OnItemClickListener {
+                override fun onItemClick(position: Int) {
+                    Log.i(
+                        "SubredditPostsFragment",
+                        "SubredditName: ${it[position].subredditName}; PostId: ${it[position].postId}"
+                    )
+                    rootView.findNavController().navigate(
+                        R.id.view_postData, bundleOf(
+                            Pair("SubredditName", it[position].subredditName),
+                            Pair("PostId", it[position].postId)
+                        )
+                    )
+                }
+            }
         }
 
         val recyclerView = rootView.findViewById<RecyclerView>(R.id.recyclerview_subredditPosts)

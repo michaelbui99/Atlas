@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import io.github.michaelbui99.atlas.model.domain.Subreddit
 import io.github.michaelbui99.atlas.model.domain.SubredditAbout
 import io.github.michaelbui99.atlas.model.domain.SubredditPost
+import io.github.michaelbui99.atlas.model.domain.SubredditPostData
 import io.github.michaelbui99.atlas.model.network.RedditClient
 import io.github.michaelbui99.atlas.model.network.extensions.toDomainObject
 import io.github.michaelbui99.atlas.model.network.responseobjects.SubredditPostDataResponse
@@ -41,8 +42,15 @@ object SubredditRepositoryImpl : SubredditRepository {
 
     }
 
-    override fun getSubredditPostData(): SubredditPostDataResponse {
-        TODO("Not yet implemented")
+    override fun getSubredditPostData(
+        subredditName: String,
+        postId: String
+    ): Flowable<SubredditPostData> {
+        return redditClient.redditAPI()
+            .getSubredditPostData(subredditName = subredditName, postId = postId)
+            .subscribeOn(Schedulers.io()).flatMap {
+                Flowable.just(SubredditPostDataResponse(it).toDomainObject())
+            }
     }
 
     override fun getSubredditAbout(subreddit: String): Flowable<SubredditAbout> {
