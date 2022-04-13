@@ -26,8 +26,6 @@ class SubredditFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity()).get(SubredditViewModel::class.java)
         viewModel.setCurrentSubreddit(subredditName!!)
         Log.i("SubredditFragment", "WAS PASSED: $subredditName")
-        setHasOptionsMenu(true)
-        (activity as MainActivity).supportActionBar?.title = subredditName;
     }
 
     override fun onCreateView(
@@ -70,7 +68,9 @@ class SubredditFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
+        setHasOptionsMenu(true)
+        (activity as MainActivity).supportActionBar?.title = subredditName
     }
 }
