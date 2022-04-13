@@ -19,6 +19,10 @@ class SubredditPostDataViewModel : ViewModel() {
         fetchPostData()
     }
 
+    fun refreshPostData(){
+        fetchPostData()
+    }
+
     private fun fetchPostData() {
         if (subredditName.isNotBlank() && subredditName.isNotEmpty()
             && postId.isNotBlank() && postId.isNotEmpty()
