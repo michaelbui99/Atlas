@@ -70,12 +70,12 @@ class SubredditPostDataFragment : Fragment() {
                         R.color.primaryColor
                     )
                 )
-                textContentTextView.setOnClickListener {view ->
+                textContentTextView.setOnClickListener {_->
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.mediaContent))
                     startActivity(intent)
                 }
             } else {
-                it.textContent
+                textContentTextView.text = it.textContent
             }
 
             subredditNameTextView.text = it.subredditName
