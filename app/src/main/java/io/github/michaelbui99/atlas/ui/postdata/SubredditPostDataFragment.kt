@@ -42,6 +42,9 @@ class SubredditPostDataFragment : Fragment() {
             rootView.findViewById<TextView>(R.id.textview_postData_linkFlair)
         val textContentTextView =
             rootView.findViewById<TextView>(R.id.textview_postData_textContent)
+        val subredditNameTextView =
+            rootView.findViewById<TextView>(R.id.textview_postData_subredditName)
+        val authorNameTextView = rootView.findViewById<TextView>(R.id.textview_postData_author)
 
         viewModel.error.observe(viewLifecycleOwner) {
             Toast.makeText(this.context, it, Toast.LENGTH_SHORT).show()
@@ -55,6 +58,8 @@ class SubredditPostDataFragment : Fragment() {
             titleTextView.text = it.title
             linkFlairTextTextView.text = it.linkFlairText
             textContentTextView.text = it.textContent
+            subredditNameTextView.text = it.subredditName
+            authorNameTextView.text = "by ${it.postAuthor}"
         }
 
 

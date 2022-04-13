@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Bruger/Coding/android/Atlas/app/src/main/res/drawable/layout_bg_subreddits_main.xml" value="0.1255" />
         <entry key="..\:/Users/Bruger/Coding/android/Atlas/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Users/Bruger/Coding/android/Atlas/app/src/main/res/layout/fragment_subreddit.xml" value="0.19692307692307692" />
         <entry key="..\:/Users/Bruger/Coding/android/Atlas/app/src/main/res/layout/fragment_subreddit_about.xml" value="0.18" />
