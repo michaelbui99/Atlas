@@ -16,7 +16,6 @@ class SubredditViewPagerAdapter(fragment: Fragment): FragmentStateAdapter(fragme
             return SubredditPostsFragment()
         }
 
-        // TODO: Change this to SubredditAboutFragment
         return SubredditAboutFragment()
     }
 }
