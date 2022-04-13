@@ -30,8 +30,6 @@ class SubredditPostDataFragment : Fragment() {
         }
         viewModel = ViewModelProvider(requireActivity()).get(SubredditPostDataViewModel::class.java)
         viewModel.setPostInfo(subredditName = this.subredditName!!, postId = this.postId!!)
-        setHasOptionsMenu(true)
-        (activity as MainActivity).supportActionBar?.title = subredditName
     }
 
     override fun onCreateView(
@@ -90,5 +88,11 @@ class SubredditPostDataFragment : Fragment() {
 
 
         return rootView
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setHasOptionsMenu(true)
+        (activity as MainActivity).supportActionBar?.title = subredditName
     }
 }
