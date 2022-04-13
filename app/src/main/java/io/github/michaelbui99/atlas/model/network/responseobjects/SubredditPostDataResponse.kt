@@ -236,6 +236,8 @@ data class PostData(
     val depth: Long?,
     @SerializedName("collapsed_because_crowd_control")
     val collapsedBecauseCrowdControl: Any?,
+    @SerializedName("url_overridden_by_dest")
+    val urlOverriddenByDest: String?,
 )
 
 

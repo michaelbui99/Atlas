@@ -73,6 +73,7 @@ fun SubredditPostDataResponse.toDomainObject(): SubredditPostData {
         linkFlairText = data[0].data.children[0].data.linkFlairText,
         textContent = data[0].data.children[0].data.selfText,
         subredditName = data[0].data.children[0].data.subreddit,
-        postAuthor = data[0].data.children[0].data.author
+        postAuthor = data[0].data.children[0].data.author,
+        mediaContent = data[0].data.children[0].data.urlOverriddenByDest
     )
 }
