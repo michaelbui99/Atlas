@@ -8,13 +8,12 @@ import android.view.*
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.github.michaelbui99.atlas.R
-import io.github.michaelbui99.atlas.model.auth.RedditAuthenticationManager
+import io.github.michaelbui99.atlas.model.auth.STATE
 import io.github.michaelbui99.atlas.model.domain.Subreddit
 import io.github.michaelbui99.atlas.ui.shared.OnItemClickListener
 
@@ -94,7 +93,7 @@ class HomeFragment : Fragment() {
                 Log.e("UserFragment", "Failed to auth: $error")
             } else {
                 val state = uri.getQueryParameter("state")
-                if (state == RedditAuthenticationManager.getExpectedState()) {
+                if (state == STATE) {
                     val code = uri.getQueryParameter("code")
                     if (code != null) {
                         findNavController().navigate(R.id.view_user)

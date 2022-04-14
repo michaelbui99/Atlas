@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
 import io.github.michaelbui99.atlas.R
-import io.github.michaelbui99.atlas.model.auth.RedditAuthenticationManager
+import io.github.michaelbui99.atlas.model.auth.STATE
 
 class UserFragment : Fragment() {
     private lateinit var userViewModel: UserViewModel
@@ -70,7 +70,7 @@ class UserFragment : Fragment() {
     }
 
     private fun startSignIn() {
-        val url = RedditAuthenticationManager.getAuthUrl()
+        val url = userViewModel.getAuthUrl()
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(intent)
     }
@@ -86,9 +86,10 @@ class UserFragment : Fragment() {
                 Log.e("UserFragment", "Failed to auth: $error")
             } else {
                 val state = uri.getQueryParameter("state")
-                if (state == RedditAuthenticationManager.getExpectedState()) {
+                if (state == STATE) {
                     val code = uri.getQueryParameter("code")
                     Log.i("UserFragment", "User auth code: $code")
+                    userViewModel.userGrantsAuthPermissions(code!!)
                 }
             }
         }
