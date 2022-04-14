@@ -1,8 +1,6 @@
 package io.github.michaelbui99.atlas.model.network
 
 import com.google.gson.GsonBuilder
-import io.github.michaelbui99.atlas.model.auth.RedditAuthenticationManager
-import kotlinx.coroutines.internal.synchronized
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
