@@ -1,6 +1,7 @@
 package io.github.michaelbui99.atlas.model.auth
 
 import android.content.SharedPreferences
+import io.github.michaelbui99.atlas.model.network.RedditAuthClient
 
 const val ACCESS_TOKEN_URL = "https://www.reddit.com/api/v1/access_token"
 const val REDIRECT_URl = "https://github.com/michaelbui99/Atlas"
@@ -9,7 +10,9 @@ const val STATE = "UwU"
 
 object RedditAuthenticationManager {
 
-    fun generateAccessToken(): String {
+    private val authClient: RedditAuthClient = RedditAuthClient()
+
+    fun generateAccessToken(code: String): String {
         throw NotImplementedError()
     }
 
@@ -17,18 +20,14 @@ object RedditAuthenticationManager {
 
     }
 
-    fun getExpectedState(): String{
+    fun getExpectedState(): String {
         return STATE
     }
 
-    fun getAuthUrl():String {
-        return this.generateAuthUrl(clientId = CLIENT_ID, state = STATE, redirectUri = REDIRECT_URl)
-    }
-
-    private fun generateAuthUrl(clientId: String, state: String, redirectUri: String): String {
-        return "https://www.reddit.com/api/v1/authorize.compact?client_id=$clientId" +
-                "&response_type=code&state=$state" +
-                "&redirect_uri=$redirectUri&" +
+    fun getAuthUrl(): String {
+        return "https://www.reddit.com/api/v1/authorize.compact?client_id=$CLIENT_ID" +
+                "&response_type=code&state=$STATE" +
+                "&redirect_uri=$REDIRECT_URl&" +
                 "duration=permanent&scope=identity"
     }
 
