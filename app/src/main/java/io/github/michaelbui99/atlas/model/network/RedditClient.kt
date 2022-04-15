@@ -42,6 +42,10 @@ class RedditClient() {
             return  authRedditAPI!!
         }
 
+        /**
+         * Builds Retrofit with default version of reddit api endpoint as base url
+         * www.reddit.com
+         * */
         private fun buildNoAuthRetrofit() {
             val interceptor = HttpLoggingInterceptor()
             interceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -57,6 +61,10 @@ class RedditClient() {
                 .build()
         }
 
+        /**
+         * Builds Retrofit with oauth version of reddit api endpoint as base url
+         * www.oauth.reddit.com
+         * */
         private fun buildAuthRetrofit() {
             if (accessToken == null) {
                 throw IllegalStateException("Auth flow has not been completed yet, access token is missing")
