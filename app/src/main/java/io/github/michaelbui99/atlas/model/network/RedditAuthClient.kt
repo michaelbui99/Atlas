@@ -2,6 +2,8 @@ package io.github.michaelbui99.atlas.model.network
 
 import com.google.gson.GsonBuilder
 import io.github.michaelbui99.atlas.model.auth.CLIENT_ID
+import io.github.michaelbui99.atlas.model.auth.CLIENT_SECRET
+import io.github.michaelbui99.atlas.model.util.getBase64EncodedString
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -24,14 +26,19 @@ class RedditAuthClient {
                 .addInterceptor(object : Interceptor {
                     override fun intercept(chain: Interceptor.Chain): Response {
                         return chain.proceed(
-                            chain.request().newBuilder().addHeader("client_id", CLIENT_ID)
-                                .addHeader("client_secret", "").build()
+                            chain.request().newBuilder()
+                                .addHeader(
+                                    "Authorization",
+                                    "Basic ${getBase64EncodedString("$CLIENT_ID:$CLIENT_SECRET")}"
+                                )
+                                .build()
                         )
                     }
                 }).build()
             val gson = GsonBuilder().setLenient().create()
 
-            retrofit = Retrofit.Builder().baseUrl("https://reddit.com").client(client)
+            retrofit = Retrofit.Builder().baseUrl("https://www.reddit.com/api/v1/")
+                .client(client)
                 .addConverterFactory(
                     GsonConverterFactory.create(gson)
                 ).addCallAdapterFactory(

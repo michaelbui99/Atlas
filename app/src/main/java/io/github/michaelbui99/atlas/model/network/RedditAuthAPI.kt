@@ -9,7 +9,7 @@ import retrofit2.http.Path
 
 interface RedditAuthAPI {
     @FormUrlEncoded
-    @POST("api/v1/access_token")
+    @POST("access_token")
     fun getAccessToken(
         @Field("grant_type") grantType: String,
         @Field("code") code: String,

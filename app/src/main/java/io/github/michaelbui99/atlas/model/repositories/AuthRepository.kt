@@ -8,4 +8,5 @@ interface AuthRepository {
     fun getAccessToken(): Flowable<AccessToken>
     fun hasAccessToken(): Boolean
     fun hasAuthCode(): Boolean
+    fun setAuthCode(authCode: String)
 }

@@ -11,7 +11,7 @@ object AuthRepositoryImpl : AuthRepository {
     override fun getAuthUrl(): String {
         return "https://www.reddit.com/api/v1/authorize.compact?client_id=$CLIENT_ID" +
                 "&response_type=code&state=$STATE" +
-                "&redirect_uri=$REDIRECT_URl&" +
+                "&redirect_uri=$REDIRECT_URL&" +
                 "duration=permanent&scope=identity"
     }
 
@@ -27,9 +27,9 @@ object AuthRepositoryImpl : AuthRepository {
 
         return RedditAuthClient.getAuthAPI()
             .getAccessToken(
-                grantType = "authorization",
+                grantType = "authorization_code",
                 code = authStore.authCode!!,
-                redirectUri = REDIRECT_URl
+                redirectUri = REDIRECT_URL
             )
             .flatMap {
                 this.authStore.accessToken =
@@ -55,4 +55,10 @@ object AuthRepositoryImpl : AuthRepository {
     override fun hasAuthCode(): Boolean {
         return authStore.authCode != null
     }
+
+    override fun setAuthCode(authCode: String) {
+        authStore.authCode = authCode
+    }
+
+
 }
