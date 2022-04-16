@@ -12,7 +12,7 @@ object AuthRepositoryImpl : AuthRepository {
         return "https://www.reddit.com/api/v1/authorize.compact?client_id=$CLIENT_ID" +
                 "&response_type=code&state=$STATE" +
                 "&redirect_uri=$REDIRECT_URL&" +
-                "duration=permanent&scope=identity"
+                "duration=permanent&scope=$SCOPES"
     }
 
 
