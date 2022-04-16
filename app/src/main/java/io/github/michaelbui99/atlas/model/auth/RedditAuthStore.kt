@@ -3,9 +3,7 @@ package io.github.michaelbui99.atlas.model.auth
 object RedditAuthStore {
     var accessToken: AccessToken? = null
         set(value) {
-            if (value != null) {
-                isLoggedIn = true
-            }
+            isLoggedIn = value != null
             field = value
         }
 
