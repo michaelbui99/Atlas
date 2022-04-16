@@ -80,26 +80,4 @@ class HomeFragment : Fragment() {
             )
         return rootView
     }
-
-    override fun onResume() {
-        //User gets redirected to HomeFragment after auth and then back to UserFragment
-        super.onResume()
-
-        if (requireActivity().intent != null && requireActivity().intent.action == Intent.ACTION_VIEW) {
-            Log.i("UserFragment", "RESUMED")
-            val uri: Uri = requireActivity().intent.data!!
-            if (uri.getQueryParameter("error") != null) {
-                val error = uri.getQueryParameter("error")
-                Log.e("UserFragment", "Failed to auth: $error")
-            } else {
-                val state = uri.getQueryParameter("state")
-                if (state == STATE) {
-                    val code = uri.getQueryParameter("code")
-                    if (code != null) {
-                        findNavController().navigate(R.id.view_user)
-                    }
-                }
-            }
-        }
-    }
 }
