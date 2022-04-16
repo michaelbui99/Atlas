@@ -14,8 +14,10 @@ interface RedditAPI {
         @Query("limit") limit: Int = 100,
     ): Flowable<SubredditResponse>
 
+
     @GET("r/{subredditName}/about.json")
     fun getSubredditAbout(@Path("subredditName") subredditName: String): Flowable<SubredditAboutResponse>
+
 
     @GET("r/{subredditName}/comments/{postId}.json")
     fun getSubredditPostData(
@@ -23,7 +25,7 @@ interface RedditAPI {
         @Path("postId") postId: String
     ): Flowable<List<ResponseDataWrapper<ResponseData>>>
 
-    // TODO: Refactor call type
+
     @GET("subreddits/default.json")
     fun getDefaultSubreddits(): Flowable<DefaultSubredditsResponse>
 }

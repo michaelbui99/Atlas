@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import io.github.michaelbui99.atlas.R
 import io.github.michaelbui99.atlas.model.auth.STATE
@@ -58,6 +59,10 @@ class UserFragment : Fragment() {
             if (it) {
                 activity?.recreate()
             }
+        }
+
+        userViewModel.error.observe(viewLifecycleOwner) {
+            Toast.makeText(this.context, "Something went wrong...: $it", Toast.LENGTH_SHORT).show()
         }
 
         loginButton.setOnClickListener() {

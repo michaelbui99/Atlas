@@ -16,8 +16,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 object SubredditRepositoryImpl : SubredditRepository {
     private val redditClient: RedditClient = RedditClient()
 
-    init {
-    }
 
     override fun getDefaultSubreddits(): Flowable<MutableList<Subreddit>> {
         // TODO: Cache requests for default subreddits, since these don't change often
@@ -29,6 +27,7 @@ object SubredditRepositoryImpl : SubredditRepository {
             }
 
     }
+
 
     override fun getSubredditPosts(subreddit: String): Flowable<MutableList<SubredditPost>> {
         return redditClient.redditAPI().getSubredditPosts(subredditName = subreddit)
@@ -42,6 +41,7 @@ object SubredditRepositoryImpl : SubredditRepository {
 
     }
 
+
     override fun getSubredditPostData(
         subredditName: String,
         postId: String
@@ -52,6 +52,7 @@ object SubredditRepositoryImpl : SubredditRepository {
                 Flowable.just(SubredditPostDataResponse(it).toDomainObject())
             }
     }
+
 
     override fun getSubredditAbout(subreddit: String): Flowable<SubredditAbout> {
         return redditClient.redditAPI().getSubredditAbout(subredditName = subreddit)

@@ -15,7 +15,7 @@ class UserViewModel : ViewModel() {
     }
 
     fun userGrantsAuthPermissions(code: String) {
-        AuthRepositoryImpl.authCode = code
+        AuthRepositoryImpl.setAuthCode(code)
         AuthRepositoryImpl.getAccessToken().subscribeBy(
             onNext = {
                 this.accessToken = it.accessToken
