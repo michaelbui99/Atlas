@@ -9,9 +9,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import io.github.michaelbui99.atlas.R
+import io.github.michaelbui99.atlas.model.auth.RedditAuthStore
 import io.github.michaelbui99.atlas.model.auth.STATE
 
 class UserFragment : Fragment() {
@@ -30,6 +32,7 @@ class UserFragment : Fragment() {
         // Inflate the layout for this fragment
         userViewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
 
+
         val view: View
         if (!userViewModel.isLoggedIn.value!!) {
             view = setupLoginFragment(
@@ -43,8 +46,12 @@ class UserFragment : Fragment() {
         }
 
         view = inflater.inflate(R.layout.fragment_user, container, false)
+        // TODO: REMOVE THIS. FOR DEBUGGING ONLY
+        val nameTextView = view.findViewById<TextView>(R.id.textview_user_name)
+        nameTextView.text = RedditAuthStore.getAccessToken()?.accessToken
         return view;
     }
+
 
     private fun setupLoginFragment(
         viewModel: UserViewModel,
@@ -94,7 +101,9 @@ class UserFragment : Fragment() {
                 if (state == STATE) {
                     val code = uri.getQueryParameter("code")
                     Log.i("UserFragment", "User auth code: $code")
-                    userViewModel.userGrantsAuthPermissions(code!!)
+                    if (userViewModel.isLoggedIn.value == false) {
+                        userViewModel.userGrantsAuthPermissions(code!!)
+                    }
                 }
             }
         }

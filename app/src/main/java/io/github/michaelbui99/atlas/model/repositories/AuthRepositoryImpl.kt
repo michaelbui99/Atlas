@@ -17,22 +17,22 @@ object AuthRepositoryImpl : AuthRepository {
 
 
     override fun getAccessToken(): Flowable<AccessToken> {
-        if (authStore.authCode == null) {
+        if (authStore.getAuthCode()== null) {
             throw IllegalStateException("User has not completed auth flow")
         }
 
-        if (authStore.accessToken != null) {
-            return Flowable.just(authStore.accessToken!!)
+        if (authStore.getAccessToken()!= null) {
+            return Flowable.just(authStore.getAccessToken()!!)
         }
 
         return RedditAuthClient.getAuthAPI()
             .getAccessToken(
                 grantType = "authorization_code",
-                code = authStore.authCode!!,
+                code = authStore.getAuthCode()!!,
                 redirectUri = REDIRECT_URL
             )
             .flatMap {
-                this.authStore.accessToken =
+                this.authStore.storeAccessToken(
                     AccessToken(
                         it.accessToken,
                         it.tokenType,
@@ -40,24 +40,31 @@ object AuthRepositoryImpl : AuthRepository {
                         it.scope,
                         it.refreshToken
                     )
+                )
                 Flowable.just(
-                    authStore.accessToken!!
+                    authStore.getAccessToken()!!
                 )
             }
     }
 
 
     override fun hasAccessToken(): Boolean {
-        return authStore.accessToken != null
+        return authStore.getAccessToken() != null
     }
 
 
     override fun hasAuthCode(): Boolean {
-        return authStore.authCode != null
+        return authStore.getAuthCode() != null
     }
 
+
     override fun setAuthCode(authCode: String) {
-        authStore.authCode = authCode
+        authStore.storeAuthCode(authCode)
+    }
+
+
+    override fun userIsLoggedIn(): Boolean {
+        return authStore.userIsLoggedIn()
     }
 
 

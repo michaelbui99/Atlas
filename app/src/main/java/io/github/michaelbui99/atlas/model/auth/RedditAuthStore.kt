@@ -1,24 +1,39 @@
 package io.github.michaelbui99.atlas.model.auth
 
+import android.util.Log
+import java.lang.IllegalArgumentException
+
 object RedditAuthStore {
-    var accessToken: AccessToken? = null
-        set(value) {
-            isLoggedIn = value != null
-            field = value
-        }
+    private var accessToken: AccessToken? = null
+
+    private var isLoggedIn: Boolean = false
+
+    private var authCode: String? = null
 
 
-    var isLoggedIn: Boolean = false
-        set(value) {
-            // Can only be logged in, if user has a access token
-            if (accessToken != null && value) {
-                field = value
-            }
+    fun storeAuthCode(code: String) {
+        this.authCode = code
+    }
 
-            if (!value) {
-                field = value
-            }
-        }
 
-    var authCode: String? = null
+    fun storeAccessToken(token: AccessToken) {
+        Log.i("AuthStore", "Storing token & Setting isLoggedIn status")
+        this.isLoggedIn = true
+        this.accessToken = token
+        Log.i("AuthStore", "IsLoggedIn: ${this.isLoggedIn}")
+    }
+
+
+    fun userIsLoggedIn(): Boolean {
+        return this.isLoggedIn
+    }
+
+
+    fun getAuthCode(): String? {
+        return this.authCode
+    }
+
+    fun getAccessToken(): AccessToken? {
+        return this.accessToken
+    }
 }

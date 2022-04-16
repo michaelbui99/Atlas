@@ -1,7 +1,5 @@
 package io.github.michaelbui99.atlas.ui.home
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -9,11 +7,10 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.github.michaelbui99.atlas.R
-import io.github.michaelbui99.atlas.model.auth.STATE
+import io.github.michaelbui99.atlas.model.auth.RedditAuthStore
 import io.github.michaelbui99.atlas.model.domain.Subreddit
 import io.github.michaelbui99.atlas.ui.shared.OnItemClickListener
 
@@ -51,8 +48,8 @@ class HomeFragment : Fragment() {
 
 
         // Setup recycler view for default subreddits
-        var defaultSubreddits: MutableList<Subreddit> = viewModel.defaultSubreddits.value!!
-        viewModel.defaultSubreddits.observe(viewLifecycleOwner) {
+        var defaultSubreddits: MutableList<Subreddit> = viewModel.subscribedSubreddits.value!!
+        viewModel.subscribedSubreddits.observe(viewLifecycleOwner) {
             Log.i("HomeFragment", "Observed state change, size: ${it.size}")
             defaultSubreddits = it
         }
@@ -74,10 +71,16 @@ class HomeFragment : Fragment() {
         recyclerViewDefaultSubreddits.adapter =
             SubredditListAdapter(
                 lifecycleOwner = this,
-                defaultSubredditsLivedata = viewModel.defaultSubreddits,
-                defaultSubreddits = viewModel.defaultSubreddits.value!!,
+                subscribedSubredditsLivedata = viewModel.subscribedSubreddits,
+                subscribedSubreddits = viewModel.subscribedSubreddits.value!!,
                 listener = onSubredditItemClick
             )
         return rootView
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.updateSubreddits()
     }
 }
