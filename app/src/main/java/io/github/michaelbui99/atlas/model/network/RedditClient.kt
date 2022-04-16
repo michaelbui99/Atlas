@@ -14,8 +14,12 @@ import java.lang.IllegalStateException
 
 class RedditClient() {
 
-    fun redditAPI(): RedditAPI {
+    fun noAuthRedditAPI(): RedditAPI {
         return getNoAuthRedditAPI()
+    }
+
+    fun authRedditAPI(): RedditAPI {
+        return getAuthRedditAPI()
     }
 
 
@@ -37,7 +41,7 @@ class RedditClient() {
 
         fun getAuthRedditAPI(): RedditAPI {
             if (authRedditAPI == null) {
-                buildNoAuthRetrofit()
+                buildAuthRetrofit()
                 authRedditAPI = retrofit.create(RedditAPI::class.java)
             }
 
@@ -70,7 +74,7 @@ class RedditClient() {
          * www.oauth.reddit.com
          * */
         private fun buildAuthRetrofit() {
-            if (authStore.accessToken == null) {
+            if (authStore.getAccessToken() == null) {
                 throw IllegalStateException("Auth flow has not been completed yet, access token is missing")
             }
 
@@ -84,7 +88,7 @@ class RedditClient() {
                             chain.request().newBuilder()
                                 .addHeader(
                                     "authorization",
-                                    "Bearer ${authStore.accessToken!!.accessToken}"
+                                    "Bearer ${authStore.getAccessToken()!!.accessToken}"
                                 )
                                 .build()
                         )

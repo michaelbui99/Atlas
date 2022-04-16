@@ -1,25 +1,39 @@
 package io.github.michaelbui99.atlas.ui.user
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import io.github.michaelbui99.atlas.model.auth.RedditAuthStore
 import io.github.michaelbui99.atlas.model.repositories.AuthRepositoryImpl
 import io.reactivex.rxjava3.kotlin.subscribeBy
 
 class UserViewModel : ViewModel() {
-    private var accessToken: String? = null
     var isLoggedIn: MutableLiveData<Boolean> = MutableLiveData(false)
     var error: MutableLiveData<String> = MutableLiveData()
 
-    fun setLogin(value: Boolean) {
-        isLoggedIn.value = value;
-    }
+    /*
+    * TODO: FIX BUG --> There is currently a bug where user needs to navigate to user view after
+    *  granting permissions, since userGrantsAuthPermissions is first called in onResume
+    *  in UserFragment
+    * */
 
+    /**
+     * Passes the auth code to repository, where after code is used to retrieve access token
+     * and login state is updated
+     * This method is only called if user has granted the app the necessary permissions
+     *
+     * @param code The retrieved code after user grants the app permission.
+     *              Used for retrieving access token
+     * */
     fun userGrantsAuthPermissions(code: String) {
+        if (RedditAuthStore.getAuthCode() != null) {
+            return
+        }
+
         AuthRepositoryImpl.setAuthCode(code)
         AuthRepositoryImpl.getAccessToken().subscribeBy(
             onNext = {
-                this.accessToken = it.accessToken
-                isLoggedIn.postValue(true)
+                isLoggedIn.postValue(AuthRepositoryImpl.userIsLoggedIn())
             },
             onError = {
                 this.error.postValue(it.message.toString())
@@ -27,6 +41,13 @@ class UserViewModel : ViewModel() {
         )
     }
 
+
+    /**
+     * Fetches the url used to start the oauth flow, where user grants the app the necessary
+     * permissions
+     *
+     * @return Url used to start oauth flow
+     * */
     fun getAuthUrl(): String {
         return AuthRepositoryImpl.getAuthUrl()
     }

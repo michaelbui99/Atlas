@@ -9,4 +9,5 @@ interface AuthRepository {
     fun hasAccessToken(): Boolean
     fun hasAuthCode(): Boolean
     fun setAuthCode(authCode: String)
+    fun userIsLoggedIn(): Boolean
 }

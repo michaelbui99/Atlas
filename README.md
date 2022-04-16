@@ -20,7 +20,7 @@ The goal of the client is to provide a clean and customisable browse experience 
   discussion or express what I feel about the post.
 - [ ] As a user, I want to be able to search for a post in a subreddit, such that I can find posts
   that I am interested in.
-- [ ] As a user, I want to be able to view a list of the subreddits I am following, such that I know
+- [x] As a user, I want to be able to view a list of the subreddits I am following, such that I know
   which subredddits I have showed interest in.
 - [x] As a user, I want to be able to view a list of the default subreddits, such that I as a new
   user have a starting point to start exploring reddit.

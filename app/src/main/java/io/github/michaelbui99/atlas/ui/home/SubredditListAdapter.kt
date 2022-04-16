@@ -18,23 +18,21 @@ import io.github.michaelbui99.atlas.ui.shared.OnItemClickListener
 @SuppressLint("NotifyDataSetChanged")
 class SubredditListAdapter(
     private val lifecycleOwner: LifecycleOwner,
-    private val defaultSubredditsLivedata: MutableLiveData<MutableList<Subreddit>>,
-    private val defaultSubreddits: MutableList<Subreddit>,
+    private val subscribedSubredditsLivedata: MutableLiveData<MutableList<Subreddit>>,
+    private val subscribedSubreddits: MutableList<Subreddit>,
     val listener: OnItemClickListener
 ) :
     RecyclerView.Adapter<SubredditListAdapter.ViewHolder>() {
 
     init {
-        defaultSubredditsLivedata.observe(lifecycleOwner) {
-            if (defaultSubreddits.size <= 0) {
-                defaultSubreddits.clear()
-                defaultSubreddits.addAll(it)
-                defaultSubreddits.forEach { subreddit ->
-                    Log.i("SubredditAdapter", subreddit.displayName)
-                }
-                Log.i("SubredditAdapter", "UPDATED")
-                notifyDataSetChanged()
+        subscribedSubredditsLivedata.observe(lifecycleOwner) {
+            subscribedSubreddits.clear()
+            subscribedSubreddits.addAll(it)
+            subscribedSubreddits.forEach { subreddit ->
+                Log.i("SubredditAdapter", subreddit.displayName)
             }
+            Log.i("SubredditAdapter", "UPDATED")
+            notifyDataSetChanged()
         }
     }
 
@@ -46,15 +44,15 @@ class SubredditListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.name.text = defaultSubreddits[position].displayName
+        holder.name.text = subscribedSubreddits[position].displayName
 
-        Glide.with(holder.icon.context).load(defaultSubreddits[position].iconImageUrl)
+        Glide.with(holder.icon.context).load(subscribedSubreddits[position].iconImageUrl)
             .placeholder(R.drawable.ic_launcher_background)
             .into(holder.icon)
     }
 
     override fun getItemCount(): Int {
-        return defaultSubreddits.size
+        return subscribedSubreddits.size
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
