@@ -19,6 +19,7 @@ class RedditAuthClient {
         init {
             val interceptor = HttpLoggingInterceptor()
             interceptor.level = HttpLoggingInterceptor.Level.BODY
+
             val client = OkHttpClient.Builder().addInterceptor(interceptor)
                 .addInterceptor(object : Interceptor {
                     override fun intercept(chain: Interceptor.Chain): Response {
@@ -29,6 +30,7 @@ class RedditAuthClient {
                     }
                 }).build()
             val gson = GsonBuilder().setLenient().create()
+
             retrofit = Retrofit.Builder().baseUrl("https://reddit.com").client(client)
                 .addConverterFactory(
                     GsonConverterFactory.create(gson)
@@ -37,6 +39,7 @@ class RedditAuthClient {
                 )
                 .build()
         }
+
 
         fun getAuthAPI(): RedditAuthAPI {
             if (authAPI == null) {

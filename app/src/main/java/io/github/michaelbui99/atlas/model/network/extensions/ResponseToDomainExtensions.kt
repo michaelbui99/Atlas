@@ -30,6 +30,7 @@ fun DefaultSubredditsResponse.toDomainObject(): MutableList<Subreddit> {
     return defaultSubredditList
 }
 
+
 fun SubredditResponse.toDomainObject(): MutableList<SubredditPost> {
     val subredditPosts = mutableListOf<SubredditPost>()
 
@@ -57,6 +58,7 @@ fun SubredditResponse.toDomainObject(): MutableList<SubredditPost> {
     return subredditPosts
 }
 
+
 fun SubredditAboutResponse.toDomainObject(): SubredditAbout {
     return SubredditAbout(
         displayNamePrefixed = data.displayNamePrefixed,
@@ -66,6 +68,7 @@ fun SubredditAboutResponse.toDomainObject(): SubredditAbout {
         activeAccounts = data.activeAccounts
     )
 }
+
 
 fun SubredditPostDataResponse.toDomainObject(): SubredditPostData {
     return SubredditPostData(
