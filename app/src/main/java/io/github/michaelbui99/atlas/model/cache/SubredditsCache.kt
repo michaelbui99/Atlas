@@ -15,7 +15,7 @@ object SubredditsCache {
 
     /**
      * Adds a new Cache Entry. If a the cache already contains a subreddit with same name,
-     * then it's time to expire will be updated to: now + minutesToExpiration
+     * then its time to expire will be updated to: now + minutesToExpiration
      *
      * @param subreddit the Subreddit with are to be cached
      * @param minutesToExpiration How many minutes before the cache entry should expire
