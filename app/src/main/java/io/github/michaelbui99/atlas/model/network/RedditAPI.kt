@@ -65,4 +65,7 @@ interface RedditAPI {
     fun getSubscribedSubreddits(
         @Query("limit") limit: Int = 100
     ): Flowable<DefaultSubredditsResponse>
+
+    @GET("api/v1/me")
+    fun getMe(): Flowable<MeResponse>
 }

@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.github.michaelbui99.atlas.model.domain.SubredditPostData
-import io.github.michaelbui99.atlas.model.repositories.SubredditRepositoryImpl
+import io.github.michaelbui99.atlas.model.repositories.RedditRepositoryImpl
 import io.reactivex.rxjava3.kotlin.subscribeBy
 
 class SubredditPostDataViewModel : ViewModel() {
@@ -27,7 +27,7 @@ class SubredditPostDataViewModel : ViewModel() {
         if (subredditName.isNotBlank() && subredditName.isNotEmpty()
             && postId.isNotBlank() && postId.isNotEmpty()
         ) {
-            SubredditRepositoryImpl.getSubredditPostData(
+            RedditRepositoryImpl.getSubredditPostData(
                 subredditName = this.subredditName,
                 postId = this.postId
             ).subscribeBy(

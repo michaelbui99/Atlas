@@ -1,13 +1,11 @@
 package io.github.michaelbui99.atlas.ui.subreddit
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.github.michaelbui99.atlas.model.domain.SubredditAbout
 import io.github.michaelbui99.atlas.model.domain.SubredditPost
-import io.github.michaelbui99.atlas.model.repositories.SubredditRepositoryImpl
+import io.github.michaelbui99.atlas.model.repositories.RedditRepositoryImpl
 import io.reactivex.rxjava3.kotlin.subscribeBy
 
 class SubredditViewModel : ViewModel() {
@@ -34,7 +32,7 @@ class SubredditViewModel : ViewModel() {
     private fun fetchSubredditPosts() {
         if (currentSubreddit.isNotBlank() && currentSubreddit.isNotEmpty()) {
             Log.i("SubredditViewModel", "Fetching posts")
-            SubredditRepositoryImpl.getSubredditPosts(currentSubreddit).subscribeBy(
+            RedditRepositoryImpl.getSubredditPosts(currentSubreddit).subscribeBy(
                 onNext = {
                     it.forEach() { post ->
                         Log.i("SubredditViewModel", "Fetched post: ${post.postTitle}")
@@ -54,7 +52,7 @@ class SubredditViewModel : ViewModel() {
 
     private fun fetchSubredditAbout() {
         if (currentSubreddit.isNotBlank() && currentSubreddit.isNotEmpty()) {
-            SubredditRepositoryImpl.getSubredditAbout(currentSubreddit).subscribeBy(
+            RedditRepositoryImpl.getSubredditAbout(currentSubreddit).subscribeBy(
                 onNext = {
                     subredditAbout.postValue(it)
                 },
