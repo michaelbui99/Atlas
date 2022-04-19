@@ -28,9 +28,6 @@ class SubredditListAdapter(
         subscribedSubredditsLivedata.observe(lifecycleOwner) {
             subscribedSubreddits.clear()
             subscribedSubreddits.addAll(it)
-            subscribedSubreddits.forEach { subreddit ->
-                Log.i("SubredditAdapter", subreddit.displayName)
-            }
             Log.i("SubredditAdapter", "UPDATED")
             notifyDataSetChanged()
         }

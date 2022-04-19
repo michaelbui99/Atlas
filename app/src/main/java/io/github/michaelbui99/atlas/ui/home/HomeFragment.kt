@@ -40,6 +40,7 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+
         val recyclerViewMainSubreddits: RecyclerView =
             rootView.findViewById(R.id.recyclerview_subreddits_main)
         recyclerViewMainSubreddits.layoutManager = LinearLayoutManager(rootView.context)

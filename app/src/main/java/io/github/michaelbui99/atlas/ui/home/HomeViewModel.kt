@@ -6,22 +6,23 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import io.github.michaelbui99.atlas.R
 import io.github.michaelbui99.atlas.model.auth.RedditAuthStore
+import io.github.michaelbui99.atlas.model.cache.SubredditsCache
 import io.github.michaelbui99.atlas.model.domain.Subreddit
 import io.github.michaelbui99.atlas.model.repositories.AuthRepositoryImpl
 import io.github.michaelbui99.atlas.model.repositories.SubredditRepositoryImpl
 import io.reactivex.rxjava3.kotlin.subscribeBy
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
+    private val cache = SubredditsCache
     val mainSubreddits: MutableLiveData<MutableList<SubredditMainItem>> = MutableLiveData()
     val subscribedSubreddits: MutableLiveData<MutableList<Subreddit>> = MutableLiveData()
-    val authStore = RedditAuthStore
 
 
     init {
         Log.i("HomeViewModel", "CREATED")
         SubredditRepositoryImpl.getDefaultSubreddits()
         subscribedSubreddits.value = mutableListOf()
-        // TODO: Fetch main subreddits from Repository
+
         val mainSubredditsData: MutableList<SubredditMainItem> = mutableListOf(
             SubredditMainItem(
                 name = application.applicationContext.resources.getString(R.string.home),
@@ -49,13 +50,22 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
 
     private fun fetchDefaultSubreddits() {
+        if (cache.getCacheEntries().size > 0) {
+            subscribedSubreddits.postValue(cache.getCacheEntries())
+        }
+
         SubredditRepositoryImpl.getDefaultSubreddits().subscribeBy(
             onNext = {
-                Log.i("HomeViewModel", "Fetching subreddits")
-                it.forEach() { subreddit ->
-                    Log.i("HomeViewModel DEBUG", "Fetched: ${subreddit.displayName}")
+                it.forEach() { subreddit -> cache.addCacheEntry(subreddit, 60) }
+                subscribedSubreddits.postValue(cache.getCacheEntries())
+
+                if (it.size != cache.getCacheEntries().size) {
+                    Log.i(
+                        "D/HomeViewModel",
+                        "Fetched size: ${it.size}, Cache size: ${cache.getCacheEntries().size}"
+                    )
+                    subscribedSubreddits.postValue(it)
                 }
-                subscribedSubreddits.postValue(it)
             },
             onError = {
                 Log.e("HomeViewModel", "Failed to fetch default subreddits: ${it.message}")
@@ -68,9 +78,23 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
 
     private fun fetchSubscribedSubreddits() {
+        if (cache.getCacheEntries().size > 0) {
+            subscribedSubreddits.postValue(cache.getCacheEntries())
+        }
+
         SubredditRepositoryImpl.getSubscribedSubreddits().subscribeBy(
             onNext = {
-                subscribedSubreddits.postValue(it)
+                subscribedSubreddits.postValue(cache.getCacheEntries())
+
+                it.forEach() { subreddit -> cache.addCacheEntry(subreddit, 60) }
+                Log.i(
+                    "D/HomeViewModel",
+                    "Fetched size: ${it.size}, Cache size: ${cache.getCacheEntries().size}"
+                )
+
+                if (it.size != cache.getCacheEntries().size) {
+                    subscribedSubreddits.postValue(it)
+                }
             },
             onError = {
                 Log.e("HomeViewModel", "Failed to fetch subscribed subreddits: ${it.message}")
