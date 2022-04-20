@@ -9,7 +9,10 @@ import androidx.fragment.app.Fragment
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.marginTop
+import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import io.github.michaelbui99.atlas.MainActivity
@@ -70,9 +73,11 @@ class SubredditPostDataFragment : Fragment() {
                         R.color.primaryColor
                     )
                 )
-                textContentTextView.setOnClickListener {_->
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.mediaContent))
-                    startActivity(intent)
+                textContentTextView.setOnClickListener { _ ->
+                    if (it.mediaContent != null) {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.mediaContent))
+                        startActivity(intent)
+                    }
                 }
             } else {
                 textContentTextView.text = it.textContent
@@ -100,7 +105,7 @@ class SubredditPostDataFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.menuItem_refresh_subreddit){
+        if (item.itemId == R.id.menuItem_refresh_subreddit) {
             viewModel.refreshPostData()
         }
         return super.onOptionsItemSelected(item)

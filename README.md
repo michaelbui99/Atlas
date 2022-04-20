@@ -8,13 +8,15 @@ The goal of the client is to provide a clean and customisable browse experience 
 
 - [x] As a user, I want to be able to view a list of the posts of a subreddit, such that I can
   browse the subreddit.
-- [ ] As a user, I want to be able to view a list of posts from my followed subreddits, such that I
+- [x] As a user, I want to be able to view a list of posts from my followed subreddits, such that I
   can keep myself updated about what is happening the subreddits.
 - [x] As a user, I want to be able to view a list of the popular posts from reddit, such that I can
   see what is trending on reddit.
 - [x] As a user, I want to be able to view a post of a subreddit, such that I can read what the post
   is about.
-- [ ] As a user, I want to be able to view a post's comment, such that I can read what people think
+- [ ] As a user, I want to be able to search for subreddits, such that I can explore and follow new
+  subreddits.
+- [ ] As a user, I want to be able to view a post's comments, such that I can read what people think
   about the post.
 - [ ] As a user, I want to be able to add a comment to a post, such that I can participate in the
   discussion or express what I feel about the post.
@@ -24,8 +26,6 @@ The goal of the client is to provide a clean and customisable browse experience 
   which subredddits I have showed interest in.
 - [x] As a user, I want to be able to view a list of the default subreddits, such that I as a new
   user have a starting point to start exploring reddit.
-- [ ] As a user, I want to be able to search for subreddits, such that I can explore and follow new
-  subreddits.
 - [ ] As a user, I want to be able to follow a new subreddit, such that I can get updates from the
   subreddit.
 - [ ] As a user, I want to be able to unfollow a subreddit, such that I wont see posts of a

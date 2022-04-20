@@ -5,11 +5,10 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import io.github.michaelbui99.atlas.R
-import io.github.michaelbui99.atlas.model.auth.RedditAuthStore
 import io.github.michaelbui99.atlas.model.cache.SubredditsCache
 import io.github.michaelbui99.atlas.model.domain.Subreddit
 import io.github.michaelbui99.atlas.model.repositories.AuthRepositoryImpl
-import io.github.michaelbui99.atlas.model.repositories.SubredditRepositoryImpl
+import io.github.michaelbui99.atlas.model.repositories.RedditRepositoryImpl
 import io.reactivex.rxjava3.kotlin.subscribeBy
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
@@ -20,7 +19,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         Log.i("HomeViewModel", "CREATED")
-        SubredditRepositoryImpl.getDefaultSubreddits()
+        RedditRepositoryImpl.getDefaultSubreddits()
         subscribedSubreddits.value = mutableListOf()
 
         val mainSubredditsData: MutableList<SubredditMainItem> = mutableListOf(
@@ -54,7 +53,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             subscribedSubreddits.postValue(cache.getCacheEntries())
         }
 
-        SubredditRepositoryImpl.getDefaultSubreddits().subscribeBy(
+        RedditRepositoryImpl.getDefaultSubreddits().subscribeBy(
             onNext = {
                 it.forEach() { subreddit -> cache.addCacheEntry(subreddit, 60) }
                 subscribedSubreddits.postValue(cache.getCacheEntries())
@@ -82,7 +81,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             subscribedSubreddits.postValue(cache.getCacheEntries())
         }
 
-        SubredditRepositoryImpl.getSubscribedSubreddits().subscribeBy(
+        RedditRepositoryImpl.getSubscribedSubreddits().subscribeBy(
             onNext = {
                 subscribedSubreddits.postValue(cache.getCacheEntries())
 

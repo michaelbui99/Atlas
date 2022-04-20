@@ -1,13 +1,12 @@
 package io.github.michaelbui99.atlas.ui.subreddit
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import io.github.michaelbui99.atlas.model.domain.Subreddit
 import io.github.michaelbui99.atlas.model.domain.SubredditAbout
 import io.github.michaelbui99.atlas.model.domain.SubredditPost
-import io.github.michaelbui99.atlas.model.repositories.SubredditRepositoryImpl
+import io.github.michaelbui99.atlas.model.repositories.RedditRepositoryImpl
 import io.reactivex.rxjava3.kotlin.subscribeBy
 
 class SubredditViewModel : ViewModel() {
@@ -20,25 +19,41 @@ class SubredditViewModel : ViewModel() {
     fun setCurrentSubreddit(subredditName: String) {
         Log.i("SubredditViewModel", "Setting current subreddit to: $subredditName")
         currentSubreddit = subredditName
-        fetchSubredditPosts()
-        fetchSubredditAbout()
+
+        if (currentSubreddit == "home") {
+            getFrontPagePosts()
+            subredditAbout.postValue(
+                SubredditAbout(
+                    displayNamePrefixed = "r/",
+                    description = "Aggregated posts from your subscribed subreddits",
+                    subscribers = 0,
+                    activeAccounts = 0,
+                    iconImage = null
+                )
+            )
+            return
+        }
+
+        getSubredditPosts()
+        getSubredditAbout()
     }
 
-    fun refreshSubreddit(){
-
+    fun refreshSubreddit() {
+        if (currentSubreddit == "home") {
+            getFrontPagePosts()
+            getFrontPageAbout()
+            return
+        }
         Log.i("SubredditViewModel", "Refreshing")
-        fetchSubredditPosts()
-        fetchSubredditAbout()
+        getSubredditPosts()
+        getSubredditAbout()
     }
 
-    private fun fetchSubredditPosts() {
+    private fun getSubredditPosts() {
         if (currentSubreddit.isNotBlank() && currentSubreddit.isNotEmpty()) {
             Log.i("SubredditViewModel", "Fetching posts")
-            SubredditRepositoryImpl.getSubredditPosts(currentSubreddit).subscribeBy(
+            RedditRepositoryImpl.getSubredditPosts(currentSubreddit).subscribeBy(
                 onNext = {
-                    it.forEach() { post ->
-                        Log.i("SubredditViewModel", "Fetched post: ${post.postTitle}")
-                    }
                     subredditPosts.postValue(it)
                 },
                 onError = {
@@ -52,9 +67,42 @@ class SubredditViewModel : ViewModel() {
         }
     }
 
-    private fun fetchSubredditAbout() {
+
+    private fun getFrontPagePosts() {
         if (currentSubreddit.isNotBlank() && currentSubreddit.isNotEmpty()) {
-            SubredditRepositoryImpl.getSubredditAbout(currentSubreddit).subscribeBy(
+            Log.i("SubredditViewModel", "Fetching posts")
+            RedditRepositoryImpl.getMeFrontPage().subscribeBy(
+                onNext = {
+                    subredditPosts.postValue(it)
+                },
+                onError = {
+                    Log.e("SubredditViewModel", "Failed to fetch subreddits posts: $it")
+                    error.postValue("Something went wrong... try again later")
+                },
+                onComplete = {
+                    Log.i("SubredditViewModel", "Fetched all posts")
+                }
+            )
+        }
+    }
+
+
+    private fun getFrontPageAbout() {
+        subredditAbout.postValue(
+            SubredditAbout(
+                displayNamePrefixed = "r/",
+                description = "Aggregated posts from your subscribed subreddits",
+                subscribers = 0,
+                activeAccounts = 0,
+                iconImage = null
+            )
+        )
+    }
+
+
+    private fun getSubredditAbout() {
+        if (currentSubreddit.isNotBlank() && currentSubreddit.isNotEmpty()) {
+            RedditRepositoryImpl.getSubredditAbout(currentSubreddit).subscribeBy(
                 onNext = {
                     subredditAbout.postValue(it)
                 },

@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import io.github.michaelbui99.atlas.R
 import io.github.michaelbui99.atlas.model.auth.RedditAuthStore
 import io.github.michaelbui99.atlas.model.auth.STATE
+import io.github.michaelbui99.atlas.model.repositories.RedditRepositoryImpl
 
 class UserFragment : Fragment() {
     private lateinit var userViewModel: UserViewModel
@@ -32,7 +33,6 @@ class UserFragment : Fragment() {
         // Inflate the layout for this fragment
         userViewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
 
-
         val view: View
         if (!userViewModel.isLoggedIn.value!!) {
             view = setupLoginFragment(
@@ -46,9 +46,12 @@ class UserFragment : Fragment() {
         }
 
         view = inflater.inflate(R.layout.fragment_user, container, false)
-        // TODO: REMOVE THIS. FOR DEBUGGING ONLY
+
         val nameTextView = view.findViewById<TextView>(R.id.textview_user_name)
-        nameTextView.text = RedditAuthStore.getAccessToken()?.accessToken
+
+        userViewModel.user.observe(viewLifecycleOwner){
+            nameTextView.text = it?.displayName
+        }
         return view;
     }
 
@@ -90,6 +93,8 @@ class UserFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+
+        // Handling of oauth grant
         if (requireActivity().intent != null && requireActivity().intent.action == Intent.ACTION_VIEW) {
             Log.i("UserFragment", "RESUMED")
             val uri: Uri = requireActivity().intent.data!!

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.github.michaelbui99.atlas.R
+import io.github.michaelbui99.atlas.model.repositories.RedditRepositoryImpl
 
 
 class SearchFragment : Fragment() {

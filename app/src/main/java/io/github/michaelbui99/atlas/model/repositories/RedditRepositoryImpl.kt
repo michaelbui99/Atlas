@@ -1,10 +1,7 @@
 package io.github.michaelbui99.atlas.model.repositories
 
 import android.util.Log
-import io.github.michaelbui99.atlas.model.domain.Subreddit
-import io.github.michaelbui99.atlas.model.domain.SubredditAbout
-import io.github.michaelbui99.atlas.model.domain.SubredditPost
-import io.github.michaelbui99.atlas.model.domain.SubredditPostData
+import io.github.michaelbui99.atlas.model.domain.*
 import io.github.michaelbui99.atlas.model.network.RedditClient
 import io.github.michaelbui99.atlas.model.network.extensions.toDomainObject
 import io.github.michaelbui99.atlas.model.network.responseobjects.SubredditPostDataResponse
@@ -12,7 +9,7 @@ import io.github.michaelbui99.atlas.model.util.convertUnixToLocalDate
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-object SubredditRepositoryImpl : SubredditRepository {
+object RedditRepositoryImpl : RedditRepository {
     private val redditClient: RedditClient = RedditClient()
 
 
@@ -66,5 +63,24 @@ object SubredditRepositoryImpl : SubredditRepository {
             .flatMap {
                 Flowable.just(it.toDomainObject())
             }
+    }
+
+    override fun getMe(): Flowable<User> {
+        return redditClient.authRedditAPI().getMe().subscribeOn(Schedulers.io()).flatMap {
+            Flowable.just(it.toDomainObject())
+        }
+    }
+
+
+    override fun getMeFrontPage(): Flowable<MutableList<SubredditPost>> {
+        return if (AuthRepositoryImpl.userIsLoggedIn()){
+            redditClient.authRedditAPI().getMeFrontPage().subscribeOn(Schedulers.io()).flatMap {
+                Flowable.just(it.toDomainObject())
+            }
+        }else{
+            redditClient.noAuthRedditAPI().getMeFrontPage().subscribeOn(Schedulers.io()).flatMap {
+                Flowable.just(it.toDomainObject())
+            }
+        }
     }
 }

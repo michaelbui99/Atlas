@@ -38,6 +38,11 @@ class HomeFragment : Fragment() {
                     Navigation.findNavController(view!!)
                         .navigate(R.id.view_subreddit, bundleOf(Pair("SubredditName", "popular")))
                 }
+
+                if (mainSubreddits[position].name.lowercase() == "home") {
+                    Navigation.findNavController(view!!)
+                        .navigate(R.id.view_subreddit, bundleOf(Pair("SubredditName", "home")))
+                }
             }
         }
 

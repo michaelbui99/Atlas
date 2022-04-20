@@ -1,13 +1,8 @@
 package io.github.michaelbui99.atlas.model.network.extensions
 
-import io.github.michaelbui99.atlas.model.domain.Subreddit
-import io.github.michaelbui99.atlas.model.domain.SubredditAbout
-import io.github.michaelbui99.atlas.model.domain.SubredditPost
-import io.github.michaelbui99.atlas.model.domain.SubredditPostData
-import io.github.michaelbui99.atlas.model.network.responseobjects.DefaultSubredditsResponse
-import io.github.michaelbui99.atlas.model.network.responseobjects.SubredditAboutResponse
-import io.github.michaelbui99.atlas.model.network.responseobjects.SubredditPostDataResponse
-import io.github.michaelbui99.atlas.model.network.responseobjects.SubredditResponse
+import io.github.michaelbui99.atlas.model.domain.*
+import io.github.michaelbui99.atlas.model.network.responseobjects.*
+import io.github.michaelbui99.atlas.model.util.convertUnixToLocalDate
 
 fun DefaultSubredditsResponse.toDomainObject(): MutableList<Subreddit> {
     val defaultSubredditList = mutableListOf<Subreddit>()
@@ -78,5 +73,14 @@ fun SubredditPostDataResponse.toDomainObject(): SubredditPostData {
         subredditName = data[0].data.children[0].data.subreddit,
         postAuthor = data[0].data.children[0].data.author,
         mediaContent = data[0].data.children[0].data.urlOverriddenByDest
+    )
+}
+
+fun MeResponse.toDomainObject(): User {
+    return User(
+        displayName = name,
+        iconUrl = iconImageUrl,
+        karmaCount = totalKarma,
+        createdUtc = convertUnixToLocalDate(createdUtc)
     )
 }
