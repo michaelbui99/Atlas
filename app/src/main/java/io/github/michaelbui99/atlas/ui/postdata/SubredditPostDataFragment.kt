@@ -14,6 +14,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.marginTop
 import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import io.github.michaelbui99.atlas.MainActivity
 import io.github.michaelbui99.atlas.R
@@ -51,6 +53,11 @@ class SubredditPostDataFragment : Fragment() {
         val mediaContentImageView =
             rootView.findViewById<ImageView>(R.id.imageview_postData_mediaContent)
 
+        val recyclerView = rootView.findViewById<RecyclerView>(R.id.recyclerview_postData_comments)
+        recyclerView.adapter = CommentAdapter()
+        recyclerView.layoutManager = LinearLayoutManager(rootView.context)
+        recyclerView.isNestedScrollingEnabled = false
+
         viewModel.error.observe(viewLifecycleOwner) {
             Toast.makeText(this.context, it, Toast.LENGTH_SHORT).show()
         }
@@ -87,8 +94,11 @@ class SubredditPostDataFragment : Fragment() {
             val authorText = "by ${it.postAuthor}"
             authorNameTextView.text = authorText
             Glide.with(this).load(it.mediaContent).into(mediaContentImageView)
-        }
 
+            if (it.topLevelComments != null) {
+                (recyclerView.adapter as CommentAdapter).setComments(it.topLevelComments!!)
+            }
+        }
 
         return rootView
     }

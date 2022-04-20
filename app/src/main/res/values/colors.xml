@@ -5,6 +5,7 @@
     <color name="matte_black">#222</color>
     <color name="red">#AA2323</color>
     <color name="orange">#DA6409</color>
+    <color name="primaryBlueLight">#63a4ff</color>
 
     <!--  LIGHT THEME PALETTE-->
     <color name="primaryColor">#1976d2</color>

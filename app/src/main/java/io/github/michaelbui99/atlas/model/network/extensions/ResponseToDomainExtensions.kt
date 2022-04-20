@@ -66,13 +66,26 @@ fun SubredditAboutResponse.toDomainObject(): SubredditAbout {
 
 
 fun SubredditPostDataResponse.toDomainObject(): SubredditPostData {
+    val topLevelComments = mutableListOf<Comment>()
+    data[1].data.children.forEach {
+        topLevelComments.add(
+            Comment(
+                depth = it.data.depth,
+                author = it.data.author,
+                score = it.data.score,
+                commentText = it.data.body
+            )
+        )
+    }
+
     return SubredditPostData(
         title = data[0].data.children[0].data.title,
         linkFlairText = data[0].data.children[0].data.linkFlairText,
         textContent = data[0].data.children[0].data.selfText,
         subredditName = data[0].data.children[0].data.subreddit,
         postAuthor = data[0].data.children[0].data.author,
-        mediaContent = data[0].data.children[0].data.urlOverriddenByDest
+        mediaContent = data[0].data.children[0].data.urlOverriddenByDest,
+        topLevelComments = topLevelComments
     )
 }
 
