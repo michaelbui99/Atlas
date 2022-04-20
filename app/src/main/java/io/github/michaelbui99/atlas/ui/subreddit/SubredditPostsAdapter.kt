@@ -42,6 +42,10 @@ class SubredditPostsAdapter(private var posts: List<SubredditPost>) :
 
         if (posts[position].thumbnailUrl != null) {
             Glide.with(holder.thumbnail.context).load(posts[position].thumbnailUrl)
+                .placeholder(R.drawable.ic_baseline_image_24)
+                .into(holder.thumbnail)
+        } else {
+            Glide.with(holder.thumbnail.context).load(R.drawable.ic_baseline_image_24)
                 .into(holder.thumbnail)
         }
 

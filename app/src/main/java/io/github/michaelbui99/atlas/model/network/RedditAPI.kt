@@ -66,6 +66,18 @@ interface RedditAPI {
         @Query("limit") limit: Int = 100
     ): Flowable<DefaultSubredditsResponse>
 
+
+    /**
+     * Fetches authenticated user's identity
+     * */
     @GET("api/v1/me")
     fun getMe(): Flowable<MeResponse>
+
+
+    /**
+     * Fetches authenticated user's front page posts, which are aggregated posts
+     * from the user's subscribed subreddits
+     * */
+    @GET(".json")
+    fun getMeFrontPage(@Query("limit") limit: Long = 100): Flowable<SubredditResponse>
 }

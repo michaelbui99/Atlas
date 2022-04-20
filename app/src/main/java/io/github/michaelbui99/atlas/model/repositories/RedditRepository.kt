@@ -11,4 +11,5 @@ interface RedditRepository {
     fun getSubredditAbout(subreddit: String): Flowable<SubredditAbout>
     fun getSubscribedSubreddits(): Flowable<MutableList<Subreddit>>
     fun getMe(): Flowable<User>
+    fun getMeFrontPage(): Flowable<MutableList<SubredditPost>>
 }

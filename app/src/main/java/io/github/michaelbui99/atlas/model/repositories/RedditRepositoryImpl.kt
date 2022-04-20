@@ -70,4 +70,17 @@ object RedditRepositoryImpl : RedditRepository {
             Flowable.just(it.toDomainObject())
         }
     }
+
+
+    override fun getMeFrontPage(): Flowable<MutableList<SubredditPost>> {
+        return if (AuthRepositoryImpl.userIsLoggedIn()){
+            redditClient.authRedditAPI().getMeFrontPage().subscribeOn(Schedulers.io()).flatMap {
+                Flowable.just(it.toDomainObject())
+            }
+        }else{
+            redditClient.noAuthRedditAPI().getMeFrontPage().subscribeOn(Schedulers.io()).flatMap {
+                Flowable.just(it.toDomainObject())
+            }
+        }
+    }
 }
