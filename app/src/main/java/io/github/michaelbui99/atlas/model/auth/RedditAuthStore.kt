@@ -16,11 +16,14 @@ object RedditAuthStore {
     }
 
 
-    fun storeAccessToken(token: AccessToken) {
-        Log.i("AuthStore", "Storing token & Setting isLoggedIn status")
-        this.isLoggedIn = true
+    fun storeAccessToken(token: AccessToken?) {
         this.accessToken = token
-        Log.i("AuthStore", "IsLoggedIn: ${this.isLoggedIn}")
+
+        if (token == null){
+            this.isLoggedIn = false
+        }
+
+        this.isLoggedIn = true
     }
 
 
