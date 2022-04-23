@@ -16,6 +16,10 @@ import io.github.michaelbui99.atlas.R
 import io.github.michaelbui99.atlas.model.auth.RedditAuthStore
 import io.github.michaelbui99.atlas.model.auth.STATE
 import io.github.michaelbui99.atlas.model.repositories.RedditRepositoryImpl
+import io.github.michaelbui99.atlas.model.util.getMonthsBetweenLocalDateTimes
+import java.math.BigDecimal
+import java.math.RoundingMode
+import java.time.LocalDateTime
 
 class UserFragment : Fragment() {
     private lateinit var userViewModel: UserViewModel
@@ -48,10 +52,15 @@ class UserFragment : Fragment() {
         view = inflater.inflate(R.layout.fragment_user, container, false)
 
         val nameTextView = view.findViewById<TextView>(R.id.textview_user_name)
+        val karmaCountTextView = view.findViewById<TextView>(R.id.textview_user_karmaCount)
+        val accountAgeTextView = view.findViewById<TextView>(R.id.textview_user_accountAge)
 
-        userViewModel.user.observe(viewLifecycleOwner){
+        userViewModel.user.observe(viewLifecycleOwner) {
             nameTextView.text = it?.displayName
+            karmaCountTextView.text = getFormattedKarmaCount(it?.karmaCount)
+            accountAgeTextView.text = getFormattedAccountAgeText(it?.createdUtc)
         }
+
         return view;
     }
 
@@ -113,4 +122,31 @@ class UserFragment : Fragment() {
             }
         }
     }
+}
+
+
+private fun getFormattedAccountAgeText(createdDate: LocalDateTime?): String {
+    if (createdDate == null) {
+        return "0y 0m"
+    }
+
+    val monthsSinceAccountCreation =
+        getMonthsBetweenLocalDateTimes(createdDate, LocalDateTime.now())
+
+    val years = (monthsSinceAccountCreation / 12)
+    val months = monthsSinceAccountCreation % 12
+
+    return "${years}y ${months}m"
+}
+
+private fun getFormattedKarmaCount(karmaCount: Long?): String {
+    if (karmaCount == null) {
+        return "0"
+    }
+
+    if (karmaCount > 1000) {
+        return "${BigDecimal(karmaCount.toDouble() / 1000.0).setScale(1, RoundingMode.HALF_UP)}k"
+    }
+
+    return karmaCount.toString()
 }

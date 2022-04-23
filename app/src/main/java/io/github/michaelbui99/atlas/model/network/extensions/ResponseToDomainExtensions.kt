@@ -2,7 +2,7 @@ package io.github.michaelbui99.atlas.model.network.extensions
 
 import io.github.michaelbui99.atlas.model.domain.*
 import io.github.michaelbui99.atlas.model.network.responseobjects.*
-import io.github.michaelbui99.atlas.model.util.convertUnixToLocalDate
+import io.github.michaelbui99.atlas.model.util.convertUnixToLocalDateTime
 
 fun DefaultSubredditsResponse.toDomainObject(): MutableList<Subreddit> {
     val defaultSubredditList = mutableListOf<Subreddit>()
@@ -94,6 +94,6 @@ fun MeResponse.toDomainObject(): User {
         displayName = name,
         iconUrl = iconImageUrl,
         karmaCount = totalKarma,
-        createdUtc = convertUnixToLocalDate(createdUtc)
+        createdUtc = convertUnixToLocalDateTime(createdUtc)
     )
 }

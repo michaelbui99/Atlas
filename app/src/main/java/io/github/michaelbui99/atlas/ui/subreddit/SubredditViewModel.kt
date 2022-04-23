@@ -8,6 +8,7 @@ import io.github.michaelbui99.atlas.model.domain.SubredditAbout
 import io.github.michaelbui99.atlas.model.domain.SubredditPost
 import io.github.michaelbui99.atlas.model.repositories.RedditRepositoryImpl
 import io.reactivex.rxjava3.kotlin.subscribeBy
+import java.io.FileNotFoundException
 
 class SubredditViewModel : ViewModel() {
     val subredditPosts: MutableLiveData<MutableList<SubredditPost>> = MutableLiveData()
@@ -77,7 +78,7 @@ class SubredditViewModel : ViewModel() {
                 },
                 onError = {
                     Log.e("SubredditViewModel", "Failed to fetch subreddits posts: $it")
-                    error.postValue("Something went wrong... try again later")
+                    error.postValue("Something might have went wrong...: ${it.message}")
                 },
                 onComplete = {
                     Log.i("SubredditViewModel", "Fetched all posts")
