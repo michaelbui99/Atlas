@@ -1,8 +1,10 @@
 package io.github.michaelbui99.atlas.model.repositories
 
 import io.github.michaelbui99.atlas.model.domain.*
+import io.github.michaelbui99.atlas.model.network.responseobjects.DefaultSubredditsResponse
 import io.github.michaelbui99.atlas.model.network.responseobjects.SubredditPostDataResponse
 import io.reactivex.rxjava3.core.Flowable
+import retrofit2.http.Query
 
 interface RedditRepository {
     fun getDefaultSubreddits(): Flowable<MutableList<Subreddit>>
@@ -12,4 +14,7 @@ interface RedditRepository {
     fun getSubscribedSubreddits(): Flowable<MutableList<Subreddit>>
     fun getMe(): Flowable<User>
     fun getMeFrontPage(): Flowable<MutableList<SubredditPost>>
+    fun searchForSubreddits(
+        @Query("q") searchQuery: String = "",
+    ): Flowable<MutableList<Subreddit>>
 }

@@ -4,6 +4,7 @@ import io.github.michaelbui99.atlas.model.network.responseobjects.*
 import io.reactivex.rxjava3.core.Flowable
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 import java.util.concurrent.Flow
@@ -77,7 +78,22 @@ interface RedditAPI {
     /**
      * Fetches authenticated user's front page posts, which are aggregated posts
      * from the user's subscribed subreddits
+     *
+     * @param limit limit of how many subreddits are to be fetched
      * */
     @GET(".json")
     fun getMeFrontPage(@Query("limit") limit: Long = 100): Flowable<SubredditResponse>
+
+
+    /**
+     * Searches for subreddits that matches the search query
+     *
+     * @param searchQuery search query used for finding related subreddits
+     * @param type type of query. Should NOT be changed from the default
+     * */
+    @GET("search/.json")
+    fun searchForSubreddits(
+        @Query("q") searchQuery: String = "",
+        @Query("type") type: String = "sr"
+    ): Flowable<DefaultSubredditsResponse>
 }
