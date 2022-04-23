@@ -1,4 +1,4 @@
-package io.github.michaelbui99.atlas.ui.home
+package io.github.michaelbui99.atlas.ui.shared
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import io.github.michaelbui99.atlas.R
 import io.github.michaelbui99.atlas.model.domain.Subreddit
-import io.github.michaelbui99.atlas.ui.shared.OnItemClickListener
 
 @SuppressLint("NotifyDataSetChanged")
 class SubredditListAdapter(

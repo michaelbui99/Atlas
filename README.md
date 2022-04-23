@@ -14,7 +14,7 @@ The goal of the client is to provide a clean and customisable browse experience 
   see what is trending on reddit.
 - [x] As a user, I want to be able to view a post of a subreddit, such that I can read what the post
   is about.
-- [ ] As a user, I want to be able to search for subreddits, such that I can explore and follow new
+- [x] As a user, I want to be able to search for subreddits, such that I can explore and follow new
   subreddits.
 - [ ] As a user, I want to be able to view a post's comments, such that I can read what people think
   about the post.

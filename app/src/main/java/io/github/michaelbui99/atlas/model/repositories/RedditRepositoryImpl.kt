@@ -30,7 +30,8 @@ object RedditRepositoryImpl : RedditRepository {
             .subscribeOn(Schedulers.io()).flatMap {
                 val posts = it.toDomainObject()
                 posts.forEach { post ->
-                    post.createdUTC = convertUnixToLocalDateTime(post.createdUTC.toLong()).toString()
+                    post.createdUTC =
+                        convertUnixToLocalDateTime(post.createdUTC.toLong()).toString()
                 }
                 Flowable.just(posts)
             }
@@ -73,11 +74,11 @@ object RedditRepositoryImpl : RedditRepository {
 
 
     override fun getMeFrontPage(): Flowable<MutableList<SubredditPost>> {
-        return if (AuthRepositoryImpl.userIsLoggedIn()){
+        return if (AuthRepositoryImpl.userIsLoggedIn()) {
             redditClient.authRedditAPI().getMeFrontPage().subscribeOn(Schedulers.io()).flatMap {
                 Flowable.just(it.toDomainObject())
             }
-        }else{
+        } else {
             redditClient.noAuthRedditAPI().getMeFrontPage().subscribeOn(Schedulers.io()).flatMap {
                 Flowable.just(it.toDomainObject())
             }
@@ -87,9 +88,12 @@ object RedditRepositoryImpl : RedditRepository {
 
     override fun searchForSubreddits(
         searchQuery: String,
-        exactMatchesOnly: Boolean,
-        includeOver18Results: Boolean
     ): Flowable<MutableList<Subreddit>> {
-        TODO("Implement this")
+        return redditClient.noAuthRedditAPI()
+            .searchForSubreddits(searchQuery = searchQuery, type = "sr")
+            .subscribeOn(Schedulers.io()).flatMap {
+                Flowable.just(it.toDomainObject())
+            }
     }
+
 }

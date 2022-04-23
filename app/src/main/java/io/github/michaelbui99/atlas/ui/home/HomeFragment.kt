@@ -10,9 +10,9 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.github.michaelbui99.atlas.R
-import io.github.michaelbui99.atlas.model.auth.RedditAuthStore
 import io.github.michaelbui99.atlas.model.domain.Subreddit
 import io.github.michaelbui99.atlas.ui.shared.OnItemClickListener
+import io.github.michaelbui99.atlas.ui.shared.SubredditListAdapter
 
 class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel

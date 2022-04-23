@@ -78,16 +78,22 @@ interface RedditAPI {
     /**
      * Fetches authenticated user's front page posts, which are aggregated posts
      * from the user's subscribed subreddits
+     *
+     * @param limit limit of how many subreddits are to be fetched
      * */
     @GET(".json")
     fun getMeFrontPage(@Query("limit") limit: Long = 100): Flowable<SubredditResponse>
 
 
-    @POST("api/search_subreddits")
+    /**
+     * Searches for subreddits that matches the search query
+     *
+     * @param searchQuery search query used for finding related subreddits
+     * @param type type of query. Should NOT be changed from the default
+     * */
+    @GET("search/.json")
     fun searchForSubreddits(
-        @Query("limit") limit: Long = 100,
-        @Query("query") searchQuery: String = "",
-        @Query("include_over_18") includeOver18Results: Boolean = false,
-        @Query("exact") exactMatchesOnly: Boolean = false,
-    ):Flowable<DefaultSubredditsResponse>
+        @Query("q") searchQuery: String = "",
+        @Query("type") type: String = "sr"
+    ): Flowable<DefaultSubredditsResponse>
 }
