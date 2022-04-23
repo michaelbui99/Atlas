@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -47,6 +48,15 @@ class SearchFragment : Fragment() {
 
     private fun initViewModel() {
         this.viewModel = ViewModelProvider(requireActivity()).get(SearchViewModel::class.java)
+        this.viewModel.resultMessage.observe(viewLifecycleOwner) {
+            if (it != null) {
+                Toast.makeText(
+                    requireContext(),
+                    it,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 
     private fun initViews(rootView: View) {
