@@ -9,9 +9,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import io.github.michaelbui99.atlas.R
 import io.github.michaelbui99.atlas.model.auth.RedditAuthStore
 import io.github.michaelbui99.atlas.model.auth.STATE
@@ -54,11 +56,13 @@ class UserFragment : Fragment() {
         val nameTextView = view.findViewById<TextView>(R.id.textview_user_name)
         val karmaCountTextView = view.findViewById<TextView>(R.id.textview_user_karmaCount)
         val accountAgeTextView = view.findViewById<TextView>(R.id.textview_user_accountAge)
+        val iconImageView = view.findViewById<ImageView>(R.id.imageview_user_icon)
 
         userViewModel.user.observe(viewLifecycleOwner) {
             nameTextView.text = it?.displayName
             karmaCountTextView.text = getFormattedKarmaCount(it?.karmaCount)
             accountAgeTextView.text = getFormattedAccountAgeText(it?.createdUtc)
+            loadIconWithGlide(requireView(), iconImageView, it?.iconUrl)
         }
 
         return view;
@@ -149,4 +153,8 @@ private fun getFormattedKarmaCount(karmaCount: Long?): String {
     }
 
     return karmaCount.toString()
+}
+
+private fun loadIconWithGlide(view: View, imageView: ImageView, iconUrl: String?) {
+    Glide.with(view).load(iconUrl).placeholder(R.drawable.ic_baseline_person_24).into(imageView)
 }
