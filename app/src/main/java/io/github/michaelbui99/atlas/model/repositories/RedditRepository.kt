@@ -12,4 +12,9 @@ interface RedditRepository {
     fun getSubscribedSubreddits(): Flowable<MutableList<Subreddit>>
     fun getMe(): Flowable<User>
     fun getMeFrontPage(): Flowable<MutableList<SubredditPost>>
+    fun searchForSubreddits(
+        searchQuery: String = "",
+        exactMatchesOnly: Boolean = false,
+        includeOver18Results: Boolean = false
+    ): Flowable<MutableList<Subreddit>>
 }

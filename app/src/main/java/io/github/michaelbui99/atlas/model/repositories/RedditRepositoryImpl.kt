@@ -83,4 +83,13 @@ object RedditRepositoryImpl : RedditRepository {
             }
         }
     }
+
+
+    override fun searchForSubreddits(
+        searchQuery: String,
+        exactMatchesOnly: Boolean,
+        includeOver18Results: Boolean
+    ): Flowable<MutableList<Subreddit>> {
+        TODO("Implement this")
+    }
 }

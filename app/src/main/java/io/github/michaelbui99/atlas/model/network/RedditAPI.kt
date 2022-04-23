@@ -4,6 +4,7 @@ import io.github.michaelbui99.atlas.model.network.responseobjects.*
 import io.reactivex.rxjava3.core.Flowable
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 import java.util.concurrent.Flow
@@ -80,4 +81,13 @@ interface RedditAPI {
      * */
     @GET(".json")
     fun getMeFrontPage(@Query("limit") limit: Long = 100): Flowable<SubredditResponse>
+
+
+    @POST("api/search_subreddits")
+    fun searchForSubreddits(
+        @Query("limit") limit: Long = 100,
+        @Query("query") searchQuery: String = "",
+        @Query("include_over_18") includeOver18Results: Boolean = false,
+        @Query("exact") exactMatchesOnly: Boolean = false,
+    ):Flowable<DefaultSubredditsResponse>
 }
