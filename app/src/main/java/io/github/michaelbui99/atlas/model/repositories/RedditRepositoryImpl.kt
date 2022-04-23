@@ -5,7 +5,7 @@ import io.github.michaelbui99.atlas.model.domain.*
 import io.github.michaelbui99.atlas.model.network.RedditClient
 import io.github.michaelbui99.atlas.model.network.extensions.toDomainObject
 import io.github.michaelbui99.atlas.model.network.responseobjects.SubredditPostDataResponse
-import io.github.michaelbui99.atlas.model.util.convertUnixToLocalDate
+import io.github.michaelbui99.atlas.model.util.convertUnixToLocalDateTime
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
@@ -30,7 +30,7 @@ object RedditRepositoryImpl : RedditRepository {
             .subscribeOn(Schedulers.io()).flatMap {
                 val posts = it.toDomainObject()
                 posts.forEach { post ->
-                    post.createdUTC = convertUnixToLocalDate(post.createdUTC.toLong()).toString()
+                    post.createdUTC = convertUnixToLocalDateTime(post.createdUTC.toLong()).toString()
                 }
                 Flowable.just(posts)
             }
