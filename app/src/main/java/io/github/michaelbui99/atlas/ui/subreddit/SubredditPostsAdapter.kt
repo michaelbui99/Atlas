@@ -51,7 +51,7 @@ class SubredditPostsAdapter(private var posts: List<SubredditPost>) :
 
         var upvoteCount = ""
         upvoteCount = if (posts[position].postScore >= 1000) {
-            "${posts[position].upVoteCount % 1000}k"
+            "${posts[position].upVoteCount / 1000}k"
         } else {
             posts[position].postScore.toString()
         }

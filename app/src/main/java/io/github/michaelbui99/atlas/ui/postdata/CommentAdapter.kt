@@ -28,7 +28,7 @@ class CommentAdapter : RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() 
         holder.authorNameTextView.text = comments[position].author
 
         val commentScoreDisplayText = if (comments[position].score > 1000) {
-            "${comments[position].score % 1000}k"
+            "${comments[position].score / 1000}k"
         } else {
             comments[position].score.toString()
         }
