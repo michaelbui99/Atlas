@@ -1,5 +1,6 @@
 package io.github.michaelbui99.atlas.ui.search
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.github.michaelbui99.atlas.model.domain.Subreddit
@@ -13,6 +14,9 @@ class SearchViewModel : ViewModel() {
     val searchResults: MutableLiveData<MutableList<Subreddit>> = MutableLiveData(
         mutableListOf()
     )
+    var resultMessage: MutableLiveData<String?> = MutableLiveData(null)
+        private set
+
     var error: MutableLiveData<String> = MutableLiveData()
         private set
 
@@ -21,6 +25,10 @@ class SearchViewModel : ViewModel() {
         redditRepository.searchForSubreddits(searchQuery = this.searchQuery).subscribeBy(
             onNext = {
                 searchResults.postValue(it)
+                Log.i("SearchViewModel", it.size.toString())
+                if (it.size == 0 || it == null){
+                    resultMessage.postValue("No subreddits matched your query")
+                }
             },
             onError = {
                 error.postValue("Something might have went wrong...: ${it.message}")

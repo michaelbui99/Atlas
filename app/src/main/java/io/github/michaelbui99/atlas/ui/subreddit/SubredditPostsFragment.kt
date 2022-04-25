@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
@@ -33,6 +34,9 @@ class SubredditPostsFragment : Fragment() {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_subreddit_posts, container, false)
         viewModel = ViewModelProvider(requireActivity()).get(SubredditViewModel::class.java)
+
+        val loadingBar =
+            rootView.findViewById<ProgressBar>(R.id.progressBar_subredditPosts_loadingBar)
 
         viewModel.error.observe(viewLifecycleOwner) {
             Toast.makeText(this.context, it, Toast.LENGTH_SHORT).show()
@@ -61,6 +65,13 @@ class SubredditPostsFragment : Fragment() {
         val recyclerView = rootView.findViewById<RecyclerView>(R.id.recyclerview_subredditPosts)
         recyclerView.adapter = rcAdapter
         recyclerView.layoutManager = LinearLayoutManager(this.context)
+
+        viewModel.isLoadingPosts.observe(viewLifecycleOwner) { isLoadingPosts ->
+            if (!isLoadingPosts) {
+                loadingBar.visibility = View.GONE
+                recyclerView.visibility = View.VISIBLE
+            }
+        }
 
         return rootView
     }

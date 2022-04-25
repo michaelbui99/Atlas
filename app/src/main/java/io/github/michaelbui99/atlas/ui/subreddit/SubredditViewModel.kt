@@ -14,6 +14,7 @@ class SubredditViewModel : ViewModel() {
     val subredditPosts: MutableLiveData<MutableList<SubredditPost>> = MutableLiveData()
     val subredditAbout: MutableLiveData<SubredditAbout> = MutableLiveData()
     val error: MutableLiveData<String> = MutableLiveData()
+    val isLoadingPosts: MutableLiveData<Boolean> = MutableLiveData(true)
 
     private var currentSubreddit: String = ""
 
@@ -63,6 +64,7 @@ class SubredditViewModel : ViewModel() {
                 },
                 onComplete = {
                     Log.i("SubredditViewModel", "Fetched all posts")
+                    this.isLoadingPosts.postValue(false)
                 }
             )
         }
