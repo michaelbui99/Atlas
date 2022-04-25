@@ -3,6 +3,7 @@ package io.github.michaelbui99.atlas.ui.home
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.ProgressBar
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -29,6 +30,8 @@ class HomeFragment : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_home, container, false)
 
+        val loadingBar = rootView.findViewById<ProgressBar>(R.id.progressBar_home_loadingBar)
+
         viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
         // Setup recycler view for main subreddits
         val mainSubreddits: MutableList<SubredditMainItem> = viewModel.mainSubreddits.value!!
@@ -54,14 +57,22 @@ class HomeFragment : Fragment() {
 
 
         // Setup recycler view for default subreddits
+        val recyclerViewDefaultSubreddits: RecyclerView =
+            rootView.findViewById(R.id.recyclerview_subreddits_defaults)
+
         var defaultSubreddits: MutableList<Subreddit> = viewModel.subscribedSubreddits.value!!
         viewModel.subscribedSubreddits.observe(viewLifecycleOwner) {
             Log.i("HomeFragment", "Observed state change, size: ${it.size}")
             defaultSubreddits = it
         }
 
-        val recyclerViewDefaultSubreddits: RecyclerView =
-            rootView.findViewById(R.id.recyclerview_subreddits_defaults)
+        viewModel.isLoadingSubreddits.observe(viewLifecycleOwner) {
+            isLoadingSubreddits ->
+            if (!isLoadingSubreddits) {
+                loadingBar.visibility = View.GONE
+                recyclerViewDefaultSubreddits.visibility = View.VISIBLE
+            }
+        }
 
         val onSubredditItemClick: OnItemClickListener = object : OnItemClickListener {
             override fun onItemClick(position: Int) {

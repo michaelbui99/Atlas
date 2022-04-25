@@ -15,6 +15,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private val cache = SubredditsCache
     val mainSubreddits: MutableLiveData<MutableList<SubredditMainItem>> = MutableLiveData()
     val subscribedSubreddits: MutableLiveData<MutableList<Subreddit>> = MutableLiveData()
+    val isLoadingSubreddits: MutableLiveData<Boolean> = MutableLiveData(true)
 
 
     init {
@@ -41,14 +42,14 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     fun updateSubreddits() {
         Log.i("HomeViewModel", "Updating subreddits")
         if (AuthRepositoryImpl.userIsLoggedIn()) {
-            fetchSubscribedSubreddits()
+            getSubscribedSubreddits()
         } else {
-            fetchDefaultSubreddits()
+            getDefaultSubreddits()
         }
     }
 
 
-    private fun fetchDefaultSubreddits() {
+    private fun getDefaultSubreddits() {
         if (cache.getCacheEntries().size > 0) {
             subscribedSubreddits.postValue(cache.getCacheEntries())
         }
@@ -71,12 +72,13 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             },
             onComplete = {
                 Log.i("HomeViewModel", "Finished fetching default subreddits")
+                this.isLoadingSubreddits.postValue(false)
             }
         )
     }
 
 
-    private fun fetchSubscribedSubreddits() {
+    private fun getSubscribedSubreddits() {
         if (cache.getCacheEntries().size > 0) {
             subscribedSubreddits.postValue(cache.getCacheEntries())
         }
@@ -97,6 +99,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             },
             onError = {
                 Log.e("HomeViewModel", "Failed to fetch subscribed subreddits: ${it.message}")
+            },
+            onComplete = {
+                this.isLoadingSubreddits.postValue(false)
             }
         )
     }
