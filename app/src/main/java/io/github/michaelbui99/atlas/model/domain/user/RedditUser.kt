@@ -1,8 +1,8 @@
-package io.github.michaelbui99.atlas.model.domain
+package io.github.michaelbui99.atlas.model.domain.user
 
 import java.time.LocalDateTime
 
-data class User(
+data class RedditUser(
     val displayName: String,
     val iconUrl: String? = null,
     val karmaCount: Long,
