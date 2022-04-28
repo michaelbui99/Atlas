@@ -1,10 +1,9 @@
 package io.github.michaelbui99.atlas.ui.user
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.github.michaelbui99.atlas.model.auth.RedditAuthStore
-import io.github.michaelbui99.atlas.model.domain.User
+import io.github.michaelbui99.atlas.model.domain.user.RedditUser
 import io.github.michaelbui99.atlas.model.repositories.AuthRepositoryImpl
 import io.github.michaelbui99.atlas.model.repositories.RedditRepositoryImpl
 import io.reactivex.rxjava3.kotlin.subscribeBy
@@ -12,7 +11,7 @@ import io.reactivex.rxjava3.kotlin.subscribeBy
 class UserViewModel : ViewModel() {
     var isLoggedIn: MutableLiveData<Boolean> = MutableLiveData(false)
     var error: MutableLiveData<String> = MutableLiveData()
-    var user: MutableLiveData<User?> = MutableLiveData(null)
+    var user: MutableLiveData<RedditUser?> = MutableLiveData(null)
 
 
     /**

@@ -1,6 +1,7 @@
 package io.github.michaelbui99.atlas.model.network.extensions
 
 import io.github.michaelbui99.atlas.model.domain.*
+import io.github.michaelbui99.atlas.model.domain.user.RedditUser
 import io.github.michaelbui99.atlas.model.network.responseobjects.*
 import io.github.michaelbui99.atlas.model.util.convertUnixToLocalDateTime
 
@@ -89,8 +90,8 @@ fun SubredditPostDataResponse.toDomainObject(): SubredditPostData {
     )
 }
 
-fun MeResponse.toDomainObject(): User {
-    return User(
+fun MeResponse.toDomainObject(): RedditUser {
+    return RedditUser(
         displayName = name,
         iconUrl = iconImageUrl,
         karmaCount = totalKarma,

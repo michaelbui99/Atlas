@@ -1,7 +1,9 @@
 package io.github.michaelbui99.atlas.model.repositories
 
 import android.util.Log
+import io.github.michaelbui99.atlas.model.auth.RedditAuthStore
 import io.github.michaelbui99.atlas.model.domain.*
+import io.github.michaelbui99.atlas.model.domain.user.RedditUser
 import io.github.michaelbui99.atlas.model.network.RedditClient
 import io.github.michaelbui99.atlas.model.network.extensions.toDomainObject
 import io.github.michaelbui99.atlas.model.network.responseobjects.SubredditPostDataResponse
@@ -66,9 +68,12 @@ object RedditRepositoryImpl : RedditRepository {
             }
     }
 
-    override fun getMe(): Flowable<User> {
+    override fun getMe(): Flowable<RedditUser> {
         return redditClient.authRedditAPI().getMe().subscribeOn(Schedulers.io()).flatMap {
-            Flowable.just(it.toDomainObject())
+            val meAsDomainObject = it.toDomainObject()
+            RedditAuthStore.setRedditUser(meAsDomainObject)
+
+            Flowable.just(meAsDomainObject)
         }
     }
 

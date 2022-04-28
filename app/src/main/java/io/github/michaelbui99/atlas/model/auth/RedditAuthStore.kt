@@ -1,7 +1,6 @@
 package io.github.michaelbui99.atlas.model.auth
 
-import android.util.Log
-import java.lang.IllegalArgumentException
+import io.github.michaelbui99.atlas.model.domain.user.RedditUser
 
 object RedditAuthStore {
     private var accessToken: AccessToken? = null
@@ -9,6 +8,8 @@ object RedditAuthStore {
     private var isLoggedIn: Boolean = false
 
     private var authCode: String? = null
+
+    private var user: RedditUser? = null
 
 
     fun storeAuthCode(code: String) {
@@ -19,11 +20,15 @@ object RedditAuthStore {
     fun storeAccessToken(token: AccessToken?) {
         this.accessToken = token
 
-        if (token == null){
+        if (token == null) {
             this.isLoggedIn = false
         }
 
         this.isLoggedIn = true
+    }
+
+    fun setRedditUser(user: RedditUser?) {
+        this.user = user
     }
 
 
@@ -38,5 +43,9 @@ object RedditAuthStore {
 
     fun getAccessToken(): AccessToken? {
         return this.accessToken
+    }
+
+    fun getRedditUser(): RedditUser? {
+        return this.user
     }
 }
