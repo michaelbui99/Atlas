@@ -26,6 +26,8 @@ The goal of the client is to provide a clean and customisable browse experience 
   which subredddits I have showed interest in.
 - [x] As a user, I want to be able to view a list of the default subreddits, such that I as a new
   user have a starting point to start exploring reddit.
+- [x] As a user, I want to be able to sync my settings, such that I can access my customisable
+  experience from all my devices
 - [ ] As a user, I want to be able to follow a new subreddit, such that I can get updates from the
   subreddit.
 - [ ] As a user, I want to be able to unfollow a subreddit, such that I wont see posts of a

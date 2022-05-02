@@ -68,4 +68,7 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:2.4.2")
     implementation("androidx.room:room-ktx:2.4.2")
     implementation("androidx.room:room-rxjava3:2.4.2")
+
+    // Androidx Preference
+    implementation("androidx.preference:preference:1.2.0")
 }
