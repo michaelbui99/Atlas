@@ -9,15 +9,12 @@ import androidx.fragment.app.Fragment
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.marginTop
-import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import io.github.michaelbui99.atlas.MainActivity
+import io.github.michaelbui99.atlas.ui.MainActivity
 import io.github.michaelbui99.atlas.R
 
 class SubredditPostDataFragment : Fragment() {

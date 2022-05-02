@@ -1,4 +1,4 @@
-package io.github.michaelbui99.atlas
+package io.github.michaelbui99.atlas.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,6 +15,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import io.github.michaelbui99.atlas.R
+import io.github.michaelbui99.atlas.model.domain.settings.SettingsManager
+import io.github.michaelbui99.atlas.model.util.ApplicationContextProvider
 
 class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfig: AppBarConfiguration
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar);
@@ -44,6 +47,8 @@ class MainActivity : AppCompatActivity() {
         navController = navFragmentContainer!!.findNavController()
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfig)
         navView.setupWithNavController(navController)
+
+        ApplicationContextProvider.getInstance().setContext(applicationContext)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
