@@ -71,4 +71,5 @@ dependencies {
 
     // Androidx Preference
     implementation("androidx.preference:preference:1.2.0")
+    implementation("androidx.datastore:datastore-preferences-rxjava3:1.0.0")
 }

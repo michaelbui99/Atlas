@@ -4,10 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import io.github.michaelbui99.atlas.model.domain.user.Account
 import io.github.michaelbui99.atlas.model.persistence.dao.AccountDAO
 
 @Database(entities = [Account::class], version = 1)
+@TypeConverters(io.github.michaelbui99.atlas.model.persistence.TypeConverters::class)
 abstract class AccountDatabase : RoomDatabase() {
 
     abstract fun accountDao(): AccountDAO
