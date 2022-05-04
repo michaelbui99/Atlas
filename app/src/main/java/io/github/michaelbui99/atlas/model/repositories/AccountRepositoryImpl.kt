@@ -7,10 +7,10 @@ import io.github.michaelbui99.atlas.model.util.ApplicationContextProvider
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
 
-object AccountRepositoryImpl : AccountRepository {
+class AccountRepositoryImpl : AccountRepository {
     private val accountDAO = AccountDatabase.getInstance(
         ApplicationContextProvider.getInstance().getContext().applicationContext
-    )!!.accountDao()
+    ).accountDao()
 
     override fun getAccountByRedditName(name: String): Maybe<Account> {
         return accountDAO.getAccountByRedditName(name);
@@ -18,5 +18,18 @@ object AccountRepositoryImpl : AccountRepository {
 
     override fun setAccount(account: Account): Completable {
         return accountDAO.insert(account = account)
+    }
+
+    companion object{
+        private var instance: AccountRepository? = null
+
+        @Synchronized
+        fun getInstance(): AccountRepository{
+            if (instance == null){
+                instance = AccountRepositoryImpl()
+            }
+
+            return instance!!
+        }
     }
 }

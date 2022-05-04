@@ -7,7 +7,7 @@ import io.github.michaelbui99.atlas.model.repositories.AccountRepositoryImpl
 import io.github.michaelbui99.atlas.model.repositories.AuthRepository
 import io.github.michaelbui99.atlas.model.repositories.AuthRepositoryImpl
 
-class SettingsViewModel(app: Application): AndroidViewModel(app) {
+class SettingsViewModel(app: Application) : AndroidViewModel(app) {
     private val authRepository: AuthRepository = AuthRepositoryImpl
-    private val accountRepository: AccountRepository = AccountRepositoryImpl
+    private val accountRepository: AccountRepository = AccountRepositoryImpl.getInstance()
 }
