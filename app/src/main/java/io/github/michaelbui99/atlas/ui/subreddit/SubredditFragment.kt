@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import io.github.michaelbui99.atlas.MainActivity
+import io.github.michaelbui99.atlas.ui.MainActivity
 import io.github.michaelbui99.atlas.R
 
 private const val SUBREDDIT_NAME = "SubredditName"

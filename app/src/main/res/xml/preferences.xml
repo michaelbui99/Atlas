@@ -1,0 +1,11 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreferenceCompat
+        app:key="darkMode"
+        app:title="Enable dark mode" />
+
+    <SwitchPreferenceCompat
+        app:key="syncSettings"
+        app:title="Sync settings" />
+
+</PreferenceScreen>
