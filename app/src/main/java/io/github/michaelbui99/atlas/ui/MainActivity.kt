@@ -11,16 +11,19 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import io.github.michaelbui99.atlas.R
 import io.github.michaelbui99.atlas.model.domain.settings.SettingsManager
 import io.github.michaelbui99.atlas.model.util.ApplicationContextProvider
+import io.github.michaelbui99.atlas.model.util.putBoolean
 
 class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfig: AppBarConfiguration
     private lateinit var navController: NavController
+    private val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         ApplicationContextProvider.getInstance().setContext(applicationContext)
+        putBoolean(this, "appLaunch", true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -65,5 +69,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, appBarConfig) || super.onNavigateUp()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        putBoolean(this, "appLaunch", false)
     }
 }

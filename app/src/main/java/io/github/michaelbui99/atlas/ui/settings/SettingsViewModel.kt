@@ -33,6 +33,9 @@ class SettingsViewModel(val app: Application) : AndroidViewModel(app) {
                 onSuccess = { account ->
                     useDarkMode.postValue(account.appSettings?.useDarkMode)
                 },
+                onError = {
+                    useLocalDeviceSettings()
+                }
             )
         }
     }
