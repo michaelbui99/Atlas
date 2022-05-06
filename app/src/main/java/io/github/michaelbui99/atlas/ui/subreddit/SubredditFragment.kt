@@ -52,9 +52,14 @@ class SubredditFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.menuItem_refresh_subreddit){
+        if (item.itemId == R.id.menuItem_refresh_subreddit) {
             viewModel.refreshSubreddit()
         }
+
+        if (item.itemId == R.id.menuItem_search_subreddit) {
+            viewModel.onSearchMenuItem()
+        }
+
         return super.onOptionsItemSelected(item)
     }
 

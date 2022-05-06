@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.os.bundleOf
@@ -20,6 +22,8 @@ import io.github.michaelbui99.atlas.ui.shared.OnItemClickListener
 class SubredditPostsFragment : Fragment() {
 
     private lateinit var viewModel: SubredditViewModel
+    private lateinit var searchButton: Button
+    private lateinit var searchEditText: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +38,9 @@ class SubredditPostsFragment : Fragment() {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_subreddit_posts, container, false)
         viewModel = ViewModelProvider(requireActivity()).get(SubredditViewModel::class.java)
+
+        searchButton = rootView.findViewById(R.id.button_subreddit_posts_search)
+        searchEditText = rootView.findViewById(R.id.edittext_subreddit_posts_search)
 
         val loadingBar =
             rootView.findViewById<ProgressBar>(R.id.progressBar_subredditPosts_loadingBar)
@@ -73,7 +80,26 @@ class SubredditPostsFragment : Fragment() {
             }
         }
 
+        viewModel.shouldDisplaySearch.observe(viewLifecycleOwner) { shouldDisplaySearch ->
+            if (shouldDisplaySearch) {
+                displaySearch()
+            } else {
+                hideSearch()
+            }
+        }
+
         return rootView
+    }
+
+
+    private fun displaySearch() {
+        searchButton.visibility = View.VISIBLE
+        searchEditText.visibility = View.VISIBLE
+    }
+
+    private fun hideSearch() {
+        searchButton.visibility = View.GONE
+        searchEditText.visibility = View.GONE
     }
 
 }

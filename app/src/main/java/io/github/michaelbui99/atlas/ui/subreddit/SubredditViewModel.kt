@@ -15,6 +15,7 @@ class SubredditViewModel : ViewModel() {
     val subredditAbout: MutableLiveData<SubredditAbout> = MutableLiveData()
     val error: MutableLiveData<String> = MutableLiveData()
     val isLoadingPosts: MutableLiveData<Boolean> = MutableLiveData(true)
+    val shouldDisplaySearch: MutableLiveData<Boolean> = MutableLiveData(false)
 
     private var currentSubreddit: String = ""
 
@@ -49,6 +50,10 @@ class SubredditViewModel : ViewModel() {
         Log.i("SubredditViewModel", "Refreshing")
         getSubredditPosts()
         getSubredditAbout()
+    }
+
+    fun onSearchMenuItem() {
+        shouldDisplaySearch.value = !shouldDisplaySearch.value!!
     }
 
     private fun getSubredditPosts() {
