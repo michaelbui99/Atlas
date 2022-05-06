@@ -34,8 +34,6 @@ The goal of the client is to provide a clean and customisable browse experience 
   subreddit I am not interested in.
 - [ ] As a user, I want to be able to create a new post, such that I can contribute content to a
   subreddit.
-- [ ] As a user, I want to be able to view the 'hot' posts of reddit, such that I can know what is
-  trending on reddit.
 - [x] As a user, I want to be able to login into my reddit account, such that I can participate by
   creating posts, comments etc.
 - [ ] As a user, I want to be able to view a lists of my own posts, such that I can browse my past
