@@ -12,6 +12,7 @@ class SubredditPostDataViewModel : ViewModel() {
     private lateinit var postId: String
     val postData: MutableLiveData<SubredditPostData> = MutableLiveData()
     val error: MutableLiveData<String> = MutableLiveData()
+    val isLoadingData: MutableLiveData<Boolean> = MutableLiveData(true)
 
     fun setPostInfo(subredditName: String, postId: String) {
         this.subredditName = subredditName
@@ -19,7 +20,7 @@ class SubredditPostDataViewModel : ViewModel() {
         fetchPostData()
     }
 
-    fun refreshPostData(){
+    fun refreshPostData() {
         fetchPostData()
     }
 
@@ -27,6 +28,7 @@ class SubredditPostDataViewModel : ViewModel() {
         if (subredditName.isNotBlank() && subredditName.isNotEmpty()
             && postId.isNotBlank() && postId.isNotEmpty()
         ) {
+            isLoadingData.value = true
             RedditRepositoryImpl.getSubredditPostData(
                 subredditName = this.subredditName,
                 postId = this.postId
@@ -44,6 +46,7 @@ class SubredditPostDataViewModel : ViewModel() {
                 },
                 onComplete = {
                     Log.i("SubredditPostDataViewModel", "Finished fetching post data")
+                    isLoadingData.postValue(false)
                 }
             )
         }

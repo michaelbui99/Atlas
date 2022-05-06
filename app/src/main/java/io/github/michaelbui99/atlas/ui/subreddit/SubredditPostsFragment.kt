@@ -38,13 +38,13 @@ class SubredditPostsFragment : Fragment() {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_subreddit_posts, container, false)
         viewModel = ViewModelProvider(requireActivity()).get(SubredditViewModel::class.java)
-        viewModel.onViewInit()
 
         searchButton = rootView.findViewById(R.id.button_subreddit_posts_search)
         searchEditText = rootView.findViewById(R.id.edittext_subreddit_posts_search)
 
         val loadingBar =
             rootView.findViewById<ProgressBar>(R.id.progressBar_subredditPosts_loadingBar)
+        viewModel.onViewInit()
 
         viewModel.error.observe(viewLifecycleOwner) {
             Toast.makeText(this.context, it, Toast.LENGTH_SHORT).show()
@@ -78,6 +78,9 @@ class SubredditPostsFragment : Fragment() {
             if (!isLoadingPosts) {
                 loadingBar.visibility = View.GONE
                 recyclerView.visibility = View.VISIBLE
+            } else {
+                loadingBar.visibility = View.VISIBLE
+                recyclerView.visibility = View.GONE
             }
         }
 

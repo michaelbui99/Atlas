@@ -7,8 +7,10 @@ import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +23,8 @@ class SubredditPostDataFragment : Fragment() {
     private var subredditName: String? = null
     private var postId: String? = null
     private lateinit var viewModel: SubredditPostDataViewModel
+    private lateinit var postDataContainer: ConstraintLayout
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +43,9 @@ class SubredditPostDataFragment : Fragment() {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_subreddit_post_data, container, false)
 
+        postDataContainer =
+            rootView.findViewById(R.id.constraintLayout_postData_container)
+        progressBar = rootView.findViewById(R.id.progressBar_postData_loadingBar)
         val titleTextView = rootView.findViewById<TextView>(R.id.textview_postData_title)
         val linkFlairTextTextView =
             rootView.findViewById<TextView>(R.id.textview_postData_linkFlair)
@@ -49,6 +56,7 @@ class SubredditPostDataFragment : Fragment() {
         val authorNameTextView = rootView.findViewById<TextView>(R.id.textview_postData_author)
         val mediaContentImageView =
             rootView.findViewById<ImageView>(R.id.imageview_postData_mediaContent)
+
 
         val recyclerView = rootView.findViewById<RecyclerView>(R.id.recyclerview_postData_comments)
         recyclerView.adapter = CommentAdapter()
@@ -97,6 +105,13 @@ class SubredditPostDataFragment : Fragment() {
             }
         }
 
+        viewModel.isLoadingData.observe(viewLifecycleOwner) {
+            if (it) {
+                displayDataLoading()
+            } else {
+                displayPostData()
+            }
+        }
         return rootView
     }
 
@@ -116,5 +131,15 @@ class SubredditPostDataFragment : Fragment() {
             viewModel.refreshPostData()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun displayDataLoading() {
+        postDataContainer.visibility = View.INVISIBLE
+        progressBar.visibility = View.VISIBLE
+    }
+
+    private fun displayPostData() {
+        postDataContainer.visibility = View.VISIBLE
+        progressBar.visibility = View.GONE
     }
 }

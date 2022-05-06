@@ -56,9 +56,15 @@ class SubredditViewModel : ViewModel() {
         shouldDisplaySearch.value = !shouldDisplaySearch.value!!
     }
 
-    fun onViewInit(){
+    fun onViewInit() {
         shouldDisplaySearch.value = false
         isLoadingPosts.value = true
+
+        if (subredditPosts.value != null) {
+            if (subredditPosts.value!!.size > 0) {
+                isLoadingPosts.value = false
+            }
+        }
     }
 
     private fun getSubredditPosts() {
@@ -94,6 +100,7 @@ class SubredditViewModel : ViewModel() {
                 },
                 onComplete = {
                     Log.i("SubredditViewModel", "Fetched all posts")
+                    isLoadingPosts.postValue(false)
                 }
             )
         }
