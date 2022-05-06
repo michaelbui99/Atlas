@@ -8,6 +8,7 @@
     tools:context=".ui.postdata.SubredditPostDataFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout_postData_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingHorizontal="10dp">
@@ -103,10 +104,9 @@
             android:id="@+id/recyclerview_postData_comments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/postData_actions_container"
             app:layout_constraintHeight="true"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/postData_actions_container" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

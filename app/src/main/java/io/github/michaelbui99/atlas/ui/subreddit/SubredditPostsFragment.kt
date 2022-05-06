@@ -38,6 +38,7 @@ class SubredditPostsFragment : Fragment() {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_subreddit_posts, container, false)
         viewModel = ViewModelProvider(requireActivity()).get(SubredditViewModel::class.java)
+        viewModel.onViewInit()
 
         searchButton = rootView.findViewById(R.id.button_subreddit_posts_search)
         searchEditText = rootView.findViewById(R.id.edittext_subreddit_posts_search)

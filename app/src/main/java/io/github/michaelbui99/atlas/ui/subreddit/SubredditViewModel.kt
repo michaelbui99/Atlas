@@ -56,6 +56,11 @@ class SubredditViewModel : ViewModel() {
         shouldDisplaySearch.value = !shouldDisplaySearch.value!!
     }
 
+    fun onViewInit(){
+        shouldDisplaySearch.value = false
+        isLoadingPosts.value = true
+    }
+
     private fun getSubredditPosts() {
         if (currentSubreddit.isNotBlank() && currentSubreddit.isNotEmpty()) {
             Log.i("SubredditViewModel", "Fetching posts")
