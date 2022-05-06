@@ -15,6 +15,7 @@ class SubredditViewModel : ViewModel() {
     val subredditAbout: MutableLiveData<SubredditAbout> = MutableLiveData()
     val error: MutableLiveData<String> = MutableLiveData()
     val isLoadingPosts: MutableLiveData<Boolean> = MutableLiveData(true)
+    val shouldDisplaySearch: MutableLiveData<Boolean> = MutableLiveData(false)
 
     private var currentSubreddit: String = ""
 
@@ -51,6 +52,21 @@ class SubredditViewModel : ViewModel() {
         getSubredditAbout()
     }
 
+    fun onSearchMenuItem() {
+        shouldDisplaySearch.value = !shouldDisplaySearch.value!!
+    }
+
+    fun onViewInit() {
+        shouldDisplaySearch.value = false
+        isLoadingPosts.value = true
+
+        if (subredditPosts.value != null) {
+            if (subredditPosts.value!!.size > 0) {
+                isLoadingPosts.value = false
+            }
+        }
+    }
+
     private fun getSubredditPosts() {
         if (currentSubreddit.isNotBlank() && currentSubreddit.isNotEmpty()) {
             Log.i("SubredditViewModel", "Fetching posts")
@@ -84,6 +100,7 @@ class SubredditViewModel : ViewModel() {
                 },
                 onComplete = {
                     Log.i("SubredditViewModel", "Fetched all posts")
+                    isLoadingPosts.postValue(false)
                 }
             )
         }

@@ -20,4 +20,5 @@
     <string name="about">About</string>
     <string name="karma_count">Karma Count</string>
     <string name="account_age">Account Age</string>
+    <string name="search_for_posts_in_subreddit">Search for posts in subreddit</string>
 </resources>

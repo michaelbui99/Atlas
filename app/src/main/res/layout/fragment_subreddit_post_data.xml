@@ -7,106 +7,123 @@
     android:fillViewport="true"
     tools:context=".ui.postdata.SubredditPostDataFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingHorizontal="10dp">
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/imageview_postData_mediaContent"
+        <ProgressBar
+            android:id="@+id/progressBar_postData_loadingBar"
+            style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:maxHeight="500dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textview_postData_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="THIS IS THE TITLE OF THE POST"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageview_postData_mediaContent" />
-
-        <TextView
-            android:id="@+id/textview_postData_linkFlair"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#717171"
-            android:text="LINK FLAIR"
-            android:textColor="#E6E6E6"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_postData_title" />
-
-        <TextView
-            android:id="@+id/textview_postData_textContent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_postData_linkFlair" />
-
-        <TextView
-            android:id="@+id/textview_postData_subredditName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="SUBREDDIT"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_postData_textContent" />
-
-        <TextView
-            android:id="@+id/textview_postData_author"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="20dp"
-            android:text="by Author"
-            android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@id/textview_postData_subredditName"
-            app:layout_constraintTop_toBottomOf="@id/textview_postData_textContent" />
-
-        <LinearLayout
-            android:id="@+id/postData_actions_container"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/layout_bg_subreddits_main"
-            android:orientation="horizontal"
-            android:showDividers="middle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_postData_author">
-
-            <ImageView
-                android:id="@+id/imageview_postData_action_upVote"
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/ic_baseline_arrow_upward_24" />
-
-            <ImageView
-                android:id="@+id/imageview_postData_action_downVote"
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/ic_baseline_arrow_downward_24" />
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_postData_comments"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/postData_actions_container"
-            app:layout_constraintHeight="true"
+            android:layout_gravity="center_horizontal"
             />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout_postData_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="10dp"
+            android:visibility="invisible"
+            >
+
+            <ImageView
+                android:id="@+id/imageview_postData_mediaContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:maxHeight="500dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textview_postData_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="THIS IS THE TITLE OF THE POST"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageview_postData_mediaContent" />
+
+            <TextView
+                android:id="@+id/textview_postData_linkFlair"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#717171"
+                android:text="LINK FLAIR"
+                android:textColor="#E6E6E6"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_postData_title" />
+
+            <TextView
+                android:id="@+id/textview_postData_textContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_postData_linkFlair" />
+
+            <TextView
+                android:id="@+id/textview_postData_subredditName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="SUBREDDIT"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_postData_textContent" />
+
+            <TextView
+                android:id="@+id/textview_postData_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="20dp"
+                android:text="by Author"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@id/textview_postData_subredditName"
+                app:layout_constraintTop_toBottomOf="@id/textview_postData_textContent" />
+
+            <LinearLayout
+                android:id="@+id/postData_actions_container"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/layout_bg_subreddits_main"
+                android:orientation="horizontal"
+                android:showDividers="middle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_postData_author">
+
+                <ImageView
+                    android:id="@+id/imageview_postData_action_upVote"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_baseline_arrow_upward_24" />
+
+                <ImageView
+                    android:id="@+id/imageview_postData_action_downVote"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_baseline_arrow_downward_24" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_postData_comments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintHeight="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/postData_actions_container" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>
