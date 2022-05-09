@@ -101,4 +101,16 @@ object RedditRepositoryImpl : RedditRepository {
             }
     }
 
+    override fun searchForPostsInSubreddit(
+        subredditName: String,
+        searchQuery: String
+    ): Flowable<MutableList<SubredditPost>> {
+        return redditClient.noAuthRedditAPI()
+            .searchForPostsInSubreddit(
+                subredditName = subredditName,
+                searchQuery = searchQuery
+            ).subscribeOn(Schedulers.io()).flatMap {
+                Flowable.just(it.toDomainObject())
+            }
+    }
 }

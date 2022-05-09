@@ -9,6 +9,7 @@ import io.github.michaelbui99.atlas.model.domain.SubredditPost
 import io.github.michaelbui99.atlas.model.repositories.RedditRepositoryImpl
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import java.io.FileNotFoundException
+import java.lang.IllegalStateException
 
 class SubredditViewModel : ViewModel() {
     val subredditPosts: MutableLiveData<MutableList<SubredditPost>> = MutableLiveData()
@@ -59,12 +60,34 @@ class SubredditViewModel : ViewModel() {
     fun onViewInit() {
         shouldDisplaySearch.value = false
         isLoadingPosts.value = true
+    }
 
-        if (subredditPosts.value != null) {
-            if (subredditPosts.value!!.size > 0) {
-                isLoadingPosts.value = false
-            }
+    fun searchSubredditPosts(searchQuery: String) {
+        if (currentSubreddit.isBlank()) {
+            throw IllegalStateException("No subreddit name has been set")
         }
+
+        isLoadingPosts.value = true
+
+        if (searchQuery == "") {
+            refreshSubreddit()
+            return
+        }
+
+        RedditRepositoryImpl.searchForPostsInSubreddit(
+            this.currentSubreddit,
+            searchQuery = searchQuery
+        ).subscribeBy(
+            onNext = {
+                subredditPosts.postValue(it)
+            },
+            onError = {
+                error.postValue("Something might have went wrong...: ${it.message}")
+            },
+            onComplete = {
+                isLoadingPosts.postValue(false)
+            }
+        )
     }
 
     private fun getSubredditPosts() {

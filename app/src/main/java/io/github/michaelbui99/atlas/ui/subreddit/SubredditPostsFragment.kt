@@ -52,6 +52,7 @@ class SubredditPostsFragment : Fragment() {
 
         val rcAdapter = SubredditPostsAdapter(listOf())
 
+        // Set up navigation to post on click
         viewModel.subredditPosts.observe(viewLifecycleOwner) {
             rcAdapter.setPosts(it)
             rcAdapter.onTitleClick = object : OnItemClickListener {
@@ -92,9 +93,17 @@ class SubredditPostsFragment : Fragment() {
             }
         }
 
+        searchButton.setOnClickListener {
+            searchSubredditPosts()
+        }
+
         return rootView
     }
 
+    private fun searchSubredditPosts() {
+        viewModel.searchSubredditPosts(this.searchEditText.text.toString())
+        searchEditText.setText("")
+    }
 
     private fun displaySearch() {
         searchButton.visibility = View.VISIBLE
