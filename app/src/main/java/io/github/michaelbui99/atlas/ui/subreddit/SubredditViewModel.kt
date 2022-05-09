@@ -60,6 +60,7 @@ class SubredditViewModel : ViewModel() {
     fun onViewInit() {
         shouldDisplaySearch.value = false
         isLoadingPosts.value = true
+        refreshSubreddit()
     }
 
     fun searchSubredditPosts(searchQuery: String) {
