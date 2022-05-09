@@ -18,7 +18,7 @@ if ($CurrentBranch.ToLower -eq "main") {
 }
 
 if ($CurrentBranch -eq ".") {
-    Invoke-Expression "echo Current branch has been set to $CurrentBranch"
+    Invoke-Expression 'echo "Current branch has been set to $CurrentBranch"'
     $CurrentBranch = &git rev-parse --abbrev-ref HEAD
 }
 
