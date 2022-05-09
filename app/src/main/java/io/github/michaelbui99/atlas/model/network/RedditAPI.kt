@@ -96,4 +96,14 @@ interface RedditAPI {
         @Query("q") searchQuery: String = "",
         @Query("type") type: String = "sr"
     ): Flowable<DefaultSubredditsResponse>
+
+
+    @GET("r/{subredditName}/search.json?&restrict_sr=1")
+    fun searchForPostsInSubreddit(
+        @Path("subredditName") subredditName: String,
+        @Query("restrict_sr") restrictSameSubreddit: Int = 1,
+        @Query("q") searchQuery: String
+    ): Flowable<SubredditResponse>
+
+
 }

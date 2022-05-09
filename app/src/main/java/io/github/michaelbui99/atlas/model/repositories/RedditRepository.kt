@@ -16,4 +16,8 @@ interface RedditRepository {
     fun searchForSubreddits(
         @Query("q") searchQuery: String = "",
     ): Flowable<MutableList<Subreddit>>
+    fun searchForPostsInSubreddit(
+        subredditName: String,
+        searchQuery: String = ""
+    ): Flowable<MutableList<SubredditPost>>
 }
