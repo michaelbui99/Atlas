@@ -6,6 +6,8 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
 
 interface AccountRepository {
-    fun getAccountByRedditName(name: String): Maybe<Account>
-    fun setAccount(account: Account): Completable
+    fun getAccountByRedditName(name: String): Account?
+    fun addAccount(account: Account)
+    fun ensureUserHasLocalAccount(redditName: String)
+    fun updateAccount(account: Account)
 }

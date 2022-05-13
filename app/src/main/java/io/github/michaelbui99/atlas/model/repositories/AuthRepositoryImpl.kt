@@ -1,6 +1,7 @@
 package io.github.michaelbui99.atlas.model.repositories
 
 import io.github.michaelbui99.atlas.model.auth.*
+import io.github.michaelbui99.atlas.model.domain.user.Account
 import io.github.michaelbui99.atlas.model.network.RedditAuthClient
 import io.reactivex.rxjava3.core.Flowable
 import java.lang.IllegalStateException
@@ -17,11 +18,11 @@ object AuthRepositoryImpl : AuthRepository {
 
 
     override fun getAccessToken(): Flowable<AccessToken> {
-        if (authStore.getAuthCode()== null) {
+        if (authStore.getAuthCode() == null) {
             throw IllegalStateException("User has not completed auth flow")
         }
 
-        if (authStore.getAccessToken()!= null) {
+        if (authStore.getAccessToken() != null) {
             return Flowable.just(authStore.getAccessToken()!!)
         }
 
@@ -66,6 +67,5 @@ object AuthRepositoryImpl : AuthRepository {
     override fun userIsLoggedIn(): Boolean {
         return authStore.userIsLoggedIn()
     }
-
 
 }
