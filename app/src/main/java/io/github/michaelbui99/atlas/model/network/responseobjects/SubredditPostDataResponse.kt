@@ -127,7 +127,7 @@ data class PostData(
     val allowLiveComments: Boolean?,
     @SerializedName("selftext_html")
     val selftextHtml: String?,
-    val likes: Any?,
+    val likes: Boolean?,
     @SerializedName("suggested_sort")
     val suggestedSort: Any?,
     @SerializedName("banned_at_utc")

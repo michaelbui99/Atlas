@@ -56,6 +56,10 @@ class SubredditPostDataFragment : Fragment() {
         val authorNameTextView = rootView.findViewById<TextView>(R.id.textview_postData_author)
         val mediaContentImageView =
             rootView.findViewById<ImageView>(R.id.imageview_postData_mediaContent)
+        val upVoteImageView =
+            rootView.findViewById<ImageView>(R.id.imageview_postData_action_upVote)
+        val downVoteImageView =
+            rootView.findViewById<ImageView>(R.id.imageview_postData_action_downVote)
 
 
         val recyclerView = rootView.findViewById<RecyclerView>(R.id.recyclerview_postData_comments)
@@ -72,6 +76,14 @@ class SubredditPostDataFragment : Fragment() {
                 "SubredditPostDataFragment",
                 "Observed State change. Title: ${it.title}. Content: ${it.textContent}"
             )
+
+            // Null = No vote, false = down vote, true = upvote
+            if (it.userHasLiked == true) {
+                upVoteImageView.setBackgroundResource(R.color.orange)
+            }else if (it.userHasLiked == false){
+                downVoteImageView.setBackgroundResource(R.color.orange)
+            }
+
             titleTextView.text = it.title
             linkFlairTextTextView.text = it.linkFlairText
 
