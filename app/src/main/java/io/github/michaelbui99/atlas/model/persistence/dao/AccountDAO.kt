@@ -13,7 +13,7 @@ interface AccountDAO {
     fun insert(account: Account)
 
     @Update
-    fun update(account: Account)
+    suspend fun update(account: Account)
 
     @Query("SELECT * FROM account where redditName = :name")
     fun getAccountByRedditName(name: String): Account?
