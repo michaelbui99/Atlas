@@ -4,8 +4,12 @@ import io.github.michaelbui99.atlas.model.domain.settings.AppSettings
 import io.github.michaelbui99.atlas.model.domain.user.Account
 import io.github.michaelbui99.atlas.model.persistence.AccountDatabase
 import io.github.michaelbui99.atlas.model.util.ApplicationContextProvider
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.util.concurrent.Executors
 
 class AccountRepositoryImpl : AccountRepository {
+
     private val accountDAO = AccountDatabase.getInstance(
         ApplicationContextProvider.getInstance().getContext().applicationContext
     ).accountDao()
@@ -28,8 +32,8 @@ class AccountRepositoryImpl : AccountRepository {
         }
     }
 
-    override fun updateAccount(account: Account) {
-        accountDAO.update(account)
+    override suspend fun updateAccount(account: Account) {
+            accountDAO.update(account)
     }
 
     companion object {

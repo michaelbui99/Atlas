@@ -1,23 +1,43 @@
 package io.github.michaelbui99.atlas.ui.settings
 
 import android.app.Application
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceManager
 import io.github.michaelbui99.atlas.model.domain.user.Account
 import io.github.michaelbui99.atlas.model.repositories.*
 import io.github.michaelbui99.atlas.model.util.putBoolean
 import io.reactivex.rxjava3.kotlin.subscribeBy
+import kotlinx.coroutines.launch
 import java.lang.IllegalStateException
 
 class SettingsViewModel(val app: Application) : AndroidViewModel(app) {
     private val authRepository: AuthRepository = AuthRepositoryImpl
     private val accountRepository: AccountRepository = AccountRepositoryImpl.getInstance()
     private val redditRepository: RedditRepository = RedditRepositoryImpl
+    private val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(app)
     private var localAccount: Account? = null
 
     val useDarkMode: MutableLiveData<Boolean> = MutableLiveData()
+
+    init {
+        sharedPrefs.registerOnSharedPreferenceChangeListener { _, p1 ->
+            if (p1 == "darkMode") {
+                val useDarkModeVal = sharedPrefs.getBoolean("darkMode", false)
+
+                if (localAccount != null) {
+                    localAccount!!.appSettings?.useDarkMode = useDarkModeVal
+                    updateAccountSettings()
+                    ensureCorrectSettings()
+                }
+
+                useDarkMode.value = useDarkModeVal
+            }
+        }
+    }
 
     fun ensureCorrectSettings() {
         if (authRepository.userIsLoggedIn()) {
@@ -27,12 +47,14 @@ class SettingsViewModel(val app: Application) : AndroidViewModel(app) {
         }
     }
 
-    fun updateAccountSettings() {
+    private fun updateAccountSettings() {
         if (localAccount == null) {
             throw IllegalStateException("No account")
         }
-
-        accountRepository.updateAccount(account = localAccount!!)
+        ensureCorrectSettings()
+        viewModelScope.launch {
+            accountRepository.updateAccount(account = localAccount!!)
+        }
     }
 
     private fun useAccountSettings() {
@@ -57,18 +79,15 @@ class SettingsViewModel(val app: Application) : AndroidViewModel(app) {
     }
 
     private fun useLocalDeviceSettings() {
-        val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplication())
         val useDarkModeSettingValue = sharedPrefs.getBoolean("darkMode", false)
-
-        sharedPrefs.registerOnSharedPreferenceChangeListener { _, p1 ->
-            if (p1 == "darkMode") {
-                val useDarkModeVal = sharedPrefs.getBoolean("darkMode", false)
-                useDarkMode.value = useDarkModeVal
-            }
-        }
+//
+//        sharedPrefs.registerOnSharedPreferenceChangeListener { _, p1 ->
+//            if (p1 == "darkMode") {
+//                val useDarkModeVal = sharedPrefs.getBoolean("darkMode", false)
+//                useDarkMode.value = useDarkModeVal
+//            }
+//        }
         useDarkMode.value = useDarkModeSettingValue
         Log.i("SettingsViewModel", "Using Local Settings")
     }
-
-
 }

@@ -9,5 +9,5 @@ interface AccountRepository {
     fun getAccountByRedditName(name: String): Account?
     fun addAccount(account: Account)
     fun ensureUserHasLocalAccount(redditName: String)
-    fun updateAccount(account: Account)
+    suspend fun updateAccount(account: Account)
 }
