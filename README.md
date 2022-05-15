@@ -16,8 +16,8 @@ The goal of the client is to provide a clean and customisable browse experience 
   is about.
 - [x] As a user, I want to be able to search for subreddits, such that I can explore and follow new
   subreddits.
-- [ ] As a user, I want to be able to view a post's comments, such that I can read what people think
-  about the post.
+- [x] As a user, I want to be able to view a post's comments, such that I can read what people think
+  about the post. (CAN ONLY SHOW TOP LEVEL COMMENTS FOR NOW)
 - [ ] As a user, I want to be able to add a comment to a post, such that I can participate in the
   discussion or express what I feel about the post.
 - [x] As a user, I want to be able to search for a post in a subreddit, such that I can find posts
