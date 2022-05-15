@@ -16,8 +16,8 @@ The goal of the client is to provide a clean and customisable browse experience 
   is about.
 - [x] As a user, I want to be able to search for subreddits, such that I can explore and follow new
   subreddits.
-- [x] As a user, I want to be able to upvote subreddit posts, such that I can express if I like the 
-  subreddit post.
+- [x] As a user, I want to be able to vote subreddit posts, such that I can express if I like or
+  dislike the subreddit post.
 - [x] As a user, I want to be able to view a post's comments, such that I can read what people think
   about the post. (CAN ONLY SHOW TOP LEVEL COMMENTS FOR NOW)
 - [ ] As a user, I want to be able to add a comment to a post, such that I can participate in the
@@ -28,7 +28,7 @@ The goal of the client is to provide a clean and customisable browse experience 
   which subredddits I have showed interest in.
 - [x] As a user, I want to be able to view a list of the default subreddits, such that I as a new
   user have a starting point to start exploring reddit.
-- [x] As a user, I want to be able to sync my settings, such that I can access my customisable
+- [ ] As a user, I want to be able to sync my settings, such that I can access my customisable
   experience from all my devices
 - [ ] As a user, I want to be able to follow a new subreddit, such that I can get updates from the
   subreddit.
