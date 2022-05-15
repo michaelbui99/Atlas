@@ -8,5 +8,6 @@ data class SubredditPostData(
     val postAuthor: String,
     val mediaContent: String? = null,
     val topLevelComments: MutableList<Comment>? = mutableListOf(),
-    val userHasLiked: Boolean? = null
+    val userHasLiked: Boolean? = null,
+    val fullName: String
 )

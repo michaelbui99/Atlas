@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.github.michaelbui99.atlas.model.domain.SubredditPostData
+import io.github.michaelbui99.atlas.model.domain.VoteDirection
 import io.github.michaelbui99.atlas.model.repositories.RedditRepositoryImpl
 import io.reactivex.rxjava3.kotlin.subscribeBy
 
@@ -24,11 +25,42 @@ class SubredditPostDataViewModel : ViewModel() {
         fetchPostData()
     }
 
+    fun upVotePost() {
+        if (postData.value == null) {
+            error.postValue("No post has been loaded")
+            return
+        }
+        RedditRepositoryImpl.voteSubredditPost(
+            voteDirection = VoteDirection.UP_VOTE,
+            postId = postData.value!!.fullName
+        ).subscribeBy(
+            onComplete = {
+                refreshPostData()
+            }
+        )
+    }
+
+    fun downVotePost() {
+        if (postData.value == null) {
+            error.postValue("No post has been loaded")
+            return
+        }
+
+        RedditRepositoryImpl.voteSubredditPost(
+            voteDirection = VoteDirection.DOWN_VOTE,
+            postId = postData.value!!.fullName
+        ).subscribeBy(
+            onComplete = {
+                refreshPostData()
+            }
+        )
+    }
+
     private fun fetchPostData() {
         if (subredditName.isNotBlank() && subredditName.isNotEmpty()
             && postId.isNotBlank() && postId.isNotEmpty()
         ) {
-            isLoadingData.value = true
+            isLoadingData.postValue(true)
             RedditRepositoryImpl.getSubredditPostData(
                 subredditName = this.subredditName,
                 postId = this.postId

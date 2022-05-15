@@ -110,6 +110,7 @@ interface RedditAPI {
     ): Flowable<SubredditResponse>
 
     @POST("api/vote")
+    @FormUrlEncoded
     fun vote(
         @Field("id") id: String,
         @Field("dir") dir: Int,

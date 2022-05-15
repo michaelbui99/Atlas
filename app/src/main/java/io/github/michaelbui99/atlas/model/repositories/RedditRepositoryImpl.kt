@@ -83,7 +83,7 @@ object RedditRepositoryImpl : RedditRepository {
 
 
     override fun getSubscribedSubreddits(): Flowable<MutableList<Subreddit>> {
-        if (!authRepository.userIsLoggedIn()){
+        if (!authRepository.userIsLoggedIn()) {
             throw IllegalStateException("User must be logged in")
         }
         Log.i("SubredditRepository", "Fetching Subscribed Subreddits")
@@ -94,7 +94,7 @@ object RedditRepositoryImpl : RedditRepository {
     }
 
     override fun getMe(): Flowable<RedditUser> {
-        if (!authRepository.userIsLoggedIn()){
+        if (!authRepository.userIsLoggedIn()) {
             throw IllegalStateException("User must be logged in")
         }
         return redditClient.authRedditAPI().getMe().subscribeOn(Schedulers.io()).flatMap {
@@ -144,10 +144,10 @@ object RedditRepositoryImpl : RedditRepository {
 
 
     override fun voteSubredditPost(voteDirection: VoteDirection, postId: String): Flowable<Any> {
-        if (!authRepository.userIsLoggedIn()){
+        if (!authRepository.userIsLoggedIn()) {
             throw IllegalStateException("User must be logged in")
         }
 
-        TODO()
+        return redditClient.authRedditAPI().vote(id = postId, dir = voteDirection.dir)
     }
 }
