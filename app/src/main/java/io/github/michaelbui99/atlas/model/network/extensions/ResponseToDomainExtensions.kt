@@ -88,7 +88,8 @@ fun SubredditPostDataResponse.toDomainObject(): SubredditPostData {
         postAuthor = data[0].data.children[0].data.author,
         mediaContent = data[0].data.children[0].data.urlOverriddenByDest,
         topLevelComments = topLevelComments,
-        userHasLiked = data[0].data.children[0].data.likes
+        userHasLiked = data[0].data.children[0].data.likes,
+        fullName = data[0].data.children[0].data.name
     )
 }
 

@@ -3,10 +3,7 @@ package io.github.michaelbui99.atlas.model.network
 import io.github.michaelbui99.atlas.model.network.responseobjects.*
 import io.reactivex.rxjava3.core.Flowable
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 import java.util.concurrent.Flow
 
 interface RedditAPI {
@@ -98,6 +95,13 @@ interface RedditAPI {
     ): Flowable<DefaultSubredditsResponse>
 
 
+    /**
+     * Searches for posts that matches the search query inside a subreddit
+     *
+     * @param subredditName which subreddit to run the search on
+     * @param restrictSameSubreddit 1 = search for posts inside subreddit only.
+     * @param searchQuery search query used for finding posts
+     * */
     @GET("r/{subredditName}/search.json?&restrict_sr=1")
     fun searchForPostsInSubreddit(
         @Path("subredditName") subredditName: String,
@@ -105,5 +109,11 @@ interface RedditAPI {
         @Query("q") searchQuery: String
     ): Flowable<SubredditResponse>
 
+    @POST("api/vote")
+    @FormUrlEncoded
+    fun vote(
+        @Field("id") id: String,
+        @Field("dir") dir: Int,
+    ): Flowable<Any>
 
 }

@@ -80,8 +80,15 @@ class SubredditPostDataFragment : Fragment() {
             // Null = No vote, false = down vote, true = upvote
             if (it.userHasLiked == true) {
                 upVoteImageView.setBackgroundResource(R.color.orange)
-            }else if (it.userHasLiked == false){
+            } else if (it.userHasLiked == false) {
                 downVoteImageView.setBackgroundResource(R.color.orange)
+            }
+
+            upVoteImageView.setOnClickListener {
+                viewModel.upVotePost()
+            }
+            downVoteImageView.setOnClickListener {
+                viewModel.downVotePost()
             }
 
             titleTextView.text = it.title
