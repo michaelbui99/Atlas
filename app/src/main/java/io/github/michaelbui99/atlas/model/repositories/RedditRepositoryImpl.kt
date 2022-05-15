@@ -134,4 +134,9 @@ object RedditRepositoryImpl : RedditRepository {
                 Flowable.just(it.toDomainObject())
             }
     }
+
+
+    override fun voteSubredditPost(voteDirection: VoteDirection, postId: String): Flowable<Any> {
+        TODO("Not yet implemented")
+    }
 }
