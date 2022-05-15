@@ -12,6 +12,7 @@ import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 object RedditRepositoryImpl : RedditRepository {
+    private val authRepository: AuthRepository = AuthRepositoryImpl
     private val redditClient: RedditClient = RedditClient()
 
 
@@ -28,6 +29,18 @@ object RedditRepositoryImpl : RedditRepository {
 
 
     override fun getSubredditPosts(subreddit: String): Flowable<MutableList<SubredditPost>> {
+        if (authRepository.userIsLoggedIn()) {
+            return redditClient.authRedditAPI().getSubredditPosts(subredditName = subreddit)
+                .subscribeOn(Schedulers.io()).flatMap {
+                    val posts = it.toDomainObject()
+                    posts.forEach { post ->
+                        post.createdUTC =
+                            convertUnixToLocalDateTime(post.createdUTC.toLong()).toString()
+                    }
+                    Flowable.just(posts)
+                }
+        }
+
         return redditClient.noAuthRedditAPI().getSubredditPosts(subredditName = subreddit)
             .subscribeOn(Schedulers.io()).flatMap {
                 val posts = it.toDomainObject()
@@ -44,6 +57,14 @@ object RedditRepositoryImpl : RedditRepository {
         subredditName: String,
         postId: String
     ): Flowable<SubredditPostData> {
+        if (authRepository.userIsLoggedIn()) {
+            return redditClient.authRedditAPI()
+                .getSubredditPostData(subredditName = subredditName, postId = postId)
+                .subscribeOn(Schedulers.io()).flatMap {
+                    Flowable.just(SubredditPostDataResponse(it).toDomainObject())
+                }
+        }
+
         return redditClient.noAuthRedditAPI()
             .getSubredditPostData(subredditName = subredditName, postId = postId)
             .subscribeOn(Schedulers.io()).flatMap {

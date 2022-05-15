@@ -17,16 +17,14 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            />
+            android:layout_gravity="center_horizontal" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout_postData_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingHorizontal="10dp"
-            android:visibility="invisible"
-            >
+            android:visibility="invisible">
 
             <ImageView
                 android:id="@+id/imageview_postData_mediaContent"
@@ -89,7 +87,7 @@
                 app:layout_constraintStart_toEndOf="@id/textview_postData_subredditName"
                 app:layout_constraintTop_toBottomOf="@id/textview_postData_textContent" />
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/postData_actions_container"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
@@ -105,15 +103,21 @@
                     android:layout_width="30dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_baseline_arrow_upward_24" />
+                    android:src="@drawable/ic_baseline_arrow_upward_24"
+                    app:layout_constraintEnd_toStartOf="@id/imageview_postData_action_downVote"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/imageview_postData_action_downVote"
                     android:layout_width="30dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    app:layout_constraintStart_toEndOf="@id/imageview_postData_action_upVote"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     android:src="@drawable/ic_baseline_arrow_downward_24" />
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_postData_comments"
