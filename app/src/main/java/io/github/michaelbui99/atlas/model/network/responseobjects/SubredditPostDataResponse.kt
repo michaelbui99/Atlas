@@ -326,3 +326,143 @@ data class ResizedStaticIcon(
     val width: Long,
     val height: Long,
 )
+
+
+data class TopLevelReplies(
+    val kind: String,
+    val data: TopLevelRepliesData,
+)
+
+data class TopLevelRepliesData(
+    val after: Any?,
+    val dist: Any?,
+    val modhash: String,
+    @SerializedName("geo_filter")
+    val geoFilter: String,
+    val children: List<NestedReplies>,
+    val before: Any?,
+)
+
+data class NestedReplies(
+    val kind: String,
+    val data: NestedRepliesData?,
+)
+
+data class NestedRepliesData(
+    @SerializedName("subreddit_id")
+    val subredditId: String,
+    @SerializedName("approved_at_utc")
+    val approvedAtUtc: Any?,
+    @SerializedName("author_is_blocked")
+    val authorIsBlocked: Boolean,
+    @SerializedName("comment_type")
+    val commentType: Any?,
+    val awarders: List<Any?>,
+    @SerializedName("mod_reason_by")
+    val modReasonBy: Any?,
+    @SerializedName("banned_by")
+    val bannedBy: Any?,
+    @SerializedName("author_flair_type")
+    val authorFlairType: String,
+    @SerializedName("total_awards_received")
+    val totalAwardsReceived: Long,
+    val subreddit: String,
+    @SerializedName("author_flair_template_id")
+    val authorFlairTemplateId: Any?,
+    val likes: Any?,
+    val replies: Any?,
+    @SerializedName("user_reports")
+    val userReports: List<Any?>,
+    val saved: Boolean,
+    val id: String,
+    @SerializedName("banned_at_utc")
+    val bannedAtUtc: Any?,
+    @SerializedName("mod_reason_title")
+    val modReasonTitle: Any?,
+    val gilded: Long,
+    val archived: Boolean,
+    @SerializedName("collapsed_reason_code")
+    val collapsedReasonCode: Any?,
+    @SerializedName("no_follow")
+    val noFollow: Boolean,
+    val author: String,
+    @SerializedName("can_mod_post")
+    val canModPost: Boolean,
+    @SerializedName("created_utc")
+    val createdUtc: Double,
+    @SerializedName("send_replies")
+    val sendReplies: Boolean,
+    @SerializedName("parent_id")
+    val parentId: String,
+    val score: Long,
+    @SerializedName("author_fullname")
+    val authorFullname: String,
+    @SerializedName("removal_reason")
+    val removalReason: Any?,
+    @SerializedName("approved_by")
+    val approvedBy: Any?,
+    @SerializedName("mod_note")
+    val modNote: Any?,
+    @SerializedName("all_awardings")
+    val allAwardings: List<Any?>,
+    val body: String,
+    val edited: Boolean,
+    @SerializedName("top_awarded_type")
+    val topAwardedType: Any?,
+    @SerializedName("author_flair_css_class")
+    val authorFlairCssClass: Any?,
+    val name: String,
+    @SerializedName("is_submitter")
+    val isSubmitter: Boolean,
+    val downs: Long,
+    @SerializedName("author_flair_richtext")
+    val authorFlairRichtext: List<Any?>,
+    @SerializedName("author_patreon_flair")
+    val authorPatreonFlair: Boolean,
+    @SerializedName("body_html")
+    val bodyHtml: String,
+    val gildings: Map<String, Any>,
+    @SerializedName("collapsed_reason")
+    val collapsedReason: Any?,
+    val distinguished: Any?,
+    @SerializedName("associated_award")
+    val associatedAward: Any?,
+    val stickied: Boolean,
+    @SerializedName("author_premium")
+    val authorPremium: Boolean,
+    @SerializedName("can_gild")
+    val canGild: Boolean,
+    @SerializedName("link_id")
+    val linkId: String,
+    @SerializedName("unrepliable_reason")
+    val unrepliableReason: Any?,
+    @SerializedName("author_flair_text_color")
+    val authorFlairTextColor: Any?,
+    @SerializedName("score_hidden")
+    val scoreHidden: Boolean,
+    val permalink: String,
+    @SerializedName("subreddit_type")
+    val subredditType: String,
+    val locked: Boolean,
+    @SerializedName("report_reasons")
+    val reportReasons: Any?,
+    val created: Double,
+    @SerializedName("author_flair_text")
+    val authorFlairText: Any?,
+    @SerializedName("treatment_tags")
+    val treatmentTags: List<Any?>,
+    val collapsed: Boolean,
+    @SerializedName("subreddit_name_prefixed")
+    val subredditNamePrefixed: String,
+    val controversiality: Long,
+    val depth: Long,
+    @SerializedName("author_flair_background_color")
+    val authorFlairBackgroundColor: Any?,
+    @SerializedName("collapsed_because_crowd_control")
+    val collapsedBecauseCrowdControl: Any?,
+    @SerializedName("mod_reports")
+    val modReports: List<Any?>,
+    @SerializedName("num_reports")
+    val numReports: Any?,
+    val ups: Long,
+)

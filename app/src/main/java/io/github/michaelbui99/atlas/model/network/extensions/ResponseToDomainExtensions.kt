@@ -4,6 +4,7 @@ import io.github.michaelbui99.atlas.model.domain.*
 import io.github.michaelbui99.atlas.model.domain.user.RedditUser
 import io.github.michaelbui99.atlas.model.network.responseobjects.*
 import io.github.michaelbui99.atlas.model.util.convertUnixToLocalDateTime
+import io.github.michaelbui99.atlas.model.util.getComments
 
 fun DefaultSubredditsResponse.toDomainObject(): MutableList<Subreddit> {
     val defaultSubredditList = mutableListOf<Subreddit>()
