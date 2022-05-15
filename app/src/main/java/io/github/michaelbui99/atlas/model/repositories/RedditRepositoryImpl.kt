@@ -10,6 +10,7 @@ import io.github.michaelbui99.atlas.model.network.responseobjects.SubredditPostD
 import io.github.michaelbui99.atlas.model.util.convertUnixToLocalDateTime
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.lang.IllegalStateException
 
 object RedditRepositoryImpl : RedditRepository {
     private val authRepository: AuthRepository = AuthRepositoryImpl
@@ -82,6 +83,9 @@ object RedditRepositoryImpl : RedditRepository {
 
 
     override fun getSubscribedSubreddits(): Flowable<MutableList<Subreddit>> {
+        if (!authRepository.userIsLoggedIn()){
+            throw IllegalStateException("User must be logged in")
+        }
         Log.i("SubredditRepository", "Fetching Subscribed Subreddits")
         return redditClient.authRedditAPI().getSubscribedSubreddits().subscribeOn(Schedulers.io())
             .flatMap {
@@ -90,6 +94,9 @@ object RedditRepositoryImpl : RedditRepository {
     }
 
     override fun getMe(): Flowable<RedditUser> {
+        if (!authRepository.userIsLoggedIn()){
+            throw IllegalStateException("User must be logged in")
+        }
         return redditClient.authRedditAPI().getMe().subscribeOn(Schedulers.io()).flatMap {
             val meAsDomainObject = it.toDomainObject()
             RedditAuthStore.setRedditUser(meAsDomainObject)
@@ -137,6 +144,10 @@ object RedditRepositoryImpl : RedditRepository {
 
 
     override fun voteSubredditPost(voteDirection: VoteDirection, postId: String): Flowable<Any> {
-        TODO("Not yet implemented")
+        if (!authRepository.userIsLoggedIn()){
+            throw IllegalStateException("User must be logged in")
+        }
+
+        TODO()
     }
 }

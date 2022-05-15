@@ -40,6 +40,7 @@ interface RedditRepository {
     /**
      * Gets the subreddits that a User is subscribed to.
      *
+     * @throws IllegalStateException if no user is logged in
      * @return Flowable containing a list of subscribed subreddits
      * */
     fun getSubscribedSubreddits(): Flowable<MutableList<Subreddit>>
@@ -47,6 +48,7 @@ interface RedditRepository {
     /**
      * Gets the logged in user's information such as karma score, account age, reddit name etc.
      *
+     * @throws IllegalStateException if no user is logged in
      * @return
      * */
     fun getMe(): Flowable<RedditUser>
@@ -85,6 +87,7 @@ interface RedditRepository {
      *
      * @param voteDirection determines if the user is up voting, down voting or removing vote
      * @param postId the id if the post
+     * @throws IllegalStateException if no user is logged in
      * */
     fun voteSubredditPost(voteDirection: VoteDirection, postId: String): Flowable<Any>
 }
