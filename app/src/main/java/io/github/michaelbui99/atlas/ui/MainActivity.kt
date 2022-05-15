@@ -2,9 +2,13 @@ package io.github.michaelbui99.atlas.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -22,6 +26,7 @@ import io.github.michaelbui99.atlas.model.util.putBoolean
 class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfig: AppBarConfiguration
     private lateinit var navController: NavController
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +55,20 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         ApplicationContextProvider.getInstance().setContext(applicationContext)
-        putBoolean(this, "appLaunch", true)
+//        putBoolean(this, "appLaunch", true)
+
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel.useDarkMode.observe(this) {
+            if (it) {
+                Log.i("SettingsFragment", "Setting Dark mode")
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                Log.i("SettingsFragment", "Setting Light mode")
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
+
+        viewModel.ensureCorrectSettings()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
