@@ -30,14 +30,21 @@ class SubredditPostDataViewModel : ViewModel() {
             error.postValue("No post has been loaded")
             return
         }
-        RedditRepositoryImpl.voteSubredditPost(
-            voteDirection = VoteDirection.UP_VOTE,
-            postId = postData.value!!.fullName
-        ).subscribeBy(
-            onComplete = {
-                refreshPostData()
-            }
-        )
+        try {
+            RedditRepositoryImpl.voteSubredditPost(
+                voteDirection = VoteDirection.UP_VOTE,
+                postId = postData.value!!.fullName
+            ).subscribeBy(
+                onComplete = {
+                    refreshPostData()
+                },
+                onError = {
+                    error.postValue(it.message)
+                }
+            )
+        } catch (e: Exception) {
+            error.postValue(e.message)
+        }
     }
 
     fun downVotePost() {
@@ -46,14 +53,21 @@ class SubredditPostDataViewModel : ViewModel() {
             return
         }
 
-        RedditRepositoryImpl.voteSubredditPost(
-            voteDirection = VoteDirection.DOWN_VOTE,
-            postId = postData.value!!.fullName
-        ).subscribeBy(
-            onComplete = {
-                refreshPostData()
-            }
-        )
+        try {
+            RedditRepositoryImpl.voteSubredditPost(
+                voteDirection = VoteDirection.DOWN_VOTE,
+                postId = postData.value!!.fullName
+            ).subscribeBy(
+                onComplete = {
+                    refreshPostData()
+                },
+                onError = {
+                    error.postValue(it.message)
+                }
+            )
+        } catch (e: Exception) {
+            error.postValue(e.message)
+        }
     }
 
     private fun fetchPostData() {
