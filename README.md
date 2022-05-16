@@ -45,5 +45,10 @@ The goal of the client is to provide a clean and customisable browse experience 
 
 ## Screen shots
 
-![Home page](https://i.postimg.cc/XvKMfftr/atlas-subreddit-view.png)
-![Post view](https://i.postimg.cc/WpdxNgLj/atlas-subreddit-post-data-view.png)
+![Home page](https://i.postimg.cc/N0p172B6/atlas-home-view.png)
+![Post view](https://i.postimg.cc/L4r0ZwyH/atlas-subreddit-post-data-view.png)
+![Subreddit view](https://i.postimg.cc/YC7ndgKZ/atlas-subreddit-view.png)
+![Search view](https://i.postimg.cc/8sQWPhmS/atlas-search-view.png)
+![Login view](https://i.postimg.cc/FR63wtf1/atlas-login-view.png)
+![User view](https://i.postimg.cc/L6LQkD7j/atlas-user-view.png)
+![Settings view](https://i.postimg.cc/ZY9Mn4x7/atlas-settings-view.png)
