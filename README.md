@@ -4,6 +4,10 @@ A simple client for reddit developed for android. The app is created as part of 
 Development course at VIA University College. <br/>
 The goal of the client is to provide a clean and customisable browse experience without ads.
 
+## Video Demo
+
+[![Video Demo](https://i3.ytimg.com/vi/osWy1nCLiyw/maxresdefault.jpg)](https://www.youtube.com/watch?v=osWy1nCLiyw)
+
 ## Requirements
 
 - [x] As a user, I want to be able to view a list of the posts of a subreddit, such that I can
